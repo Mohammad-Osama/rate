@@ -3,13 +3,14 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useState , useEffect } from 'react';
 import axios from 'axios';
-import { IMovieOrTv } from '../helpers/types';
+import { IGenre, IMovieOrTv } from '../helpers/types';
 
 export default function Home() {
   const emptyList : IMovieOrTv[]=[]
+  const emptyGenres : IGenre[]=[]
 
   const [list , setList]: [IMovieOrTv[], (x: IMovieOrTv[]) => void] = useState(emptyList)
-  const [genres , setGenres] = useState([])
+  const [genres , setGenres] : [IGenre[], (x: IGenre[]) => void]= useState(emptyGenres)
 
 
   async function getPopular (){
@@ -28,7 +29,7 @@ export default function Home() {
                   })
 
                   )
-   setGenres(result)
+     setGenres(result as IGenre[])
     console.log("getGenres---->",(result))
         }
 
@@ -47,9 +48,9 @@ useEffect(() => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     <div>
-    {list.map((x)=>{
+    {genres.map((x)=>{
 
-      return <div> {x.title}{x.name}
+      return <div> {x.id}{x.name}
         </div>
     })}
 

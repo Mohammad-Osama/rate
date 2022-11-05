@@ -20,3 +20,8 @@ export interface IMovieOrTv {
     vote_count: number;
 
 }
+
+export interface IGenre{
+    id:number;
+    name:string ;
+}
