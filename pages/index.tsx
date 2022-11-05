@@ -6,16 +6,32 @@ import axios from 'axios';
 
 export default function Home() {
   const [list , setList] = useState([])
+  const [genres , setGenres] = useState([])
+
 
   async function getPopular (){
     const popular= await axios.get("/api/movies/popular")
       setList(popular.data.results)
   }
 
+  async function getGenres (){
+    const genresMovies : any= await axios.get("/api/movies/genres")
+   const genresTv: any= await axios.get("/api/tv/genres")
+       const result:[] = genresMovies.data.genres.concat(
+                  genresTv.data.genres.filter((bo : any)=>{
+                    genresMovies.data.genres.every((ao : any)=>{
+                      ao.id != bo.id
+                    })
+                  })
 
+                  )
+   setGenres(result)
+    console.log("getGenres---->",(result))
+        }
 
 useEffect(() => {
     getPopular ()
+    getGenres()
     return () => {
     
   }
