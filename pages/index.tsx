@@ -3,21 +3,24 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useState , useEffect } from 'react';
 import axios from 'axios';
+import { IMovieOrTv } from '../helpers/types';
 
 export default function Home() {
-  const [list , setList] = useState([])
+  const emptyList : IMovieOrTv[]=[]
+
+  const [list , setList]: [IMovieOrTv[], (x: IMovieOrTv[]) => void] = useState(emptyList)
   const [genres , setGenres] = useState([])
 
 
   async function getPopular (){
     const popular= await axios.get("/api/movies/popular")
-      setList(popular.data.results)
+      setList(popular.data.results as IMovieOrTv[])
   }
 
   async function getGenres (){
     const genresMovies : any= await axios.get("/api/movies/genres")
    const genresTv: any= await axios.get("/api/tv/genres")
-       const result:[] = genresMovies.data.genres.concat(
+       const result = genresMovies.data.genres.concat(
                   genresTv.data.genres.filter((bo : any)=>{
                     genresMovies.data.genres.every((ao : any)=>{
                       ao.id != bo.id
@@ -44,9 +47,9 @@ useEffect(() => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     <div>
-    {list.map((x:any)=>{
+    {list.map((x)=>{
 
-      return <div> {x.title}
+      return <div> {x.title}{x.name}
         </div>
     })}
 
