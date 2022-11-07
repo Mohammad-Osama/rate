@@ -66,7 +66,8 @@ export default function Home() {
       <Container size="xl" my="md" pb="xl" className={classes.container}>
         <SimpleGrid cols={4} spacing="lg"
           breakpoints={[
-            { maxWidth: 1024, cols: 4, spacing: 'md' },
+            { maxWidth: 1024, cols: 3, spacing: 'md' },
+
             { maxWidth: 768, cols: 2, spacing: 'sm' },
             { maxWidth: 500, cols: 1, spacing: 'sm' },
           ]} >
