@@ -5,6 +5,9 @@ import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
 import { Loader, Container, SimpleGrid, Text, useMantineTheme, createStyles, Button, Image } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
+import MediaThumb from '../components/MediaThumb';
+
+
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -67,18 +70,13 @@ export default function Home() {
         <SimpleGrid cols={4} spacing="lg"
           breakpoints={[
             { maxWidth: 1024, cols: 3, spacing: 'md' },
-
             { maxWidth: 768, cols: 2, spacing: 'sm' },
             { maxWidth: 500, cols: 1, spacing: 'sm' },
           ]} >
             {list.map((x) => {
 
-             return <Image
-                    src={`${tmdb.imgUrl}${tmdb.imgSize}${x.poster_path}`}
-
-
-
-                   />
+             return <MediaThumb media={x}   
+                                key={x.id}  />
           })}
         </SimpleGrid>
       </Container>
