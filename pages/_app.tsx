@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { MantineProvider } from '@mantine/core';
-
+import Layout from '../components/Layout';
 
 
 
@@ -16,10 +16,12 @@ export default function App({ Component, pageProps }: AppProps) {
         xl: 1400,
       }
     }} withGlobalStyles withNormalizeCSS >
-     <div className="main-app">
-       <Component {...pageProps} />
-      </div>
-      
+     
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+    
+
     </MantineProvider>
   )
 }
