@@ -49,7 +49,6 @@ export default function Home() {
 
     )
     setGenres(result as IGenre[])
-    console.log("getGenres---->", (result))
   }
 
 
@@ -59,8 +58,7 @@ export default function Home() {
     x.genre_ids?.forEach((movieGenre: number) => {
       genres.forEach((ids: IGenre) => {
         if (movieGenre === ids.id) {
-          let obj: IGenre = Object.create({ id: movieGenre, genre: ids.name });
-          names.push(obj)
+          names.push({ id: movieGenre, name: ids.name })
         }
       })
     })
@@ -93,7 +91,8 @@ export default function Home() {
           {list.map((x) => {
 
             return <MediaThumb media={x}
-              key={x.id} />
+                               genre={findGenre(x)}
+                               key={x.id} />
           })}
         </SimpleGrid>
       </Container>
