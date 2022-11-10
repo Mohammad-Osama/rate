@@ -31,10 +31,10 @@ const MediaThumb = ({ media }: X) => {
                 {title}
             </Text>
             <Group position="center">
-                {genre_ids.map(() => {
+                {genre_ids.map((x) => {
 
-                    return <Button>
-                        genre
+                    return <Button color="dark" style={{ borderColor:"white"}} compact radius="xl">
+                       {x}
                     </Button>
                 })}
             </Group>

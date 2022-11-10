@@ -52,6 +52,23 @@ export default function Home() {
     console.log("getGenres---->", (result))
   }
 
+
+
+  const findGenre = (x: IMovieOrTv) => {
+    let names: IGenre[] = []
+    x.genre_ids?.forEach((movieGenre: number) => {
+      genres.forEach((ids: IGenre) => {
+        if (movieGenre === ids.id) {
+          let obj: IGenre = Object.create({ id: movieGenre, genre: ids.name });
+          names.push(obj)
+        }
+      })
+    })
+    return names
+  }
+
+
+
   useEffect(() => {
     getPopular()
     getGenres()
@@ -73,10 +90,10 @@ export default function Home() {
             { maxWidth: 768, cols: 2, spacing: 'sm' },
             { maxWidth: 500, cols: 1, spacing: 'sm' },
           ]} >
-            {list.map((x) => {
+          {list.map((x) => {
 
-             return <MediaThumb media={x}   
-                                key={x.id}  />
+            return <MediaThumb media={x}
+              key={x.id} />
           })}
         </SimpleGrid>
       </Container>
