@@ -36,12 +36,12 @@ export default function Home() {
   const [mediaType, setMediaType]: [string, (x: string) => void] = useState("Movies")
 
 
-  const [moviesTypes, setMoviestypes]: [string, (x: string) => void] = useState("Popular")
+  const [moviesTypes, setMoviestypes]: [string, (x: string) => void] = useState("popular")
   const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("Popular")
 
 
-  async function getPopular() {
-    const popular = await axios.get("/api/movies/popular")
+  async function getPopular(type : string) {
+    const popular = await axios.get(`/api/movies/popular?type=${type}` )
     setList(popular.data.results as IMovieOrTv[])
   }
 
@@ -76,12 +76,12 @@ export default function Home() {
 
 
   useEffect(() => {
-    getPopular()
+    getPopular(moviesTypes)
     getGenres()
     return () => {
 
     }
-  }, [])
+  }, [moviesTypes])
   return (
     <div className={styles.container}>
       <Head>
