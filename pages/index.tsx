@@ -92,6 +92,7 @@ export default function Home() {
       <Container size="xl" my="md" pb="xl" className={classes.container}>
           <HomeFilter  mediaType={mediaType}
                        setMediaType={setMediaType}
+                       moviesTypes={moviesTypes}
                        setMoviestypes={setMoviestypes} 
                        setTvTypes={setTvTypes}
                         />
