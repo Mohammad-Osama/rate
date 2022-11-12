@@ -1,9 +1,9 @@
-import { Container, useMantineTheme, createStyles } from '@mantine/core';
+import { createStyles } from '@mantine/core';
+import { Navbar } from './Navbar';
 
-
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
     container: {
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+       // color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
         backgroundColor:"#373A40",
         //    paddingbottom:"60px",
         position: "relative",
@@ -23,7 +23,7 @@ const Layout = ({ children }: LayoutProps, ) => {
 
         return (
             <div className={classes.container}>
-              
+              <Navbar/>
                 <main>{children}</main>
                
             </div>

@@ -16,11 +16,11 @@ export default function App({ Component, pageProps }: AppProps) {
         xl: 1400,
       }
     }} withGlobalStyles withNormalizeCSS >
-     
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-    
+
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+
 
     </MantineProvider>
   )
