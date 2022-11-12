@@ -3,9 +3,10 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
-import { Loader, Container, SimpleGrid, Text, useMantineTheme, createStyles, Button, Image } from '@mantine/core';
+import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Button, Image } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
 import MediaThumb from '../components/MediaThumb';
+import HomeFilter from '../components/HomeFilter';
 
 
 
@@ -30,6 +31,13 @@ export default function Home() {
 
   const [list, setList]: [IMovieOrTv[], (x: IMovieOrTv[]) => void] = useState(emptyList)
   const [genres, setGenres]: [IGenre[], (x: IGenre[]) => void] = useState(emptyGenres)
+
+
+  const [mediaType, setMediaType]: [string, (x: string) => void] = useState("Movies")
+
+
+  const [moviesTypes, setMoviestypes]: [string, (x: string) => void] = useState("Popular")
+  const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("Popular")
 
 
   async function getPopular() {
@@ -82,6 +90,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container size="xl" my="md" pb="xl" className={classes.container}>
+          <HomeFilter  mediaType={mediaType}
+                       setMediaType={setMediaType}
+                       setMoviestypes={setMoviestypes} 
+                       setTvTypes={setTvTypes}
+                        />
+
         <SimpleGrid cols={4} spacing="lg"
           breakpoints={[
             { maxWidth: 1024, cols: 3, spacing: 'md' },
@@ -91,8 +105,8 @@ export default function Home() {
           {list.map((x) => {
 
             return <MediaThumb media={x}
-                               genre={findGenre(x)}
-                               key={x.id} />
+              genre={findGenre(x)}
+              key={x.id} />
           })}
         </SimpleGrid>
       </Container>
