@@ -2,6 +2,9 @@ import React from 'react'
 import { IGenre, IMovieOrTv } from '../helpers/types'
 import { Card, Image, Text, Badge, Button, Group, Center, Stack } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
+import Link from 'next/link'
+
+
 
 interface X {
     media: IMovieOrTv;
@@ -16,12 +19,14 @@ const MediaThumb = ({ media, genre }: X) => {
             spacing="sm" sx={() => ({
                 backgroundColor: '#212529',
             })}>
-            <Image
-                src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
-                fit="contain"
-                alt={title}
+            <Link href='/media/[_id]' as={`/media/${id}`}>
+                <Image
+                    src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
+                    fit="contain"
+                    alt={title}
 
-            />
+                />
+            </Link>
             <Text color="white"
                 align="center"
                 size="xl"
@@ -34,11 +39,11 @@ const MediaThumb = ({ media, genre }: X) => {
                 {genre.map((x) => {
 
                     return <Button color="dark"
-                                    style={{ borderColor: "white" }}
-                                    compact
-                                    radius="xl"
-                                    key={x.id}
-                             >
+                        style={{ borderColor: "white" }}
+                        compact
+                        radius="xl"
+                        key={x.id}
+                    >
                         {x.name}
                     </Button>
                 })}
