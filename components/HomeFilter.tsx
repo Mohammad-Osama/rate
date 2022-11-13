@@ -1,4 +1,26 @@
 import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Button, Image } from '@mantine/core';
+import { useState, useEffect } from 'react';
+
+
+const useStyles = createStyles((theme, _params, getRef) => ({
+    label: {
+        '&[data-checked]': {
+            '&, &:hover': {
+                backgroundColor: theme.colors.blue[theme.fn.primaryShade()],
+                color: theme.white,
+            },
+
+            [`& .${getRef('iconWrapper')}`]: {
+                color: theme.white,
+            },
+        },
+    },
+
+    iconWrapper: {
+        ref: getRef('iconWrapper'),
+    },
+}));
+
 
 interface Props {
     mediaType: string;
@@ -11,12 +33,14 @@ interface Props {
 
 
 const HomeFilter = ({ mediaType,
-                     setMediaType,
-                     setMoviestypes,
-                     setTvTypes,
-                     moviesTypes,
-                     tvTypes }: Props) => {
+    setMediaType,
+    setMoviestypes,
+    setTvTypes,
+    moviesTypes,
+    tvTypes }: Props) => {
 
+
+    const { classes } = useStyles();
     const moviesTypesData = [
         { name: 'Popular', value: 'popular' },
         { name: 'Top Rated', value: 'top_rated' },
@@ -31,16 +55,24 @@ const HomeFilter = ({ mediaType,
         { name: 'On The Air', value: 'on_the_air' }
 
     ];
+
+
     return (
-        <Group position="apart">
+        <Group position="apart" m="lg">
             {mediaType === "Movies"
                 ? <Chip.Group
-                    position="center" color="indigo" spacing="md"
+                    position="center" spacing="md"
                     value={moviesTypes}
                     onChange={(v) => setMoviestypes(v as string)}
                 >
                     {moviesTypesData.map((x) => {
-                        return <Chip size="lg" variant="filled" value={x.value}>
+                        return <Chip size="lg" classNames={classes}
+                            // variant="filled"
+                            //   color="yellow"
+                            //  radius="md"
+                            value={x.value}
+                            key={x.value}
+                        >
                             {x.name}
                         </Chip>
                     })
@@ -56,59 +88,25 @@ const HomeFilter = ({ mediaType,
                     onChange={(v) => setTvTypes(v as string)}
                 >
                     {tvTypesData.map((x) => {
-                        return <Chip size="lg" variant="filled" value={x.value}>
-                            {x.name}
-                        </Chip>
+                        return <Chip size="lg" 
+                                    classNames={classes}
+                                     value={x.value}
+                                     key={x.value}
+                                 >
+                                        {x.name}
+                                  </Chip>
                     })
-
                     }
-
-
                 </Chip.Group>
-
             }
-
-
-            {/*  <Group>
-                { mediaType==="Movies"
-                  ?  moviesTypes.map((x) => {
-                        return <Button variant="outline"
-                        color="cyan"
-                        radius="xs"
-                        onClick={() => {
-                            setMoviestypes(x.value)
-                        }}
-                    >
-                        {x.name}
-                    </Button>
-                })
-
-                : tvTypes.map((x) => {
-                    return <Button variant="outline"
-                    color="cyan"
-                    radius="xs"
-                    onClick={() => {
-                        setTvTypes(x.name)
-                    }}
-                >
-                    {x.name}
-                </Button>
-            })  
-
-                
-
-                }
-
-
-            </Group> */}
 
             <Chip.Group value={mediaType}
                 onChange={(v) => setMediaType(v as string)}
-                position="center" color="indigo" spacing="md" >
-                <Chip size="lg" variant="filled" value="Movies">
+                position="center"  spacing="md" >
+                <Chip size="lg"color="red" variant="filled" value="Movies">
                     Movies
                 </Chip>
-                <Chip size="lg" variant="filled" value="Tv">
+                <Chip size="lg" color="red"variant="filled" value="Tv">
                     Tv
                 </Chip>
             </Chip.Group>
