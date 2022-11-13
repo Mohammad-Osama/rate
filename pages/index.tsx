@@ -41,7 +41,7 @@ export default function Home() {
 
 
   async function getPopular(type : string) {
-    const popular = await axios.get(`/api/movies/popular?type=${type}` )
+    const popular = await axios.get(`/api/movies?type=${type}` )
     setList(popular.data.results as IMovieOrTv[])
   }
 
