@@ -107,6 +107,7 @@ export default function Home() {
                        setMediaType={setMediaType}
                        moviesTypes={moviesTypes}
                        setMoviestypes={setMoviestypes} 
+                       tvTypes={tvTypes}
                        setTvTypes={setTvTypes}
                         />
 

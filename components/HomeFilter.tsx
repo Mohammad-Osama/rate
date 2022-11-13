@@ -2,14 +2,20 @@ import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Butt
 
 interface Props {
     mediaType: string;
-    moviesTypes: string
-    setMediaType: (x: string) => void
-    setMoviestypes: (x: string) => void
-    setTvTypes: (x: string) => void
+    setMediaType: (x: string) => void;
+    moviesTypes: string;
+    setMoviestypes: (x: string) => void;
+    tvTypes: string;
+    setTvTypes: (x: string) => void;
 }
 
 
-const HomeFilter = ({ mediaType, setMediaType, setMoviestypes, setTvTypes, moviesTypes }: Props) => {
+const HomeFilter = ({ mediaType,
+                     setMediaType,
+                     setMoviestypes,
+                     setTvTypes,
+                     moviesTypes,
+                     tvTypes }: Props) => {
 
     const moviesTypesData = [
         { name: 'Popular', value: 'popular' },
@@ -18,11 +24,11 @@ const HomeFilter = ({ mediaType, setMediaType, setMoviestypes, setTvTypes, movie
         { name: 'Upcoming', value: 'upcoming' },
     ];
 
-    const tvTypes = [
-        { name: 'Popular', value: 'Popular' },
-        { name: 'Top Rated', value: 'Top Rated' },
-        { name: 'Airing Today', value: 'Airing Today' },
-        { name: 'On The Air', value: 'On The Air' }
+    const tvTypesData = [
+        { name: 'Popular', value: 'popular' },
+        { name: 'Top Rated', value: 'top_rated ' },
+        { name: 'Airing Today', value: 'airing_today' },
+        { name: 'On The Air', value: 'on_the_air' }
 
     ];
     return (
@@ -35,15 +41,30 @@ const HomeFilter = ({ mediaType, setMediaType, setMoviestypes, setTvTypes, movie
                 >
                     {moviesTypesData.map((x) => {
                         return <Chip size="lg" variant="filled" value={x.value}>
-                                    {x.name}
-                                </Chip>
+                            {x.name}
+                        </Chip>
                     })
 
                     }
 
 
                 </Chip.Group>
-                : null
+
+                : <Chip.Group
+                    position="center" color="indigo" spacing="md"
+                    value={tvTypes}
+                    onChange={(v) => setTvTypes(v as string)}
+                >
+                    {tvTypesData.map((x) => {
+                        return <Chip size="lg" variant="filled" value={x.value}>
+                            {x.name}
+                        </Chip>
+                    })
+
+                    }
+
+
+                </Chip.Group>
 
             }
 
