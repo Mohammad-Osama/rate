@@ -37,12 +37,17 @@ export default function Home() {
 
 
   const [moviesTypes, setMoviestypes]: [string, (x: string) => void] = useState("popular")
-  const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("Popular")
+  const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("popular")
 
 
-  async function getPopular(type : string) {
-    const popular = await axios.get(`/api/movies?type=${type}` )
-    setList(popular.data.results as IMovieOrTv[])
+  async function getMovies(type : string) {
+    const movies = await axios.get(`/api/movies?type=${type}` )
+    setList(movies.data.results as IMovieOrTv[])
+  }
+
+  async function getTvs(type : string) {
+    const tvs = await axios.get(`/api/tv?type=${type}` )
+    setList(tvs.data.results as IMovieOrTv[])
   }
 
   async function getGenres() {
@@ -76,12 +81,20 @@ export default function Home() {
 
 
   useEffect(() => {
-    getPopular(moviesTypes)
+    if (mediaType==="Movies")
+    {
+      getMovies(moviesTypes)
+    }
+    else {
+      getTvs(tvTypes)
+    }
+   
+   
     getGenres()
     return () => {
 
     }
-  }, [moviesTypes])
+  }, [moviesTypes , mediaType ,tvTypes ])
   return (
     <div className={styles.container}>
       <Head>
