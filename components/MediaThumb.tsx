@@ -12,7 +12,7 @@ interface X {
 }
 const MediaThumb = ({ media, genre }: X) => {
 
-    const { id, title, poster_path, vote_average, release_date, genre_ids } = media
+    const { id, title, poster_path, vote_average, release_date, genre_ids ,name,first_air_date} = media
     return (
         <Stack align="center"
             justify="space-between"
@@ -33,7 +33,10 @@ const MediaThumb = ({ media, genre }: X) => {
                 weight={700}
                 m="md"
             >
-                {title}
+                {title
+                ?title
+                :name
+                }
             </Text>
             <Group position="center">
                 {genre.map((x) => {
@@ -49,7 +52,10 @@ const MediaThumb = ({ media, genre }: X) => {
                 })}
             </Group>
             <Text color="white" size="xl">
-                {release_date}
+                {release_date
+                ?release_date
+                :first_air_date
+                }
             </Text>
             <Badge color="teal" variant="filled" size="lg" m="lg">
                 {vote_average}
