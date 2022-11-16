@@ -59,7 +59,7 @@ const HomeFilter = ({ mediaType,
 
     return (
         <Group position="apart" m="lg">
-            {mediaType === "Movies"
+            {mediaType === "movie"
                 ? <Chip.Group
                     position="center" spacing="md"
                     value={moviesTypes}
@@ -103,10 +103,10 @@ const HomeFilter = ({ mediaType,
             <Chip.Group value={mediaType}
                 onChange={(v) => setMediaType(v as string)}
                 position="center"  spacing="md" >
-                <Chip size="lg"color="red" variant="filled" value="Movies">
+                <Chip size="lg"color="red" variant="filled" value="movie">
                     Movies
                 </Chip>
-                <Chip size="lg" color="red"variant="filled" value="Tv">
+                <Chip size="lg" color="red"variant="filled" value="tv">
                     Tv
                 </Chip>
             </Chip.Group>

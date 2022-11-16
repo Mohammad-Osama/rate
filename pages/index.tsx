@@ -33,7 +33,7 @@ export default function Home() {
   const [genres, setGenres]: [IGenre[], (x: IGenre[]) => void] = useState(emptyGenres)
 
 
-  const [mediaType, setMediaType]: [string, (x: string) => void] = useState("Movies")
+  const [mediaType, setMediaType]: [string, (x: string) => void] = useState("movie")
 
 
   const [moviesTypes, setMoviestypes]: [string, (x: string) => void] = useState("popular")
@@ -81,7 +81,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    if (mediaType==="Movies")
+    if (mediaType==="movie")
     {
       getMovies(moviesTypes)
     }
@@ -120,9 +120,11 @@ export default function Home() {
           {list.map((x) => {
 
             return <MediaThumb media={x}
-              genre={findGenre(x)}
-              key={x.id} />
-          })}
+                               genre={findGenre(x)}
+                               key={x.id} 
+                               mediaType={mediaType}
+                               />
+                          })}
         </SimpleGrid>
       </Container>
 

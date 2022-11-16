@@ -8,9 +8,10 @@ import Link from 'next/link'
 
 interface X {
     media: IMovieOrTv;
-    genre: IGenre[]
+    genre: IGenre[];
+    mediaType:string
 }
-const MediaThumb = ({ media, genre }: X) => {
+const MediaThumb = ({ media, genre ,mediaType}: X) => {
 
     const { id, title, poster_path, vote_average, release_date, genre_ids ,name,first_air_date} = media
     return (
@@ -19,7 +20,15 @@ const MediaThumb = ({ media, genre }: X) => {
             spacing="sm" sx={() => ({
                 backgroundColor: '#212529',
             })}>
-            <Link href='/media/[_id]' as={`/media/${id}`}>
+            
+            <Link   href={{
+                        pathname :"/media/${mediaType}/[id]",
+                        query: {
+                            id: id
+                          },
+            }}
+                    as={`/media/${mediaType}/${id}?type=${mediaType}`}
+            >
                 <Image
                     src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
                     fit="contain"
