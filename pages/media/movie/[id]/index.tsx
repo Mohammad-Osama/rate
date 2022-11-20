@@ -1,16 +1,17 @@
 import React from 'react'
 import { GetStaticProps, GetStaticPropsResult, GetServerSideProps, GetStaticPropsContext, GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
+import * as tmdb from "../../../../helpers/tmdb"
+import { IMovie } from '../../../../helpers/types';
 
 
-
-const index = ({asd}:X) => {
-  //  console.log(asd)
+const index = ({movieInfoProps}:X) => {
+   console.log(movieInfoProps)
+   const {id} = movieInfoProps
     return (
         <div>
-            i need to know type of media first before getServerSideProps ?!
 
             {
-           //     asd
+           id 
             }
         </div>
     )
@@ -19,18 +20,25 @@ const index = ({asd}:X) => {
 export default index
 
 interface X {
-    asd: any
+    movieInfoProps: IMovie 
    
 }
 export async function getServerSideProps(context:GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
+    const {id,type}=context.query
+     let movieInfo={} as IMovie
      try {
-        const aaa=context
+        if (type==="movie")
+        {
+            const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
+            const data = await response.json()
+            movieInfo =data
+        }
       
-      console.log(aaa.query)
+   
  
          return {
              props: {
-                 asd: "aaa"
+                 movieInfoProps: movieInfo
                  
              },
          }
@@ -38,7 +46,7 @@ export async function getServerSideProps(context:GetServerSidePropsContext): Pro
      } catch (error) {
          return {
              props: {
-                 asd:"error"
+                movieInfoProps:{} as IMovie
              },
          }
      }
