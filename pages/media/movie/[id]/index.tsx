@@ -13,6 +13,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
+import clientPromise from '../../../../lib/db';
 
 ChartJS.register(
     RadialLinearScale,
@@ -117,6 +118,7 @@ interface X {
 
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
+    await clientPromise()
     const { id, type } = context.query
     let movieInfo = {} as IMovie
     try {
