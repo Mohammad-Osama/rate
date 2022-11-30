@@ -21,8 +21,8 @@ const useStyles = createStyles((theme) => ({
     container: {
         color: theme.colors.red[0],
         backgroundColor: theme.colors.dark[7],
-        borderColor:theme.colors.dark[3],
-      },
+        borderColor: theme.colors.dark[3],
+    },
     search: {
         border: 'none',
     },
@@ -52,12 +52,12 @@ const useStyles = createStyles((theme) => ({
         padding: '8px 12px',
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color:  theme.colors.dark[0] ,
+        color: theme.colors.dark[0],
         fontSize: theme.fontSizes.sm,
         fontWeight: 500,
 
         '&:hover': {
-            backgroundColor: theme.colors.dark[6] ,
+            backgroundColor: theme.colors.dark[6],
         },
     },
 
@@ -71,13 +71,13 @@ const useStyles = createStyles((theme) => ({
         padding: '8px 12px',
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color:"white",
-      //  backgroundColor:"red",
+        color: "white",
+        //  backgroundColor:"red",
         //   fontSize: theme.fontSizes.sm,
         fontWeight: 700,
-
+        fontSize:22 ,
         '&:hover': {
-            backgroundColor:theme.colors.dark[6] ,
+            backgroundColor: theme.colors.dark[6],
         },
     },
 }));
@@ -85,26 +85,31 @@ const useStyles = createStyles((theme) => ({
 
 
 export function Navbar() {
-      const { classes } = useStyles();
-     
+    const { classes } = useStyles();
+
     return (
-        <Header height={60} mb={12}  className={classes.container} >
+        <Header height={60} mb={12} className={classes.container} >
             <Container size="xl" className={classes.inner}>
                 <div >
-                   {/*  <Link style={{ textDecoration: 'none',
-                                    color: 'black', }}
-                                     href="/"> */}
-                        <Text component="a"
-                            size="xl"
-                            color=""
-                           className={classes.text}
-                            
-                            >
+                    <Link style={{
+                        textDecoration: 'none',
+                        color: 'black',
+                    }}
+                        href="/" >
+                        <div 
+                            className={classes.text}
+
+                        >
                             Home
-                        </Text>
-                   {/*  </Link> */}
-                         
+                        </div>
+                    </Link>
+
                 </div>
+                <Link href="/login"  >
+                    <div style={{ padding: '8px 12px', }}   >
+                        Login
+                    </div>
+                </Link>
             </Container>
         </Header>
     );
