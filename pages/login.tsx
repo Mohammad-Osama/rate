@@ -1,7 +1,7 @@
 import React ,{ useEffect }  from 'react'
 import {  useToggle, upperFirst } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
-//import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
@@ -17,8 +17,8 @@ import {
   } from '@mantine/core';
 import { showNotification } from '@mantine/notifications'
 import { AlertCircle } from 'tabler-icons-react'
-//import { authState, login, register, reset } from '../redux/slices/authSlice';
-//import { AppDispatch } from '../redux/store';
+import { authState, login, register, reset } from '../redux/slices/authSlice';
+import { AppDispatch } from '../redux/store';
 //import ErrorPage from '../components/ErrorPage';
 
 
@@ -40,20 +40,20 @@ const Login = (props: PaperProps ) => {
 
   //const navigate = useNavigate()
   const router = useRouter()
-  //const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>()
 
-  //const userState = useSelector(authState)
+  const userState = useSelector(authState)
 
-  //const { isError, isSuccess ,message , id ,role} = userState
+  const { isError, isSuccess ,message , id } = userState
 
-  /* const handleError = () => {
+  const handleError = () => {
     showNotification({
       title: "Error ",
       message: `${message}`,
       color: 'red',
       icon: <AlertCircle />,
     })
-  } */
+  }
   const clearInput = () => {  // not needed ?!
     form.setFieldValue('email', "")
     form.setFieldValue('first_name', "")
@@ -63,7 +63,7 @@ const Login = (props: PaperProps ) => {
 
   const handelSubmit = () => {
 
-    // console.log("form", form.values)
+     console.log("form", form.values)
     if (type === "login") {
       const { email, password } = form.values
       const userInfo = {
@@ -71,7 +71,7 @@ const Login = (props: PaperProps ) => {
         password: password
       }
     // console.log("userInfo login", userInfo)
-    //  dispatch(login(userInfo))
+      dispatch(login(userInfo))
     }
 
     else if (type === "register") {
@@ -82,31 +82,36 @@ const Login = (props: PaperProps ) => {
         email: email,
         password: password
       }
-    // dispatch(register(userInfo))
+     dispatch(register(userInfo))
      
-     // console.log("userInfo register ", userInfo)
+     console.log("userInfo register ", userInfo)
     }
   }
 
 
 
-  /* useEffect(() => {  
+  useEffect(() => {  
     
     if (isError) {
       handleError()
+      console.log(message)
     }
-    if (isSuccess && role==="user" ) {
+    if (isSuccess) {
       clearInput()
       router.push("/")
-    }
-    if (isSuccess && role==="admin" ) {
+    } 
+    /* if (isSuccess && role==="user" ) {
+      clearInput()
+      router.push("/")
+    } */
+    /* if (isSuccess && role==="admin" ) {
       clearInput()
       router.push("/adminPanel")
-    }
+    } */
     
    dispatch(reset())
 
-  }, [isError, isSuccess]) */
+  }, [isError, isSuccess])
   
    /* if (id!==null )  // apprears for a second on login , might need adjustment
    return (
