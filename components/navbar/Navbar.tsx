@@ -15,6 +15,7 @@ import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
+import UserDisplay from './UserDisplay';
 
 
 const useStyles = createStyles((theme) => ({
@@ -105,11 +106,7 @@ export function Navbar() {
                     </Link>
 
                 </div>
-                <Link href="/login"  >
-                    <div style={{ padding: '8px 12px', }}   >
-                        Login
-                    </div>
-                </Link>
+                <UserDisplay/>
             </Container>
         </Header>
     );
