@@ -12,8 +12,8 @@ export interface IUser {
     city: string;
     country: string;
     address: string;
-    rate: mongoose.Types.ObjectId;
-    review: mongoose.Types.ObjectId;
+    rate: [mongoose.Types.ObjectId];
+    review: [mongoose.Types.ObjectId];
     watchlist: mongoose.Types.ObjectId;
 };
 
@@ -38,12 +38,12 @@ const UserSchema = new mongoose.Schema<IUser>({
     country: { type: String , default: " " },
     address: { type: String , default: " "},
     rate: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Rate"
         
     },
     review: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Review"
         
     },
