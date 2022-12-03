@@ -119,10 +119,10 @@ const Login = (props: PaperProps ) => {
    )
    else  */
   return (
-    <Container size="sm" px="xs" py={60}>
-    <Paper radius="md" p="xl" withBorder {...props}>
-      <Text size="lg" weight={500}>
-        Welcome to E-Commerce, {type} with
+    <Container size="sm" px="xs" py={60} >
+    <Paper radius="md" p="xl" withBorder {...props} style={{backgroundColor:"#25262B"}}>
+      <Text size="lg" weight={500} color="white">
+        Welcome , {type} with
       </Text>
       <Divider  my="lg" />
       <form onSubmit={form.onSubmit(handelSubmit)}>
