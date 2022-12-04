@@ -16,7 +16,7 @@ import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
 import { useState, useEffect } from 'react';
-import AddRateCopy from "../../../../components/AddRateCopy"
+//import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
     RadialLinearScale,
     PointElement,
@@ -109,7 +109,7 @@ const index = ({ movieInfoProps }: X) => {
 
             </SimpleGrid>
                     <AddRate/>
-                    <AddRateCopy/>
+                   
                 
         </Container>
     )
