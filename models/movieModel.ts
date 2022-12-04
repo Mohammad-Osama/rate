@@ -40,4 +40,4 @@ export interface IMovie{
     }
   }) */
 
-  export const Movie = mongoose.model<IMovie>('Movie', MovieSchema);
+  export const Movie = mongoose.models.Movie || mongoose.model<IMovie>('Movie', MovieSchema);

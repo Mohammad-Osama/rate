@@ -117,7 +117,7 @@ export default function Home() {
             { maxWidth: 768, cols: 2, spacing: 'sm' },
             { maxWidth: 500, cols: 1, spacing: 'sm' },
           ]} >
-          {list.map((x) => {
+          {list?.map((x) => {
 
             return <MediaThumb media={x}
                                genre={findGenre(x)}

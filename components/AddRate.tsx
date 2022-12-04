@@ -3,7 +3,7 @@ import { openModal, closeAllModals } from '@mantine/modals';
 import { useState ,useEffect } from 'react';
 import { useForm } from '@mantine/form';
 import AddSlider from './AddSlider';
-
+import axios from "axios"
 
 interface X {
     tmdb_id: number
@@ -42,6 +42,12 @@ const AddRate = ({tmdb_id,title}:X) => {
     const handelSubmit = () => {
 		const values = form.values;
 		console.log("vvvv" , values)
+        axios.post('/api/rate/movies/addrate',
+					 values)
+			.then((response) => {
+				console.log("resssssssssssss", response)		
+				
+			})
 	}
 
 
