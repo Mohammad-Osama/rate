@@ -2,7 +2,7 @@ import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
 import { IMovie } from '../../../../helpers/types';
-import { Container, SimpleGrid, Image } from '@mantine/core';
+import { Container, SimpleGrid, Image, Slider, Drawer, Button, Group } from '@mantine/core';
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -14,6 +14,8 @@ import {
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
+import AddRate from "../../../../components/AddRate"
+import { useState, useEffect } from 'react';
 
 ChartJS.register(
     RadialLinearScale,
@@ -24,11 +26,12 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps }: X) => {
+
     //  console.log(movieInfoProps)
-      const { id, poster_path, title } = movieInfoProps
+    const { id, poster_path, title } = movieInfoProps
 
     const data = {
-        labels: ['Acting', 'Story', 'Dialogue', 'Directing', 'Cinematography', 'Visual effects','Sound effects'],
+        labels: ['Acting', 'Story', 'Dialogue', 'Directing', 'Cinematography', 'Visual effects', 'Sound effects'],
         datasets: [
             {
                 label: 'Average',
@@ -51,26 +54,26 @@ const index = ({ movieInfoProps }: X) => {
                     { maxWidth: 768, cols: 2, spacing: 'sm' },
                     { maxWidth: 500, cols: 1, spacing: 'sm' },
                 ]} >
-                 <Image
+                <Image
                     src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
                     fit="contain"
                     alt={title}
                 />
 
                 <div style={{}}>
-                    <Radar  options={{
+                    <Radar options={{
                         responsive: true,
                         maintainAspectRatio: true,
-                       
+
                         color: "yellow",// color of the main label at the top
                         scales: {
                             r: {
-                                min:0,
+                                min: 0,
                                 max: 10,
                                 pointLabels: { // edit labels 
-                                    color: "white" ,
-                                    font:{
-                                       size:15
+                                    color: "white",
+                                    font: {
+                                        size: 15
                                     }
                                 },
                                 //  reverse,
@@ -80,13 +83,13 @@ const index = ({ movieInfoProps }: X) => {
                                 ticks: {
                                     display: false,
                                     stepSize: 1
-                                    
+
                                     //  textStrokeColor: 'rgb(54, 162, 235)',
                                     //   color: 'white',
                                     //  backdropColor: 'red'
                                 },
                                 angleLines: {
-                                   //     color: 'yellow',
+                                    //     color: 'yellow',
                                 },
                                 //  type,
                                 //  weight,
@@ -103,10 +106,10 @@ const index = ({ movieInfoProps }: X) => {
                     //  style={{ minHeight: "100%", minWidth: "100%" }}
                     />
                 </div>
-                  
+
             </SimpleGrid>
-
-
+                    <AddRate/>
+                
         </Container>
     )
 }
@@ -122,11 +125,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
     const { id, type } = context.query
     let movieInfo = {} as IMovie
     try {
-          if (type === "movie") {
-              const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
-              const data = await response.json()
-              movieInfo = data
-          }
+        if (type === "movie") {
+            const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
+            const data = await response.json()
+            movieInfo = data
+        }
 
 
 
