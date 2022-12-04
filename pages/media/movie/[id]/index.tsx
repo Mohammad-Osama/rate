@@ -108,7 +108,9 @@ const index = ({ movieInfoProps }: X) => {
                 </div>
 
             </SimpleGrid>
-                    <AddRate/>
+                    <AddRate tmdb_id={id}
+                             title={title}
+                    />
                    
                 
         </Container>

@@ -4,7 +4,15 @@ import { useState ,useEffect } from 'react';
 import { useForm } from '@mantine/form';
 import AddSlider from './AddSlider';
 
-const AddRate = () => {
+
+interface X {
+    tmdb_id: number
+    title:string
+    
+}
+
+
+const AddRate = ({tmdb_id,title}:X) => {
  
     const [actingValue, setActingValue] = useState(5);
     const [storyValue, setStoryValue] = useState(5);
@@ -18,13 +26,16 @@ const AddRate = () => {
 
     const form = useForm({
         initialValues: {
-            acting : 0,
-            story :0,
-            dialogue:0,
-            directing:0,
-            cinematography:0,
-            visual_effects:0,
-            sound_effects:0,
+            acting : actingValue,
+            story :storyValue,
+            dialogue:dialogueValue,
+            directing:directingValue,
+            cinematography:cinematographyValue,
+            visual_effects:visualEffectsValue,
+            sound_effects:soundEffectsValue,
+            tmdb_id:tmdb_id,
+            title:title
+
         },
     });
 

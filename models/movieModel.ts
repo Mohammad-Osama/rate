@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export interface IMovie{
     title:string;
     tmdb_id:number;
-    rating_total :number;
+ //   rating_total :number;
     rating_count : number;
     acting:number;
     story:number;
@@ -17,7 +17,7 @@ export interface IMovie{
  const MovieSchema = new mongoose.Schema<IMovie>({ 
     title: { type: String, required: [true, "Please add a title"]  },
     tmdb_id: { type: Number, required: [true, "Please add tmdb_id"]  },
-    rating_total: { type: Number, required: [true, "Please add rating_total"]  },
+  //  rating_total: { type: Number, required: [true, "Please add rating_total"]  },
     rating_count: { type: Number, required: [true, "Please add rating_count"]  },
     acting: { type: Number, required: [true, "Please add acting"]  },
     story: { type: Number, required: [true, "Please add story"]  },
