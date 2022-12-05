@@ -59,7 +59,7 @@ useEffect(() => {
         <Drawer
                 opened={opened}
                 onClose={() => setOpened(false)}
-                title="Add your rate "
+                title="Add your rate"
                 padding="xl"
                 size="xl"
                 styles={{drawer:{backgroundColor:"#373A40" ,
@@ -125,7 +125,9 @@ useEffect(() => {
                   </form>
             </Drawer>
             <Group position="center">
-                <Button onClick={() => setOpened(true)}>Open Drawer</Button>
+                <Button onClick={() => setOpened(true)}>
+                      Add your rate
+                </Button>
             </Group>
             </>
     )
