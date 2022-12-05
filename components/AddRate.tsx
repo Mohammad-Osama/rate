@@ -1,12 +1,14 @@
 import { TextInput, Button, Group, Drawer, Text } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { useForm } from '@mantine/form';
 import AddSlider from './AddSlider';
 import axios from "axios"
 import { showNotification } from '@mantine/notifications'
 import { useModals } from '@mantine/modals';
 import { openConfirmModal , openContextModal } from '@mantine/modals';
+import { useRouter } from 'next/router';
+
 
 interface X {
     tmdb_id: number
@@ -15,7 +17,14 @@ interface X {
     user: string | null
 }
 
-
+interface IModalType {
+    title: string;
+    text: string;
+    labelConfirm: string;
+    labelCancel: string;
+    ConfirmFunc: () => void ;
+    CancelFunc:  () => void ;
+}
 const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
 
     const [actingValue, setActingValue] = useState(5);
@@ -27,6 +36,8 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
     const [soundEffectsValue, setSoundEffectsValue] = useState(5);
 
     const [opened, setOpened] = useState(false);
+
+    const [modalType, setModalType] = useState<IModalType>()
 
     const form = useForm({
         initialValues: {
@@ -44,6 +55,18 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
 
         },
     });
+    const router =useRouter()
+    const routeLogin = () => {
+        router.push('/login')
+    }
+
+    const openDrawer = () => {
+        setOpened(true)
+    }
+    const CloseDrawer = () => {
+        setOpened(false)
+    }
+
 
     const handelSubmit = () => {
         const values = form.values;
@@ -83,16 +106,16 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
     const confirmAddModal = () => {
 
         openConfirmModal({
-            title: 'Add a rate',
+            title: modalType?.title,
             centered: true,
             children: (
 
                 <Text size="sm" color="white">
-                    Are u sure you want to add this rating ?
+                    {modalType?.text}
                 </Text>
 
             ),
-            labels: { confirm: "Yes , add this rate", cancel: "Go back" },
+            labels: { confirm: modalType?.labelConfirm, cancel: modalType?.labelCancel },
             confirmProps: { color: 'blue'},
          //   cancelProps:{ color: 'red'}, doesnt work, bug?
              
@@ -105,12 +128,12 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
                 } ,
                
             },
-            onCancel: () => setOpened(true),
-            onConfirm: () => handelSubmit()
+            onCancel:  modalType?.CancelFunc,
+            onConfirm:  modalType?.ConfirmFunc
         });
 
     }
-
+   
     function addedValues() { //added values in the form,not needed
         for (const [key, value] of Object.entries(form.values)
             .filter(([key]) => key !== 'user' &&
@@ -122,7 +145,26 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
         }
     }
     useEffect(() => {
-
+      //  console.log(user)
+        if (user !== null) {
+            setModalType({
+                title: "Add a rate",
+                text: "Are u sure you want to add this rating ?",
+                labelConfirm: "Yes , add this rate",
+                labelCancel: "Go back",
+                ConfirmFunc: handelSubmit,
+                CancelFunc: openDrawer,
+            })
+        }
+        else
+            setModalType({
+                title: "Login required",
+                text: "Please login before adding your rate",
+                labelConfirm: "Login",
+                labelCancel: "Go back",
+                ConfirmFunc: routeLogin ,
+                CancelFunc: CloseDrawer,
+            })
     }, [])
     return (
         <>
