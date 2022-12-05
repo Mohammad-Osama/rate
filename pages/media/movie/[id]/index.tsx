@@ -16,6 +16,11 @@ import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
 import { useState, useEffect } from 'react';
+
+import { authState } from '../../../../redux/slices/authSlice';
+import { useSelector ,useDispatch} from 'react-redux';
+import { useRouter } from 'next/router';
+import { AppDispatch } from '../../../../redux/store';
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
     RadialLinearScale,
@@ -25,10 +30,14 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-const index = ({ movieInfoProps }: X) => {
+const index = ({ movieInfoProps , media_type }: X) => {
 
+    const userInfo  = useSelector(authState)
+    const user  = userInfo.id
+    const dispatch = useDispatch<AppDispatch>()
     //  console.log(movieInfoProps)
     const { id, poster_path, title } = movieInfoProps
+   // const medtype = media_type
 
     const data = {
         labels: ['Acting', 'Story', 'Dialogue', 'Directing', 'Cinematography', 'Visual effects', 'Sound effects'],
@@ -110,6 +119,8 @@ const index = ({ movieInfoProps }: X) => {
             </SimpleGrid>
                     <AddRate tmdb_id={id}
                              title={title}
+                             media_type={media_type}
+                             user={user}
                     />
                    
                 
@@ -121,6 +132,7 @@ export default index
 
 interface X {
     movieInfoProps: IMovie
+    media_type : string
 
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
@@ -138,15 +150,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 
         return {
             props: {
-                movieInfoProps: movieInfo
-
+                movieInfoProps: movieInfo ,
+                media_type:type as string
             },
         }
 
     } catch (error) {
         return {
             props: {
-                movieInfoProps: {} as IMovie
+                movieInfoProps: {} as IMovie ,
+                media_type:type as string
             },
         }
     }

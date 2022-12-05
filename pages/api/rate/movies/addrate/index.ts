@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { Movie ,IMovie} from "../../../../../models/movieModel"
 import clientPromise from "../../../../../lib/db"
+import { IRate, Rate } from "../../../../../models/rateModel"
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
     await clientPromise()
 
@@ -30,6 +31,21 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
             directing: req.body.directing,
         })
         res.status(201).json(newMovie)
+        const newRate: IRate = await Rate.create({
+            title: req.body.title,
+            tmdb_id: req.body.tmdb_id,
+            user:req.body.user ,
+            media_type: req.body.media_type,
+            acting: req.body.acting,
+            story: req.body.story,
+            dialogue: req.body.dialogue,
+            cinematography: req.body.cinematography,
+            visual_effects: req.body.visual_effects,
+            sound_effects: req.body.sound_effects,
+            directing: req.body.directing,
+        })
+        res.status(201).json(newRate)
+
    }
 
 

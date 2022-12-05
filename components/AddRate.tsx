@@ -8,11 +8,12 @@ import axios from "axios"
 interface X {
     tmdb_id: number
     title:string
-    
+    media_type:string
+    user: string | null
 }
 
 
-const AddRate = ({tmdb_id,title}:X) => {
+const AddRate = ({tmdb_id , title, media_type , user }:X) => {
  
     const [actingValue, setActingValue] = useState(5);
     const [storyValue, setStoryValue] = useState(5);
@@ -34,7 +35,9 @@ const AddRate = ({tmdb_id,title}:X) => {
             visual_effects:visualEffectsValue,
             sound_effects:soundEffectsValue,
             tmdb_id:tmdb_id,
-            title:title
+            title:title ,
+            media_type:media_type,
+            user:user
 
         },
     });
