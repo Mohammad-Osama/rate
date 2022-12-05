@@ -2,14 +2,26 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { Movie ,IMovie} from "../../../../../models/movieModel"
 import clientPromise from "../../../../../lib/db"
 import { IRate, Rate } from "../../../../../models/rateModel"
+import mongoose from "mongoose"
+
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
     await clientPromise()
 
-    const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id })
+    const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id }) 
+   // if the movie exists in the database 
     if (exisitingMovie) {  
-       //update exisitng 
-        console.log("movie found")
-        try {
+        const userIdBody = req.body.user as string
+        const ObjectId = mongoose.Types.ObjectId
+        const finalUserId = new ObjectId(userIdBody);
+      // check if the user already voted for that movie 
+        const existingRate = await Rate.findOne({user: finalUserId})
+      
+       if (existingRate)
+       {
+        res.status(400).json("you already voted")
+       }
+       else {
+        try { // update the existing movie 
           const updatedMovie=  await Movie.findOneAndUpdate(
                 {tmdb_id : req.body.tmdb_id} ,
                   { 
@@ -26,6 +38,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                   } ,
                    { returnDocument: "after" }
                  )
+                 // then add a rate document 
                  const newRate: IRate = await Rate.create({
                     title: req.body.title,
                     tmdb_id: req.body.tmdb_id,
@@ -45,8 +58,9 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
             res.status(400).json(`Error==>${error}`);
         }
     }
-    else
-     {
+    }
+    else  
+     { // if the movie doesnt exist , add a movie document and a rate document
         const newMovie: IMovie = await Movie.create({
             title: req.body.title,
             tmdb_id: req.body.tmdb_id,
