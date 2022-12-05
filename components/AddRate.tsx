@@ -6,7 +6,7 @@ import AddSlider from './AddSlider';
 import axios from "axios"
 import { showNotification } from '@mantine/notifications'
 import { useModals } from '@mantine/modals';
-import { openConfirmModal } from '@mantine/modals';
+import { openConfirmModal , openContextModal } from '@mantine/modals';
 
 interface X {
     tmdb_id: number
@@ -52,7 +52,30 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
             values)
             .then((response) => {
                 console.log("resssssssssssss", response)
-
+                openConfirmModal({
+                   title: ' Rate succesfully added  !',
+                    centered: true,
+                    /* children: (
+        
+                        <Text size="sm" color="white">
+                            Rate succesfully added  !
+                        </Text>
+        
+                    ), */
+                    labels: { confirm: " Go back ", cancel: "" },
+                    confirmProps: { color: 'blue' ,fullWidth:true},
+                    cancelProps:{hidden:true},
+                    styles: {
+                        modal: {
+                            backgroundColor: "#373A40"
+                        } ,
+                        title :{
+                            color:"white"
+                        } 
+                    },
+                  //  onCancel: () => setOpened(true),
+                    onConfirm: () => window.location.reload()
+                });
             })
     }
 
@@ -70,15 +93,17 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
 
             ),
             labels: { confirm: "Yes , add this rate", cancel: "Go back" },
-            confirmProps: { color: 'blue' },
+            confirmProps: { color: 'blue'},
          //   cancelProps:{ color: 'red'}, doesnt work, bug?
+             
             styles: {
                 modal: {
-                    backgroundColor: "#373A40"
+                    backgroundColor: "#373A40",
                 } ,
                 title :{
-                    color:"white"
-                } 
+                    color:"white",
+                } ,
+               
             },
             onCancel: () => setOpened(true),
             onConfirm: () => handelSubmit()
@@ -115,7 +140,10 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
                         marginLeft: "20vw",
                         marginTop: "5vh",
                     },
-                    title: { color: "white", fontSize: "20px" }
+                    title: { color: "white",
+                             fontSize: "20px",
+                             },
+                    
 
                 }}
             >
