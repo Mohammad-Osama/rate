@@ -170,3 +170,19 @@ export interface ITv {
     vote_average: number;
     vote_count: number;
 }
+
+
+
+export interface IMovieRate {
+    title:string;
+    tmdb_id:number;
+    rating_count : number;
+    acting:number;
+    story:number;
+    dialogue:number;
+    cinematography :number;
+    visual_effects:number;
+    sound_effects:number;
+    directing:number
+    _id :string
+}

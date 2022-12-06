@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { IMovie } from '../../../../helpers/types';
+import { IMovie, IMovieRate } from '../../../../helpers/types';
 import { Container, SimpleGrid, Image, Slider, Drawer, Button, Group } from '@mantine/core';
 import {
     Chart as ChartJS,
@@ -21,6 +21,7 @@ import { authState } from '../../../../redux/slices/authSlice';
 import { useSelector ,useDispatch} from 'react-redux';
 import { useRouter } from 'next/router';
 import { AppDispatch } from '../../../../redux/store';
+import { Movie } from '../../../../models/movieModel';
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
     RadialLinearScale,
@@ -30,8 +31,8 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-const index = ({ movieInfoProps , media_type }: X) => {
-
+const index = ({ movieInfoProps , media_type , movieRateInfoProps}: X) => {
+// console.log(movieRateInfoProps)
     const userInfo  = useSelector(authState)
     const user  = userInfo.id
     const dispatch = useDispatch<AppDispatch>()
@@ -133,17 +134,25 @@ export default index
 interface X {
     movieInfoProps: IMovie
     media_type : string
+    movieRateInfoProps : IMovieRate
 
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id, type } = context.query
     let movieInfo = {} as IMovie
+    let movieRateInfo
     try {
         if (type === "movie") {
             const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
             const data = await response.json()
             movieInfo = data
+            const rateResponse=  await Movie.findOne({tmdb_id :id})
+                                             .select(['-createdAt',
+                                                       '-updatedAt' ,
+                                                       '-__v'])
+
+             movieRateInfo= JSON.parse(JSON.stringify(rateResponse))                                           
         }
 
 
@@ -151,7 +160,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
         return {
             props: {
                 movieInfoProps: movieInfo ,
-                media_type:type as string
+                media_type:type as string ,
+                movieRateInfoProps : movieRateInfo as IMovieRate
             },
         }
 
@@ -159,7 +169,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
         return {
             props: {
                 movieInfoProps: {} as IMovie ,
-                media_type:type as string
+                media_type:type as string ,
+                movieRateInfoProps : {} as IMovieRate
             },
         }
     }
