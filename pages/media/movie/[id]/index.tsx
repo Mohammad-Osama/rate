@@ -18,7 +18,7 @@ import AddRate from "../../../../components/AddRate"
 import { useState, useEffect } from 'react';
 
 import { authState } from '../../../../redux/slices/authSlice';
-import { useSelector ,useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { AppDispatch } from '../../../../redux/store';
 import { Movie } from '../../../../models/movieModel';
@@ -31,21 +31,42 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-const index = ({ movieInfoProps , media_type , movieRateInfoProps}: X) => {
-// console.log(movieRateInfoProps)
-    const userInfo  = useSelector(authState)
-    const user  = userInfo.id
+const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
+    console.log(movieRateInfoProps)
+    const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
+    const userInfo = useSelector(authState)
+    const user = userInfo.id
     const dispatch = useDispatch<AppDispatch>()
     //  console.log(movieInfoProps)
     const { id, poster_path, title } = movieInfoProps
-   // const medtype = media_type
+    // const medtype = media_type
+
+    const actingData = Math.round((acting / rating_count) * 10) / 10
+    const storyData = Math.round((story / rating_count) * 10) / 10
+    const dialogueData = Math.round((dialogue / rating_count) * 10) / 10
+    const directingData = Math.round((directing / rating_count) * 10) / 10
+    const cinematographyData = Math.round((cinematography / rating_count) * 10) / 10
+    const visualEffData = Math.round((visual_effects / rating_count) * 10) / 10
+    const soundEffData = Math.round((sound_effects / rating_count) * 10) / 10
 
     const data = {
-        labels: ['Acting', 'Story', 'Dialogue', 'Directing', 'Cinematography', 'Visual effects', 'Sound effects'],
+        labels: [   'Acting',
+                    'Story',
+                    'Dialogue',
+                    'Directing',
+                    'Cinematography',
+                    'Visual effects',
+                    'Sound effects'],
         datasets: [
             {
                 label: 'Average',
-                data: [4, 5, 4, 5, 4, 5, 10],
+                data: [ actingData,
+                        storyData,
+                        dialogueData,
+                        directingData,
+                        cinematographyData,
+                        visualEffData,
+                        soundEffData],
                 backgroundColor: '#39d353', // label box  background
                 borderColor: '#39d353', // lines 
                 borderWidth: 5,
@@ -118,13 +139,13 @@ const index = ({ movieInfoProps , media_type , movieRateInfoProps}: X) => {
                 </div>
 
             </SimpleGrid>
-                    <AddRate tmdb_id={id}
-                             title={title}
-                             media_type={media_type}
-                             user={user}
-                    />
-                   
-                
+            <AddRate tmdb_id={id}
+                title={title}
+                media_type={media_type}
+                user={user}
+            />
+
+
         </Container>
     )
 }
@@ -133,8 +154,8 @@ export default index
 
 interface X {
     movieInfoProps: IMovie
-    media_type : string
-    movieRateInfoProps : IMovieRate
+    media_type: string
+    movieRateInfoProps: IMovieRate
 
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
@@ -147,30 +168,30 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
             const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
             const data = await response.json()
             movieInfo = data
-            const rateResponse=  await Movie.findOne({tmdb_id :id})
-                                             .select(['-createdAt',
-                                                       '-updatedAt' ,
-                                                       '-__v'])
+            const rateResponse = await Movie.findOne({ tmdb_id: id })
+                .select(['-createdAt',
+                    '-updatedAt',
+                    '-__v'])
 
-             movieRateInfo= JSON.parse(JSON.stringify(rateResponse))                                           
+            movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
         }
 
 
 
         return {
             props: {
-                movieInfoProps: movieInfo ,
-                media_type:type as string ,
-                movieRateInfoProps : movieRateInfo as IMovieRate
+                movieInfoProps: movieInfo,
+                media_type: type as string,
+                movieRateInfoProps: movieRateInfo as IMovieRate
             },
         }
 
     } catch (error) {
         return {
             props: {
-                movieInfoProps: {} as IMovie ,
-                media_type:type as string ,
-                movieRateInfoProps : {} as IMovieRate
+                movieInfoProps: {} as IMovie,
+                media_type: type as string,
+                movieRateInfoProps: {} as IMovieRate
             },
         }
     }
