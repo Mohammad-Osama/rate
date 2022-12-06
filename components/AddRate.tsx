@@ -100,6 +100,32 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
                     onConfirm: () => window.location.reload()
                 });
             })
+            .catch(function (error) {
+				openConfirmModal({
+                    title: ' Something went wrong !',
+                     centered: true,
+                     children: (
+         
+                         <Text size="sm" color="white">
+                            {error.response.data}
+                         </Text>
+         
+                     ),
+                     labels: { confirm: " Go back ", cancel: "" },
+                     confirmProps: { color: 'blue' ,fullWidth:true},
+                     cancelProps:{hidden:true},
+                     styles: {
+                         modal: {
+                             backgroundColor: "#373A40"
+                         } ,
+                         title :{
+                             color:"white"
+                         } 
+                     },
+                   //  onCancel: () => setOpened(true),
+                   //  onConfirm: () => window.location.reload()
+                 });
+			})
     }
 
    // const modals = useModals();
