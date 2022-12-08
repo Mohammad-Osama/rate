@@ -3,8 +3,9 @@ import { IGenre, IMovieOrTv } from '../helpers/types'
 import { Card, Image, Text, Badge, Button, Group, Center, Stack } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
 import Link from 'next/link'
-
-
+import { AppDispatch } from '../redux/store';
+import { authState ,logout } from '../redux/slices/authSlice';
+import { useSelector ,useDispatch} from 'react-redux';
 
 interface X {
     media: IMovieOrTv;
@@ -12,6 +13,8 @@ interface X {
     mediaType:string
 }
 const MediaThumb = ({ media, genre ,mediaType}: X) => {
+    const userData= useSelector(authState)
+    const userId=userData.id
 
     const { id, title, poster_path, vote_average, release_date, genre_ids ,name,first_air_date} = media
     return (
@@ -27,7 +30,7 @@ const MediaThumb = ({ media, genre ,mediaType}: X) => {
                             id: id
                           },
             }}
-                    as={`/media/${mediaType}/${id}?type=${mediaType}`}
+                    as={`/media/${mediaType}/${id}?type=${mediaType}&user=${userId}`}
             >
                 <Image
                     src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}

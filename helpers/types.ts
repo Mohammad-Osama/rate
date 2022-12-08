@@ -186,3 +186,19 @@ export interface IMovieRate {
     directing:number
     _id :string
 }
+
+
+export interface IRate {
+    title:string;
+    tmdb_id:number;
+    user:string;
+    media_type: string,
+    acting:number;
+    story:number;
+    dialogue:number;
+    cinematography :number;
+    visual_effects:number;
+    sound_effects:number;
+    directing:number
+    _id :string
+}
