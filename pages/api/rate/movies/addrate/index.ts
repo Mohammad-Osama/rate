@@ -6,7 +6,7 @@ import mongoose from "mongoose"
 
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
     await clientPromise()
-
+  //console.log( "req bodyyyyy" , req.body)
     const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id }) 
    // if the movie exists in the database 
     if (exisitingMovie) {  

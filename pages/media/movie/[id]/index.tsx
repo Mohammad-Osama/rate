@@ -32,7 +32,7 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
-    console.log(movieRateInfoProps)
+  //  console.log(  "tttttttttt" ,movieRateInfoProps)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
@@ -77,67 +77,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
             },
         ]
     };
-
-    const getData = () => {
-        Object.entries(movieRateInfoProps)
-            .filter(([key]) => key !== '_id')
-            .map(([key, value]) => {
-                return <Group position="apart">
-                    <Text ml="25%">
-                        {key}
-                    </Text>
-                    <Text mr="25%">
-                        {value}
-                    </Text>
-
-                </Group>
-            })
-
-
-    }
-    const getDatad = () => {
-        console.log(movieRateInfoProps)
-        for (const [key, value] of Object.entries(movieRateInfoProps)
-            .filter(([key]) => key !== '_id' &&
-                key !== 'tmdb_id' &&
-                key !== 'title' &&
-                key !== 'rating_count'
-            )) {
-
-            return <Group position="apart">
-                <Text ml="25%">
-                    {key}
-                </Text>
-                <Text mr="25%">
-                    {value}
-                </Text>
-
-            </Group>
-
-        }
-    }
-
-    /*  const getData = ()=>{
-         console.log(movieRateInfoProps)
-         Object.fromEntries(Object.entries(movieRateInfoProps).map(([key, value]
-             .filter(([key]) => key !== '_id' &&
-                 key !== 'tmdb_id' &&
-                 key !== 'title' &&
-                 key !== 'rating_count'
-             )) ))
-            {
-               return  <Group position="apart">
-                     <Text ml="25%">
-                         {key}
-                     </Text>
-                     <Text  mr="25%">
-                        {value}
-                     </Text>
- 
-                 </Group>}
-         
-         
-     }  */
 
     function ValueBadge(x: number) {
         return (
@@ -316,7 +255,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
             else {
                 movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
             }
-
+          //  console.log( "ressssss" , rateResponse)
         }
 
         return {

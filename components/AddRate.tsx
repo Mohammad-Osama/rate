@@ -70,7 +70,7 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
 
     const handelSubmit = () => {
         const values = form.values;
-        console.log("vvvv", values)
+     //   console.log("vvvv", values)
         axios.post('/api/rate/movies/addrate',
             values)
             .then((response) => {
@@ -130,7 +130,7 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
 
    // const modals = useModals();
     const confirmAddModal = () => {
-
+//console.log(form.values)
         openConfirmModal({
             title: modalType?.title,
             centered: true,
@@ -191,7 +191,7 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
                 ConfirmFunc: routeLogin ,
                 CancelFunc: CloseDrawer,
             })
-    }, [])
+    }, [form.values])
     return (
         <>
             <Drawer
