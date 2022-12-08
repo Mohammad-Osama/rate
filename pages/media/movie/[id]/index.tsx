@@ -2,7 +2,7 @@ import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
 import { IMovie, IMovieRate } from '../../../../helpers/types';
-import { Container, SimpleGrid, Image, Slider, Drawer, Button, Group } from '@mantine/core';
+import { Container, SimpleGrid, Image, Slider, Drawer, Button, Group, Progress, Text } from '@mantine/core';
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -32,7 +32,7 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
-    console.log(movieRateInfoProps)
+     console.log(movieRateInfoProps)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
@@ -50,23 +50,23 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
     const soundEffData = Math.round((sound_effects / rating_count) * 10) / 10
 
     const data = {
-        labels: [   'Acting',
-                    'Story',
-                    'Dialogue',
-                    'Directing',
-                    'Cinematography',
-                    'Visual effects',
-                    'Sound effects'],
+        labels: ['Acting',
+            'Story',
+            'Dialogue',
+            'Directing',
+            'Cinematography',
+            'Visual effects',
+            'Sound effects'],
         datasets: [
             {
                 label: 'Average',
-                data: [ actingData,
-                        storyData,
-                        dialogueData,
-                        directingData,
-                        cinematographyData,
-                        visualEffData,
-                        soundEffData],
+                data: [actingData,
+                    storyData,
+                    dialogueData,
+                    directingData,
+                    cinematographyData,
+                    visualEffData,
+                    soundEffData],
                 backgroundColor: '#39d353', // label box  background
                 borderColor: '#39d353', // lines 
                 borderWidth: 5,
@@ -77,6 +77,67 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
             },
         ]
     };
+
+    const getData = () => {
+        Object.entries(movieRateInfoProps)
+            .filter(([key]) => key !== '_id')
+            .map(([key, value]) => {
+                return <Group position="apart">
+                    <Text ml="25%">
+                        {key}
+                    </Text>
+                    <Text mr="25%">
+                        {value}
+                    </Text>
+
+                </Group>
+            })
+
+
+    }
+    const getDatad = () => {
+        console.log(movieRateInfoProps)
+        for (const [key, value] of Object.entries(movieRateInfoProps)
+            .filter(([key]) => key !== '_id' &&
+                key !== 'tmdb_id' &&
+                key !== 'title' &&
+                key !== 'rating_count'
+            )) {
+
+            return <Group position="apart">
+                <Text ml="25%">
+                    {key}
+                </Text>
+                <Text mr="25%">
+                    {value}
+                </Text>
+
+            </Group>
+
+        }
+    }
+
+    /*  const getData = ()=>{
+         console.log(movieRateInfoProps)
+         Object.fromEntries(Object.entries(movieRateInfoProps).map(([key, value]
+             .filter(([key]) => key !== '_id' &&
+                 key !== 'tmdb_id' &&
+                 key !== 'title' &&
+                 key !== 'rating_count'
+             )) ))
+            {
+               return  <Group position="apart">
+                     <Text ml="25%">
+                         {key}
+                     </Text>
+                     <Text  mr="25%">
+                        {value}
+                     </Text>
+ 
+                 </Group>}
+         
+         
+     }  */
     return (
         <Container size="xl">
             <SimpleGrid cols={2} spacing="lg"
@@ -136,14 +197,59 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
 
                     //  style={{ minHeight: "100%", minWidth: "100%" }}
                     />
+                    <AddRate tmdb_id={id}
+                        title={title}
+                        media_type={media_type}
+                        user={user}
+                    />
+
+
+                    <>
+
+                        {
+                            Object.entries(movieRateInfoProps)
+                                .filter(([key]) =>  key !== '_id' &&
+                                                    key !== 'tmdb_id' &&
+                                                    key !== 'title' &&
+                                                    key !== 'rating_count')
+                                .map(([key, value]) => {
+                                    return <Group position="apart" key={key}>
+                                        <Text ml="15%">
+                                            {key}
+                                        </Text>
+                                        <Text mr="15%">
+                                            {value}
+                                        </Text>
+
+                                    </Group>
+                                })
+                        }
+                    </>
+
+
+
+
+                    {/*  <Slider    value={value}
+                            onChange={(value) => {
+                                setValue(value)
+                                addToForm(field, value)
+
+                            }
+                            }
+                            max={10}
+                            step={1}
+                            min={0}
+                            defaultValue={5}
+                            labelAlwaysOn
+            /> */}
                 </div>
 
             </SimpleGrid>
-            <AddRate tmdb_id={id}
+            {/* <AddRate tmdb_id={id}
                 title={title}
                 media_type={media_type}
                 user={user}
-            />
+            /> */}
 
 
         </Container>
@@ -172,11 +278,26 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 .select(['-createdAt',
                     '-updatedAt',
                     '-__v'])
-
-            movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
+                    if (rateResponse===null)
+                    {
+                        movieRateInfo={
+                            title:movieInfo.title,
+                            tmdb_id:movieInfo.id,
+                            rating_count : 0 ,
+                            acting: 0 ,
+                            story: 0 ,
+                            dialogue: 0 ,
+                            cinematography : 0 ,
+                            visual_effects: 0 ,
+                            sound_effects: 0 ,
+                            directing: 0 ,
+                        }
+                     }
+                        else {
+                            movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
+                        }
+            
         }
-
-
 
         return {
             props: {
