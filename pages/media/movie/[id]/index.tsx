@@ -2,7 +2,7 @@ import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
 import { IMovie, IMovieRate } from '../../../../helpers/types';
-import { Container, SimpleGrid, Image, Slider, Drawer, Button, Group, Progress, Text } from '@mantine/core';
+import { Container, SimpleGrid, Grid, Image, Badge, Slider, Drawer, Button, Group, Progress, Text } from '@mantine/core';
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -32,7 +32,7 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
-     console.log(movieRateInfoProps)
+    console.log(movieRateInfoProps)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
@@ -138,6 +138,12 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
          
          
      }  */
+
+    function ValueBadge(x: number) {
+        return (
+            <Badge color="green" size="xl" variant="filled">{x}</Badge>
+        );
+    }
     return (
         <Container size="xl">
             <SimpleGrid cols={2} spacing="lg"
@@ -202,28 +208,43 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps }: X) => {
                         media_type={media_type}
                         user={user}
                     />
+                    <Text ml="40%"
+                          color="blue"
+                          size="xl"  
+                          weight={800}
+                            >
+                        My Rating
+                    </Text>
+                    <Grid mt="xl">
+                        {
+                            Object.entries(movieRateInfoProps)
+                                .filter(([key]) => key !== '_id' &&
+                                    key !== 'tmdb_id' &&
+                                    key !== 'title' &&
+                                    key !== 'rating_count')
+                                .map(([key, value]) => {
+                                    return <Grid.Col span={6} key={key}>
 
+                                        <Badge size="lg"
+                                            radius="xl"
+                                            color="blue"
+                                            style={{backgroundColor:"#373A40" ,
+                                                     borderColor:"#1A1B1E"}}
+                                            leftSection={ValueBadge(value)}
+                                            >
+                                            {key}
+                                        </Badge>
+
+
+                                    </Grid.Col>
+                                })
+                        }
+
+                    </Grid>
 
                     <>
 
-                        {
-                            Object.entries(movieRateInfoProps)
-                                .filter(([key]) =>  key !== '_id' &&
-                                                    key !== 'tmdb_id' &&
-                                                    key !== 'title' &&
-                                                    key !== 'rating_count')
-                                .map(([key, value]) => {
-                                    return <Group position="apart" key={key}>
-                                        <Text ml="15%">
-                                            {key}
-                                        </Text>
-                                        <Text mr="15%">
-                                            {value}
-                                        </Text>
 
-                                    </Group>
-                                })
-                        }
                     </>
 
 
@@ -278,25 +299,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 .select(['-createdAt',
                     '-updatedAt',
                     '-__v'])
-                    if (rateResponse===null)
-                    {
-                        movieRateInfo={
-                            title:movieInfo.title,
-                            tmdb_id:movieInfo.id,
-                            rating_count : 0 ,
-                            acting: 0 ,
-                            story: 0 ,
-                            dialogue: 0 ,
-                            cinematography : 0 ,
-                            visual_effects: 0 ,
-                            sound_effects: 0 ,
-                            directing: 0 ,
-                        }
-                     }
-                        else {
-                            movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
-                        }
-            
+            if (rateResponse === null) {
+                movieRateInfo = {
+                    title: movieInfo.title,
+                    tmdb_id: movieInfo.id,
+                    rating_count: 0,
+                    acting: 0,
+                    story: 0,
+                    dialogue: 0,
+                    cinematography: 0,
+                    visual_effects: 0,
+                    sound_effects: 0,
+                    directing: 0,
+                }
+            }
+            else {
+                movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
+            }
+
         }
 
         return {
