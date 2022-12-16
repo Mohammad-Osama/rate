@@ -14,7 +14,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
         const ObjectId = mongoose.Types.ObjectId
         const finalUserId = new ObjectId(userIdBody);
       // check if the user already voted for that movie 
-        const existingRate = await Rate.findOne({user: finalUserId})
+      //need to add more filters ----------------->>> 
+        const existingRate = await Rate.findOne({user: finalUserId ,tmdb_id: req.body.tmdb_id})
       
        if (existingRate)
        {

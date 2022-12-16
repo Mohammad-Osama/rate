@@ -8,6 +8,7 @@ import { showNotification } from '@mantine/notifications'
 import { useModals } from '@mantine/modals';
 import { openConfirmModal , openContextModal } from '@mantine/modals';
 import { useRouter } from 'next/router';
+import { IRate } from '../helpers/types';
 
 
 interface X {
@@ -15,6 +16,8 @@ interface X {
     title: string
     media_type: string
     user: string | null
+    isRatedUser :boolean|undefined
+    movieRateInfoUserProps:IRate|null
 }
 
 interface IModalType {
@@ -25,8 +28,8 @@ interface IModalType {
     ConfirmFunc: () => void ;
     CancelFunc:  () => void ;
 }
-const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
-
+const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInfoUserProps }: X) => {
+    console.log(isRatedUser , movieRateInfoUserProps)
     const [actingValue, setActingValue] = useState(5);
     const [storyValue, setStoryValue] = useState(5);
     const [dialogueValue, setDialogueValue] = useState(5);
@@ -172,6 +175,7 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
     }
     useEffect(() => {
       //  console.log(user)
+      
         if (user !== null) {
             setModalType({
                 title: "Add a rate",
@@ -269,7 +273,11 @@ const AddRate = ({ tmdb_id, title, media_type, user }: X) => {
             </Drawer>
             <Group position="center">
                 <Button onClick={() => setOpened(true)}>
-                    Add your rate
+                    {isRatedUser
+                     ?"Edit your rating"
+                     :"Add your rate"
+                    }
+                    
                 </Button>
             </Group>
         </>

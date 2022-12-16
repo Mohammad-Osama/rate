@@ -1,8 +1,8 @@
 import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { IMovie, IMovieRate } from '../../../../helpers/types';
-import { IRate, Rate } from "../../../../models/rateModel"
+import { IMovie, IMovieRate , IRate } from '../../../../helpers/types';
+import { IRate as IRateModelType, Rate as RateModel } from "../../../../models/rateModel"
 
 import { Container, SimpleGrid, Grid, Image, Badge, Slider, Drawer, Button, Group, Progress, Text } from '@mantine/core';
 import {
@@ -35,7 +35,11 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound }: X) => {
-    console.log("tttttttttt", movieRateInfoUserProps)
+    console.log("movie", movieRateInfoProps)
+    console.log("user", movieRateInfoUserProps)
+    
+    const [isRatedUser, setIsRatedUser] = useState<boolean>();
+    console.log("ratingStatus paretn", isRatedUser)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
@@ -86,6 +90,21 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
             <Badge color="green" size="xl" variant="filled">{x}</Badge>
         );
     }
+useEffect(() => {
+    if (movieRateInfoUserProps===null)
+       {
+         setIsRatedUser(false) 
+         }
+    else {
+        setIsRatedUser(true)
+      }
+      return () => {
+       
+    }
+}, [])
+
+
+
 
     if (notFound === true)
         return (<div>Error Page</div>)
@@ -153,8 +172,14 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             title={title}
                             media_type={media_type}
                             user={user}
+                            isRatedUser={isRatedUser}
+                            movieRateInfoUserProps={movieRateInfoUserProps}
                         />
+                            { isRatedUser===true
+                              ?<Text>voted</Text>
+                              :<Text>didnt vote</Text>
 
+                            }
                         {movieRateInfoUserProps !== null &&
                             <>
                                 <Text ml="40%" mt="xs"
@@ -258,7 +283,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 const ObjectId = mongoose.Types.ObjectId
                 const userId = new ObjectId(user as string);
 
-                const existingRateUser = await Rate.findOne({ user: userId })
+                const existingRateUser = await RateModel.findOne({ user: userId , tmdb_id:id })
                     .select(['-createdAt',
                         '-updatedAt',
                         '-__v'])
