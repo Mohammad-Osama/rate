@@ -13,10 +13,10 @@ interface X {
     opened:boolean
 }
 const AddSlider = ({ field ,value,setValue,addToForm,isRatedUser,opened}: X) => {
-    console.log("slider value" , field , value)
+  //  console.log("slider value" , field , value)
     useEffect(() => {
        
-    }, [opened])
+    }, [value])
     return (
         <>
             <Text color="white" m={7}>
@@ -33,7 +33,7 @@ const AddSlider = ({ field ,value,setValue,addToForm,isRatedUser,opened}: X) => 
                 max={10}
                 step={1}
                 min={0}
-                defaultValue={5}
+                defaultValue={value}
                 labelAlwaysOn 
             />
         </>

@@ -246,7 +246,7 @@ interface X {
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id, type, user } = context.query
-    console.log("uuuu", context.query)
+  //  console.log("uuuu", context.query)
     let movieInfo = {} as IMovie
     let movieRateInfo
     let movieRateInfoUser
