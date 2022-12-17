@@ -31,13 +31,13 @@ interface IModalType {
 const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInfoUserProps }: X) => {
    // console.log(isRatedUser , movieRateInfoUserProps)
   // console.log(movieRateInfoUserProps)
-    const [actingValue, setActingValue] = useState<number|undefined>();
-    const [storyValue, setStoryValue] = useState<number|undefined>();
-    const [dialogueValue, setDialogueValue] = useState<number|undefined>();
-    const [directingValue, setDirectingValue] = useState<number|undefined>();
-    const [cinematographyValue, setCinematographyValue] = useState<number|undefined>();
-    const [visualEffectsValue, setVisualEffectsValue] = useState<number|undefined>();
-    const [soundEffectsValue, setSoundEffectsValue] = useState<number|undefined>();
+    const [actingValue, setActingValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting);
+    const [storyValue, setStoryValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.story);
+    const [dialogueValue, setDialogueValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.dialogue);
+    const [directingValue, setDirectingValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.directing);
+    const [cinematographyValue, setCinematographyValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.cinematography);
+    const [visualEffectsValue, setVisualEffectsValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.visual_effects);
+    const [soundEffectsValue, setSoundEffectsValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.sound_effects);
 
     const [opened, setOpened] = useState(false);
 
@@ -139,8 +139,8 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
         form.setFieldValue("dialogue",dialogueValue)
         form.setFieldValue("directing",directingValue)
         form.setFieldValue("cinematography",cinematographyValue)
-        form.setFieldValue("visualEffects",visualEffectsValue)
-        form.setFieldValue("soundEffects",soundEffectsValue)
+        form.setFieldValue("visual_effects",visualEffectsValue)
+        form.setFieldValue("sound_effects",soundEffectsValue)
     }
     const handleEdit = () => {
         const values = form.values;
@@ -250,13 +250,13 @@ console.log(form.values)
       //  console.log(user)
       // fix this
    //   setActingValue(movieRateInfoUserProps===null ? 4 : movieRateInfoUserProps.acting  )
-      setActingValue(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting)
-      setStoryValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.story)
-      setDialogueValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.dialogue)
-      setDirectingValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.directing)
-      setCinematographyValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.cinematography)
-      setVisualEffectsValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.visual_effects)
-      setSoundEffectsValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.sound_effects)
+   //   setActingValue(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting)
+   //   setStoryValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.story)
+    //  setDialogueValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.dialogue)
+    //  setDirectingValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.directing)
+    //  setCinematographyValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.cinematography)
+  //    setVisualEffectsValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.visual_effects)
+   //   setSoundEffectsValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.sound_effects)
 
         if (user !== null) {
             if (movieRateInfoUserProps ===null) {
