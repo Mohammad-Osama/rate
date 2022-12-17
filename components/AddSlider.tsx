@@ -6,11 +6,17 @@ import { SetStateAction } from 'react';
 
 interface X {
     field: string
-    value:number
-    setValue:Dispatch<SetStateAction<number>>
+    value:number|undefined
+    setValue:Dispatch<SetStateAction<number|undefined>>
     addToForm:(input :string,value:number)=>void
+    isRatedUser:boolean|undefined
+    opened:boolean
 }
-const AddSlider = ({ field ,value,setValue,addToForm}: X) => {
+const AddSlider = ({ field ,value,setValue,addToForm,isRatedUser,opened}: X) => {
+    console.log("slider value" , field , value)
+    useEffect(() => {
+       
+    }, [opened])
     return (
         <>
             <Text color="white" m={7}>

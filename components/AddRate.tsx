@@ -29,14 +29,15 @@ interface IModalType {
     CancelFunc:  () => void ;
 }
 const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInfoUserProps }: X) => {
-    console.log(isRatedUser , movieRateInfoUserProps)
-    const [actingValue, setActingValue] = useState(5);
-    const [storyValue, setStoryValue] = useState(5);
-    const [dialogueValue, setDialogueValue] = useState(5);
-    const [directingValue, setDirectingValue] = useState(5);
-    const [cinematographyValue, setCinematographyValue] = useState(5);
-    const [visualEffectsValue, setVisualEffectsValue] = useState(5);
-    const [soundEffectsValue, setSoundEffectsValue] = useState(5);
+   // console.log(isRatedUser , movieRateInfoUserProps)
+   console.log(movieRateInfoUserProps)
+    const [actingValue, setActingValue] = useState<number|undefined>();
+    const [storyValue, setStoryValue] = useState<number|undefined>();
+    const [dialogueValue, setDialogueValue] = useState<number|undefined>();
+    const [directingValue, setDirectingValue] = useState<number|undefined>();
+    const [cinematographyValue, setCinematographyValue] = useState<number|undefined>();
+    const [visualEffectsValue, setVisualEffectsValue] = useState<number|undefined>();
+    const [soundEffectsValue, setSoundEffectsValue] = useState<number|undefined>();
 
     const [opened, setOpened] = useState(false);
 
@@ -44,13 +45,13 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
 
     const form = useForm({
         initialValues: {
-            acting: actingValue,
-            story: storyValue,
-            dialogue: dialogueValue,
-            directing: directingValue,
-            cinematography: cinematographyValue,
-            visual_effects: visualEffectsValue,
-            sound_effects: soundEffectsValue,
+            acting: actingValue||5,
+            story: storyValue||5,
+            dialogue: dialogueValue||5,
+            directing: directingValue||5,
+            cinematography: cinematographyValue||5,
+            visual_effects: visualEffectsValue||5,
+            sound_effects: soundEffectsValue||5,
             tmdb_id: tmdb_id,
             title: title,
             media_type: media_type,
@@ -133,7 +134,7 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
 
    // const modals = useModals();
     const confirmAddModal = () => {
-//console.log(form.values)
+console.log(form.values)
         openConfirmModal({
             title: modalType?.title,
             centered: true,
@@ -174,8 +175,18 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
         }
     }
     useEffect(() => {
+        console.log("fffffffffff" , form.values)
+
       //  console.log(user)
-      
+      // fix this
+      setActingValue(movieRateInfoUserProps ? movieRateInfoUserProps.acting :5 )
+      setStoryValue(movieRateInfoUserProps?.story ?movieRateInfoUserProps?.story : 5)
+      setDialogueValue(movieRateInfoUserProps?.dialogue ?movieRateInfoUserProps?.dialogue : 5)
+      setDirectingValue(movieRateInfoUserProps?.directing ?movieRateInfoUserProps?.directing : 5)
+      setCinematographyValue(movieRateInfoUserProps?.cinematography ?movieRateInfoUserProps?.cinematography : 5)
+      setVisualEffectsValue(movieRateInfoUserProps?.visual_effects ?movieRateInfoUserProps?.visual_effects : 5)
+      setSoundEffectsValue(movieRateInfoUserProps?.sound_effects ?movieRateInfoUserProps?.sound_effects : 5)
+
         if (user !== null) {
             setModalType({
                 title: "Add a rate",
@@ -195,7 +206,11 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
                 ConfirmFunc: routeLogin ,
                 CancelFunc: CloseDrawer,
             })
-    }, [form.values])
+       //     return () => {
+     
+      //      }
+    }, [opened ])
+    
     return (
         <>
             <Drawer
@@ -220,47 +235,61 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
                 }}
             >
                 <AddSlider field="acting"
-                    value={actingValue}
+                    value={actingValue
+                            }
                     setValue={setActingValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
                 <AddSlider field="story"
-                    value={storyValue}
+                    value={storyValue       
+                              }
                     setValue={setStoryValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
                 <AddSlider field="dialogue"
-                    value={dialogueValue}
+                    value={dialogueValue
+                          }
                     setValue={setDialogueValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
                 <AddSlider field="directing"
-                    value={directingValue}
+                    value={directingValue
+                            }
                     setValue={setDirectingValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
 
                 <AddSlider field="cinematography"
-                    value={cinematographyValue}
+                    value={cinematographyValue
+                            }
                     setValue={setCinematographyValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
                 <AddSlider field="visual_effects"
-                    value={visualEffectsValue}
+                    value={visualEffectsValue
+                            }
                     setValue={setVisualEffectsValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
                 <AddSlider field="sound_effects"
-                    value={soundEffectsValue}
+                    value={soundEffectsValue
+                            }
                     setValue={setSoundEffectsValue}
                     addToForm={form.setFieldValue}
-
+                    isRatedUser={isRatedUser}
+                    opened={opened}
                 />
 
                 <form onSubmit={form.onSubmit(confirmAddModal)}>

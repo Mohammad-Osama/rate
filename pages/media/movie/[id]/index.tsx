@@ -35,11 +35,11 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound }: X) => {
-    console.log("movie", movieRateInfoProps)
-    console.log("user", movieRateInfoUserProps)
+ //   console.log("movie", movieRateInfoProps)
+  //  console.log("user", movieRateInfoUserProps)
     
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
-    console.log("ratingStatus paretn", isRatedUser)
+  //  console.log("ratingStatus paretn", isRatedUser)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
