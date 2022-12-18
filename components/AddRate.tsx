@@ -305,7 +305,7 @@ console.log(form.values)
     
     return (
         <>
-            <Drawer
+            <Drawer 
                 opened={opened}
                 onClose={() => setOpened(false)}
             //    onClick={() =>{form.setFieldValue("acting",actingValue)}}
@@ -410,7 +410,7 @@ console.log(form.values)
                     </Group>
                 </form>
             </Drawer>
-            <Group position="center">
+            <Group position="center" mt="-xl">
                 <Button onClick={() => {fillForm()
                                         setOpened(true)}
                                              }>

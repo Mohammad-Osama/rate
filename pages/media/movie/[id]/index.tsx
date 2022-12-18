@@ -87,7 +87,17 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
     function ValueBadge(x: number) {
         return (
-            <Badge color="green" size="xl" variant="filled">{x}</Badge>
+            <Badge //color="green"
+                   size="xl"
+                   variant="filled"
+                   styles={{
+                       inner:{color:"white" ,
+                            fontSize:"15px"
+                                },
+                            }
+                        }>
+                {x}
+            </Badge>
         );
     }
 useEffect(() => {
@@ -175,21 +185,21 @@ useEffect(() => {
                             isRatedUser={isRatedUser}
                             movieRateInfoUserProps={movieRateInfoUserProps}
                         />
-                            { isRatedUser===true
+                           {/*  { isRatedUser===true
                               ?<Text>voted</Text>
                               :<Text>didnt vote</Text>
 
-                            }
+                            } */}
                         {movieRateInfoUserProps !== null &&
-                            <>
-                                <Text ml="40%" mt="xs"
+                            <div>
+                                <Text ml="40%" mt="xl"
                                     color="blue"
                                     size="xl"
                                     weight={800}
                                 >
                                     My Rating
                                 </Text>
-                                <Grid mt="xs">
+                                <Grid mt="xl">
                                     {
                                         Object.entries(movieRateInfoUserProps)
                                             .filter(([key]) => key !== '_id' &&
@@ -201,13 +211,20 @@ useEffect(() => {
                                             .map(([key, value]) => {
                                                 return <Grid.Col span={6} key={key}>
 
-                                                    <Badge size="lg"
+                                                    <Badge size="lg" h={35} 
                                                         radius="xl"
                                                         color="blue"
                                                         style={{
                                                             backgroundColor: "#373A40",
-                                                            borderColor: "#1A1B1E"
+                                                            borderColor: "#5C5F66",
+                                                          
                                                         }}
+                                                        styles={{
+                                                            inner:{color:"white" ,
+                                                                 fontSize:"15px"
+                                                                     },
+                                                                 }
+                                                             }
                                                         leftSection={ValueBadge(value)}
                                                     >
                                                         {key}
@@ -217,7 +234,7 @@ useEffect(() => {
                                     }
 
                                 </Grid>
-                            </>
+                            </div>
                         }
 
                     </div>
