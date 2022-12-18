@@ -75,9 +75,13 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
 
     const handleSubmit = () => {
         const values = form.values;
+        const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
+		const config = {
+			headers: { Authorization: `Bearer ` + token }
+		};
      //   console.log("vvvv", values)
         axios.post('/api/rate/movies/addrate',
-            values)
+            values,config)
             .then((response) => {
                 console.log("resssssssssssss", response)
                 openConfirmModal({
@@ -145,8 +149,12 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
     const handleEdit = () => {
         const values = form.values;
        console.log("edit form values--->>", values)
+       const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
+		const config = {
+			headers: { Authorization: `Bearer ` + token }
+		};
         axios.post('/api/rate/movies/editrate',
-            values)
+            values,config)
             .then((response) => {
                 console.log("resssssssssssss", response)
                 openConfirmModal({
@@ -266,7 +274,7 @@ console.log(form.values)
                     labelConfirm: "Yes , add this rate",
                     labelCancel: "Go back",
                     ConfirmFunc: handleSubmit,
-                    CancelFunc: CloseDrawer,
+                    CancelFunc: openDrawer,
                 })
             }
             else {
@@ -276,7 +284,7 @@ console.log(form.values)
                     labelConfirm: "Yes , edit this rate",
                     labelCancel: "Go back",
                     ConfirmFunc: handleEdit,
-                    CancelFunc: CloseDrawer,
+                    CancelFunc: openDrawer,
                 })
             }
         }
@@ -301,7 +309,11 @@ console.log(form.values)
                 opened={opened}
                 onClose={() => setOpened(false)}
             //    onClick={() =>{form.setFieldValue("acting",actingValue)}}
-                title="Add your rate"
+                title= {movieRateInfoUserProps===null
+                        ?"Add Your Rate"
+                        :"Edit Your Rate"
+                          }
+               
                 padding="xl"
                 size="xl"
                 styles={{
@@ -403,8 +415,8 @@ console.log(form.values)
                                         setOpened(true)}
                                              }>
                     {isRatedUser
-                     ?"Edit your rating"
-                     :"Add your rate"
+                     ?"Edit Your Rate"
+                     :"Add Your Rate"
                     }
                     
                 </Button>
