@@ -120,7 +120,32 @@ useEffect(() => {
         return (<div>Error Page</div>)
     else
         return (
-            <Container size="xl">
+            <Container size="xl">  
+                <Group position="apart" mr="10vw" ml="10vw" mb="md"
+                            //maybe change mr and ml later 
+                >
+                    <div>
+                <Text
+              //  p="xl"
+                align="justify"
+                weight={700}
+                color="white"
+                style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
+                  >
+                {title}
+              </Text>
+              <Text 
+                   size="xl" 
+                    color="#ADB5BD"
+              >
+                 movie details ?
+             </Text>
+              </div>
+              <Badge>
+                  7
+              </Badge>
+
+                </Group>
                 <SimpleGrid cols={2} spacing="lg"
                     breakpoints={[
                         { maxWidth: 1024, cols: 2, spacing: 'md' },
