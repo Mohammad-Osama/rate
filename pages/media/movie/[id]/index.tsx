@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { IMovie, IMovieRate , IRate } from '../../../../helpers/types';
+import { IMovie, IMovieRate, IRate } from '../../../../helpers/types';
 import { IRate as IRateModelType, Rate as RateModel } from "../../../../models/rateModel"
 
 import { Container, SimpleGrid, Grid, Image, Badge, Slider, Drawer, Button, Group, Progress, Text } from '@mantine/core';
@@ -17,7 +17,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
-import { useState, useEffect } from 'react';
+import { useState, useEffect ,useMemo} from 'react';
 import mongoose from "mongoose"
 
 import { authState } from '../../../../redux/slices/authSlice';
@@ -35,19 +35,27 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound }: X) => {
- //   console.log("movie", movieRateInfoProps)
-  //  console.log("user", movieRateInfoUserProps)
-    
+    //   console.log("movie", movieRateInfoProps)
+    //  console.log("user", movieRateInfoUserProps)
+   // console.log("movie from tmdb", movieInfoProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
-  //  console.log("ratingStatus paretn", isRatedUser)
+    //  console.log("ratingStatus paretn", isRatedUser)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
     const dispatch = useDispatch<AppDispatch>()
     //  console.log(movieInfoProps)
-    const { id, poster_path, title } = movieInfoProps
+    const { id,
+        poster_path,
+        title,
+        release_date,
+        original_language,
+        runtime,
+        vote_average,
+        vote_count
+    } = movieInfoProps
     // const medtype = media_type
-
+  //  const mainArea :any = React.useMemo( () => <AddRate/>, [] );
     const actingData = Math.round((acting / rating_count) * 10) / 10
     const storyData = Math.round((story / rating_count) * 10) / 10
     const dialogueData = Math.round((dialogue / rating_count) * 10) / 10
@@ -88,30 +96,30 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     function ValueBadge(x: number) {
         return (
             <Badge //color="green"
-                   size="xl"
-                   variant="filled"
-                   styles={{
-                       inner:{color:"white" ,
-                            fontSize:"15px"
-                                },
-                            }
-                        }>
+                size="xl"
+                variant="filled"
+                styles={{
+                    inner: {
+                        color: "white",
+                        fontSize: "15px"
+                    },
+                }
+                }>
                 {x}
             </Badge>
         );
     }
-useEffect(() => {
-    if (movieRateInfoUserProps===null)
-       {
-         setIsRatedUser(false) 
-         }
-    else {
-        setIsRatedUser(true)
-      }
-      return () => {
-       
-    }
-}, [])
+    useEffect(() => {
+        if (movieRateInfoUserProps === null) {
+            setIsRatedUser(false)
+        }
+        else {
+            setIsRatedUser(true)
+        }
+        return () => {
+
+        }
+    }, [])
 
 
 
@@ -120,30 +128,34 @@ useEffect(() => {
         return (<div>Error Page</div>)
     else
         return (
-            <Container size="xl">  
-                <Group position="apart" mr="10vw" ml="10vw" mb="md"
-                            //maybe change mr and ml later 
+            <Container size="xl">
+                <Group position="apart" m="xl"
+                //maybe change mr and ml later 
                 >
                     <div>
-                <Text
-              //  p="xl"
-                align="justify"
-                weight={700}
-                color="white"
-                style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
-                  >
-                {title}
-              </Text>
-              <Text 
-                   size="xl" 
-                    color="#ADB5BD"
-              >
-                 movie details ?
-             </Text>
-              </div>
-              <Badge>
-                  7
-              </Badge>
+                        <Text
+                            //  p="xl"
+                            align="justify"
+                            weight={700}
+                            color="white"
+                            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
+                        >
+                            {title}
+                        </Text>
+                        <Text
+                            size="xl"
+                            color="#ADB5BD"
+                        >
+                            {release_date.substring(0,4)} - {original_language} - {runtime} minutes
+                        </Text>
+                    </div>
+                    <div>
+
+                        <Group>
+                            {ValueBadge(vote_average)}<Text ml="-md" size="xl" color="#ADB5BD">/10</Text>
+                        </Group>
+                        <Text ml="40%" size="xl" color="#ADB5BD">{vote_count}</Text>
+                    </div>
 
                 </Group>
                 <SimpleGrid cols={2} spacing="lg"
@@ -210,7 +222,7 @@ useEffect(() => {
                             isRatedUser={isRatedUser}
                             movieRateInfoUserProps={movieRateInfoUserProps}
                         />
-                           {/*  { isRatedUser===true
+                        {/*  { isRatedUser===true
                               ?<Text>voted</Text>
                               :<Text>didnt vote</Text>
 
@@ -236,20 +248,21 @@ useEffect(() => {
                                             .map(([key, value]) => {
                                                 return <Grid.Col span={6} key={key}>
 
-                                                    <Badge size="lg" h={35} 
+                                                    <Badge size="lg" h={35}
                                                         radius="xl"
                                                         color="blue"
                                                         style={{
                                                             backgroundColor: "#373A40",
                                                             borderColor: "#5C5F66",
-                                                          
+
                                                         }}
                                                         styles={{
-                                                            inner:{color:"white" ,
-                                                                 fontSize:"15px"
-                                                                     },
-                                                                 }
-                                                             }
+                                                            inner: {
+                                                                color: "white",
+                                                                fontSize: "15px"
+                                                            },
+                                                        }
+                                                        }
                                                         leftSection={ValueBadge(value)}
                                                     >
                                                         {key}
@@ -288,7 +301,7 @@ interface X {
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id, type, user } = context.query
-  //  console.log("uuuu", context.query)
+    //  console.log("uuuu", context.query)
     let movieInfo = {} as IMovie
     let movieRateInfo
     let movieRateInfoUser
@@ -325,7 +338,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 const ObjectId = mongoose.Types.ObjectId
                 const userId = new ObjectId(user as string);
 
-                const existingRateUser = await RateModel.findOne({ user: userId , tmdb_id:id })
+                const existingRateUser = await RateModel.findOne({ user: userId, tmdb_id: id })
                     .select(['-createdAt',
                         '-updatedAt',
                         '-__v'])

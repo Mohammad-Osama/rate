@@ -1,12 +1,9 @@
-import { TextInput, Button, Group, Drawer, Text } from '@mantine/core';
-import { openModal, closeAllModals } from '@mantine/modals';
-import { useState, useEffect, SetStateAction } from 'react';
+import {  Button, Group, Drawer, Text } from '@mantine/core';
+import { useState, useEffect } from 'react';
 import { useForm } from '@mantine/form';
 import AddSlider from './AddSlider';
 import axios from "axios"
-import { showNotification } from '@mantine/notifications'
-import { useModals } from '@mantine/modals';
-import { openConfirmModal , openContextModal } from '@mantine/modals';
+import { openConfirmModal  } from '@mantine/modals';
 import { useRouter } from 'next/router';
 import { IRate } from '../helpers/types';
 
@@ -16,8 +13,8 @@ interface X {
     title: string
     media_type: string
     user: string | null
-    isRatedUser :boolean|undefined
-    movieRateInfoUserProps:IRate|null
+    isRatedUser:boolean | undefined
+    movieRateInfoUserProps:IRate | null
 }
 
 interface IModalType {
@@ -28,16 +25,15 @@ interface IModalType {
     ConfirmFunc: () => void ;
     CancelFunc:  () => void ;
 }
-const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInfoUserProps }: X) => {
-   // console.log(isRatedUser , movieRateInfoUserProps)
-  // console.log(movieRateInfoUserProps)
-    const [actingValue, setActingValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting);
-    const [storyValue, setStoryValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.story);
-    const [dialogueValue, setDialogueValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.dialogue);
-    const [directingValue, setDirectingValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.directing);
-    const [cinematographyValue, setCinematographyValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.cinematography);
-    const [visualEffectsValue, setVisualEffectsValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.visual_effects);
-    const [soundEffectsValue, setSoundEffectsValue] = useState<number|undefined>(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.sound_effects);
+const AddRate = ({ tmdb_id, title, media_type, user , movieRateInfoUserProps,isRatedUser }: X) => {
+
+    const [actingValue, setActingValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting);
+    const [storyValue, setStoryValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.story);
+    const [dialogueValue, setDialogueValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.dialogue);
+    const [directingValue, setDirectingValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.directing);
+    const [cinematographyValue, setCinematographyValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.cinematography);
+    const [visualEffectsValue, setVisualEffectsValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.visual_effects);
+    const [soundEffectsValue, setSoundEffectsValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.sound_effects);
 
     const [opened, setOpened] = useState(false);
 
@@ -45,8 +41,7 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
 
     const form = useForm({
         initialValues: {
-           acting: actingValue,
-      //  acting :movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting  ,
+            acting: actingValue,
             story: storyValue,
             dialogue: dialogueValue,
             directing: directingValue,
@@ -75,15 +70,16 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
 
     const handleSubmit = () => {
         const values = form.values;
-        const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
+     //  console.log("submit for values", values)
+     const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
 		const config = {
 			headers: { Authorization: `Bearer ` + token }
 		};
-     //   console.log("vvvv", values)
         axios.post('/api/rate/movies/addrate',
-            values,config)
+            values,
+            config)
             .then((response) => {
-                console.log("resssssssssssss", response)
+             //   console.log("resssssssssssss", response)
                 openConfirmModal({
                    title: ' Rate succesfully added  !',
                     centered: true,
@@ -136,27 +132,20 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
                  });
 			})
     }
-    const fillForm=()=>{
 
-        form.setFieldValue("acting",actingValue)
-        form.setFieldValue("story",storyValue)
-        form.setFieldValue("dialogue",dialogueValue)
-        form.setFieldValue("directing",directingValue)
-        form.setFieldValue("cinematography",cinematographyValue)
-        form.setFieldValue("visual_effects",visualEffectsValue)
-        form.setFieldValue("sound_effects",soundEffectsValue)
-    }
     const handleEdit = () => {
         const values = form.values;
-       console.log("edit form values--->>", values)
-       const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
+     //  console.log("edit form values--->>", values)
+      /*  const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
 		const config = {
 			headers: { Authorization: `Bearer ` + token }
-		};
+		}; */
         axios.post('/api/rate/movies/editrate',
-            values,config)
+            values,
+          //  config
+            )
             .then((response) => {
-                console.log("resssssssssssss", response)
+             //   console.log("resssssssssssss", response)
                 openConfirmModal({
                    title: ' Rate Succesfully Edited  !',
                     centered: true,
@@ -212,7 +201,7 @@ const AddRate = ({ tmdb_id, title, media_type, user , isRatedUser , movieRateInf
 
    // const modals = useModals();
     const confirmAddModal = () => {
-console.log(form.values)
+//console.log(form.values)
         openConfirmModal({
             title: modalType?.title,
             centered: true,
@@ -253,67 +242,46 @@ console.log(form.values)
         }
     }
     useEffect(() => {
-        console.log("fffffffffff" , form.values)
-
       //  console.log(user)
-      // fix this
-   //   setActingValue(movieRateInfoUserProps===null ? 4 : movieRateInfoUserProps.acting  )
-   //   setActingValue(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting)
-   //   setStoryValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.story)
-    //  setDialogueValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps.dialogue)
-    //  setDirectingValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.directing)
-    //  setCinematographyValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.cinematography)
-  //    setVisualEffectsValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.visual_effects)
-   //   setSoundEffectsValue(movieRateInfoUserProps===null ? 5 :movieRateInfoUserProps?.sound_effects)
-
-        if (user !== null) {
-            if (movieRateInfoUserProps ===null) {
-                setModalType({
-                    title: "Add a rate",
-                    text: "Are u sure you want to add this rating ?",
-                    labelConfirm: "Yes , add this rate",
-                    labelCancel: "Go back",
-                    ConfirmFunc: handleSubmit,
-                    CancelFunc: openDrawer,
-                })
-            }
-            else {
-                setModalType({
-                    title: "Edit Your Rate",
-                    text: "Are u sure you want to edit this rating ?",
-                    labelConfirm: "Yes , edit this rate",
-                    labelCancel: "Go back",
-                    ConfirmFunc: handleEdit,
-                    CancelFunc: openDrawer,
-                })
-            }
-        }
-        else
+      if (user !== null) {
+        if (movieRateInfoUserProps ===null) {
             setModalType({
-                title: "Login required",
-                text: "Please login before adding your rate",
-                labelConfirm: "Login",
+                title: "Add a rate",
+                text: "Are u sure you want to add this rating ?",
+                labelConfirm: "Yes , add this rate",
                 labelCancel: "Go back",
-                ConfirmFunc: routeLogin ,
-                CancelFunc: CloseDrawer,
+                ConfirmFunc: handleSubmit,
+                CancelFunc: openDrawer,
             })
-            return () => {
-                
-   //   setActingValue(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting)
-            }
-    }, [opened  ])
-    
+        }
+        else {
+            setModalType({
+                title: "Edit Your Rate",
+                text: "Are u sure you want to edit this rating ?",
+                labelConfirm: "Yes , edit this rate",
+                labelCancel: "Go back",
+                ConfirmFunc: handleEdit,
+                CancelFunc: openDrawer,
+            })
+        }
+    }
+    else
+        setModalType({
+            title: "Login required",
+            text: "Please login before adding your rate",
+            labelConfirm: "Login",
+            labelCancel: "Go back",
+            ConfirmFunc: routeLogin ,
+            CancelFunc: CloseDrawer,
+        })
+        
+    }, [form.values])
     return (
         <>
-            <Drawer 
+            <Drawer
                 opened={opened}
                 onClose={() => setOpened(false)}
-            //    onClick={() =>{form.setFieldValue("acting",actingValue)}}
-                title= {movieRateInfoUserProps===null
-                        ?"Add Your Rate"
-                        :"Edit Your Rate"
-                          }
-               
+                title="Add your rate"
                 padding="xl"
                 size="xl"
                 styles={{
@@ -331,75 +299,48 @@ console.log(form.values)
 
                 }}
             >
-               {/*  <Slider value={actingValue}
-                  onChange={(value) => {
-                    setValue(value)
-                    addToForm(field, value)
-
-                }
-                }
-                max={10}
-                step={1}
-                min={0}
-                defaultValue={3}
-                labelAlwaysOn 
-            /> */}
                 <AddSlider field="acting"
-                    value={actingValue
-                            }
+                    value={actingValue}
                     setValue={setActingValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
                 <AddSlider field="story"
-                    value={storyValue       
-                              }
+                    value={storyValue}
                     setValue={setStoryValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
                 <AddSlider field="dialogue"
-                    value={dialogueValue
-                          }
+                    value={dialogueValue}
                     setValue={setDialogueValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
                 <AddSlider field="directing"
-                    value={directingValue
-                            }
+                    value={directingValue}
                     setValue={setDirectingValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
 
                 <AddSlider field="cinematography"
-                    value={cinematographyValue
-                            }
+                    value={cinematographyValue}
                     setValue={setCinematographyValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
                 <AddSlider field="visual_effects"
-                    value={visualEffectsValue
-                            }
+                    value={visualEffectsValue}
                     setValue={setVisualEffectsValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
                 <AddSlider field="sound_effects"
-                    value={soundEffectsValue
-                            }
+                    value={soundEffectsValue}
                     setValue={setSoundEffectsValue}
                     addToForm={form.setFieldValue}
-                    isRatedUser={isRatedUser}
-                    opened={opened}
+
                 />
 
                 <form onSubmit={form.onSubmit(confirmAddModal)}>
@@ -410,15 +351,12 @@ console.log(form.values)
                     </Group>
                 </form>
             </Drawer>
-            <Group position="center" mt="-xl">
-                <Button onClick={() => {fillForm()
-                                        setOpened(true)}
-                                             }>
-                    {isRatedUser
+            <Group position="center">
+                <Button onClick={() => setOpened(true)}>
+                {isRatedUser
                      ?"Edit Your Rate"
                      :"Add Your Rate"
                     }
-                    
                 </Button>
             </Group>
         </>

@@ -9,7 +9,6 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     await clientPromise()
     const authStatus = await authJwt(req,res)
     if (authStatus==="authorized"){
-     //console.log( "req bodyyyyy" , req.body)
     const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id }) 
     // if the movie exists in the database 
      if (exisitingMovie) {  
@@ -37,7 +36,6 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                              "visual_effects" : req.body.visual_effects ,
                              "sound_effects" : req.body.sound_effects ,
                              "directing" : req.body.directing ,
- 
                            } 
                    } ,
                     { returnDocument: "after" }
@@ -92,13 +90,9 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
              directing: req.body.directing,
          })
          res.status(201).json({newMovie , newRate})
- 
     }
   }
   else {
     res.status(400).json("not authorized")
   }
-  
-
-
 }
