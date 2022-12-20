@@ -3,8 +3,25 @@ import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
 import { IMovie, IMovieRate, IRate } from '../../../../helpers/types';
 import { IRate as IRateModelType, Rate as RateModel } from "../../../../models/rateModel"
-
-import { Container, SimpleGrid, Grid, Image, Badge, Slider, Drawer, Button, Group, Progress, Text } from '@mantine/core';
+import * as colors from '../../../../helpers/colors'
+import {
+    Container,
+    SimpleGrid,
+    Grid,
+    Image,
+    Badge,
+    Slider,
+    Drawer,
+    Button,
+    Group,
+    Progress,
+    Text,
+    Space,
+    Card,
+    Stack,
+    Flex,
+    Divider 
+} from '@mantine/core';
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -17,7 +34,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
-import { useState, useEffect ,useMemo} from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import mongoose from "mongoose"
 
 import { authState } from '../../../../redux/slices/authSlice';
@@ -37,7 +54,7 @@ ChartJS.register(
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound }: X) => {
     //   console.log("movie", movieRateInfoProps)
     //  console.log("user", movieRateInfoUserProps)
-   // console.log("movie from tmdb", movieInfoProps)
+    // console.log("movie from tmdb", movieInfoProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
     //  console.log("ratingStatus paretn", isRatedUser)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
@@ -55,7 +72,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         vote_count
     } = movieInfoProps
     // const medtype = media_type
-  //  const mainArea :any = React.useMemo( () => <AddRate/>, [] );
+    //  const mainArea :any = React.useMemo( () => <AddRate/>, [] );
     const actingData = Math.round((acting / rating_count) * 10) / 10
     const storyData = Math.round((story / rating_count) * 10) / 10
     const dialogueData = Math.round((dialogue / rating_count) * 10) / 10
@@ -146,11 +163,16 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             size="xl"
                             color="#ADB5BD"
                         >
-                            {release_date.substring(0,4)} - {original_language} - {runtime} minutes
+                            {release_date.substring(0, 4)} - {original_language} - {runtime} minutes
                         </Text>
                     </div>
                     <div>
-
+                        <Text size="xl"
+                            color="#ADB5BD"
+                        // mb='md'
+                        >
+                            TMDB Rating
+                        </Text>
                         <Group>
                             {ValueBadge(vote_average)}<Text ml="-md" size="xl" color="#ADB5BD">/10</Text>
                         </Group>
@@ -163,14 +185,17 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         { maxWidth: 1024, cols: 2, spacing: 'md' },
                         { maxWidth: 768, cols: 2, spacing: 'sm' },
                         { maxWidth: 500, cols: 1, spacing: 'sm' },
-                    ]} >
+                    ]}
+                //   style={{backgroundColor:"#212529"}}
+                >
                     <Image
                         src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
                         fit="contain"
                         alt={title}
                     />
 
-                    <div style={{}}>
+                    <div style={{}} //second col in simple grid
+                    >
                         <Radar options={{
                             responsive: true,
                             maintainAspectRatio: true,
@@ -283,6 +308,94 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 media_type={media_type}
                 user={user}
             /> */}
+                <Space h="md" />
+                <SimpleGrid cols={2} spacing="lg"
+                    breakpoints={[
+                        { maxWidth: 1024, cols: 2, spacing: 'md' },
+                        { maxWidth: 768, cols: 2, spacing: 'sm' },
+                        { maxWidth: 500, cols: 1, spacing: 'sm' },
+                    ]} >
+
+
+                    <Card radius="md" // first col in 2nd simple grid
+                        p="md"
+                        style={{ backgroundColor: colors.bodyBackground }}>
+
+                        <Card.Section>
+                            <Text mb="md"
+                                size="xl"
+                                color="#ADB5BD"
+                            >
+                                {movieInfoProps.tagline}
+                            </Text>
+                            <Text align="justify"
+                                weight={700}
+                                color="white"
+                                style={{
+                                    fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                    fontSize: "25px",
+                                    backgroundColor: "#373A40"
+                                }}>
+                                {movieInfoProps.overview}
+                            </Text>
+
+                        </Card.Section>
+
+
+                    </Card>
+
+                    {/* <Flex // second col in simple grid
+                          //  mih={50}
+                           // bg="rgba(0, 0, 0, .3)"
+                           // gap="xs"
+                            justify="flex-start"
+                            align="center"
+                            direction="row"
+                            wrap="wrap"
+                    > */}
+                    <Stack m="xl">
+                        <Group position="left">
+                            {movieInfoProps.genres.map((x) => {
+
+                                return <Button color="dark"
+                                    style={{ borderColor: "white" }}
+
+                                    radius="xl"
+                                    key={x.id}
+                                >
+                                    {x.name}
+                                </Button>
+                            })}
+                        </Group>
+                        <Divider/>
+                        <Text align="justify"
+                                weight={700}
+                                color="white"
+                                style={{
+                                    fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                    fontSize: "20px",
+                                    backgroundColor: "#373A40"
+                                }}>
+
+                            Director : Jaume Collet-Serra
+                        </Text>
+                        <Text mb="md"
+                                size="xl"
+                                color="#ADB5BD">
+
+                            Director   Jaume Collet-Serra
+                        </Text>
+
+                        <Text mb="md"
+                                size="xl"
+                                color="#ADB5BD">
+
+                            Director   Jaume Collet-Serra
+                        </Text>
+                        </Stack>
+                 {/*    </Flex> */}
+
+                </SimpleGrid>
 
 
             </Container>
