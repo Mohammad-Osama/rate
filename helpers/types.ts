@@ -231,3 +231,10 @@ export interface ICrew {
     department: string,
     job: string,
 }
+
+export interface ICredits {
+    id :number 
+    cast : ICast[]
+    crew : ICrew[]
+
+}
