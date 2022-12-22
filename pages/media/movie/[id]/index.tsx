@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { IMovie, IMovieRate, IRate } from '../../../../helpers/types';
+import { ICredits, IMovie, IMovieRate, IRate } from '../../../../helpers/types';
 import { IRate as IRateModelType, Rate as RateModel } from "../../../../models/rateModel"
 import * as colors from '../../../../helpers/colors'
 import {
@@ -20,7 +20,7 @@ import {
     Card,
     Stack,
     Flex,
-    Divider 
+    Divider
 } from '@mantine/core';
 import {
     Chart as ChartJS,
@@ -51,7 +51,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound }: X) => {
+const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
     //   console.log("movie", movieRateInfoProps)
     //  console.log("user", movieRateInfoUserProps)
     // console.log("movie from tmdb", movieInfoProps)
@@ -140,6 +140,33 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
 
 
+  //  const findDirector = () => {
+        //  let final
+        
+       // console.log(found.length)
+      //  if (found.length > 0)
+      //   { // try it at the text 
+      /*        found.map((item,index)=>{
+               if (index===found.length-1)
+               return (item)
+               else 
+               return( item +",")
+             })
+         } 
+    } */
+
+    //findDirector()
+    const writers = movieInfoCreditsProps.crew.filter(m =>
+        m.job === "Writer"
+    ).map((x) => {
+        return x.name
+    })
+
+    const directors = movieInfoCreditsProps.crew.filter(m =>
+        m.job === "Director"
+    ).map((x) => {
+        return x.name
+    })
 
     if (notFound === true)
         return (<div>Error Page</div>)
@@ -308,6 +335,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 media_type={media_type}
                 user={user}
             /> */}
+                <Divider />
                 <Space h="md" />
                 <SimpleGrid cols={2} spacing="lg"
                     breakpoints={[
@@ -367,33 +395,69 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 </Button>
                             })}
                         </Group>
-                        <Divider/>
+                        <Divider />
+
                         <Text align="justify"
-                                weight={700}
-                                color="white"
-                                style={{
-                                    fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                                    fontSize: "20px",
-                                    backgroundColor: "#373A40"
-                                }}>
+                            weight={700}
+                            color="white"
+                            style={{
+                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                fontSize: "20px",
+                                backgroundColor: "#373A40",
+                               // wordWrap:"break-word",
+                              //  display:"flex",
+                              //  justifyContent:"flex-start",
+                                wordSpacing:"1px",
+                            }}>
 
-                            Director : Jaume Collet-Serra
+                            Writer: {
+                                writers.map((item,index)=>{
+                                    if (index===writers.length-1)
+                                    return item
+                                    else 
+                                    return item +" ,"
+                                  })
+                            } 
+                           
                         </Text>
+                         {/*  {movieInfoCreditsProps.crew.map((m)=>{
+                            if (m.job==="Director")
+                            return  <span>{m.name} </span>
+                        })
+
+                        } */}
+                        <Text align="justify"
+                            weight={700}
+                            color="white"
+                            style={{
+                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                fontSize: "20px",
+                                backgroundColor: "#373A40",
+                               // wordWrap:"break-word",
+                              //  display:"flex",
+                              //  justifyContent:"flex-start",
+                                wordSpacing:"1px",
+                            }}>
+
+                            Director: {
+                                directors.map((item,index)=>{
+                                    if (index===directors.length-1)
+                                    return item
+                                    else 
+                                    return item +" ,"
+                                  })
+                            } 
+                           
+                        </Text>
+
                         <Text mb="md"
-                                size="xl"
-                                color="#ADB5BD">
+                            size="xl"
+                            color="#ADB5BD">
 
                             Director   Jaume Collet-Serra
                         </Text>
-
-                        <Text mb="md"
-                                size="xl"
-                                color="#ADB5BD">
-
-                            Director   Jaume Collet-Serra
-                        </Text>
-                        </Stack>
-                 {/*    </Flex> */}
+                    </Stack>
+                    {/*    </Flex> */}
 
                 </SimpleGrid>
 
@@ -406,6 +470,7 @@ export default index
 
 interface X {
     movieInfoProps: IMovie
+    movieInfoCreditsProps: ICredits
     media_type: string
     movieRateInfoProps: IMovieRate
     movieRateInfoUserProps: IRate | null
@@ -418,11 +483,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
     let movieInfo = {} as IMovie
     let movieRateInfo
     let movieRateInfoUser
+    let movieCredits
     try {
         if (type === "movie") {
             const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
             const data = await response.json()
             movieInfo = data
+            const responseCredits = await fetch(`${tmdb.urlMovie}${id}/credits?api_key=${tmdb.key}&language=en-US`)
+            const dataCredits = await responseCredits.json()
+            movieCredits = dataCredits
             const rateResponse = await Movie.findOne({ tmdb_id: id })
                 .select(['-createdAt',
                     '-updatedAt',
@@ -463,6 +532,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
             return {
                 props: {
                     movieInfoProps: movieInfo,
+                    movieInfoCreditsProps: movieCredits,
                     media_type: type as string,
                     movieRateInfoProps: movieRateInfo as IMovieRate,
                     movieRateInfoUserProps: movieRateInfoUser as IRate,
@@ -476,6 +546,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
             return {
                 props: {
                     movieInfoProps: {} as IMovie,
+                    movieInfoCreditsProps: {} as ICredits,
                     media_type: type as string,
                     movieRateInfoProps: {} as IMovieRate,
                     movieRateInfoUserProps: null,
@@ -487,6 +558,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
         return {
             props: {
                 movieInfoProps: {} as IMovie,
+                movieInfoCreditsProps: {} as ICredits,
                 media_type: type as string,
                 movieRateInfoProps: {} as IMovieRate,
                 movieRateInfoUserProps: null,
