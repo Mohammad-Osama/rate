@@ -20,7 +20,8 @@ import {
     Card,
     Stack,
     Flex,
-    Divider
+    Divider,
+    Accordion
 } from '@mantine/core';
 import {
     Chart as ChartJS,
@@ -42,6 +43,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { AppDispatch } from '../../../../redux/store';
 import { Movie } from '../../../../models/movieModel';
+import Link from 'next/link';
+import AccordionPeople from '../../../../components/AccordionPeople';
+
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
     RadialLinearScale,
@@ -140,20 +144,20 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
 
 
-  //  const findDirector = () => {
-        //  let final
-        
-       // console.log(found.length)
-      //  if (found.length > 0)
-      //   { // try it at the text 
-      /*        found.map((item,index)=>{
-               if (index===found.length-1)
-               return (item)
-               else 
-               return( item +",")
-             })
-         } 
-    } */
+    //  const findDirector = () => {
+    //  let final
+
+    // console.log(found.length)
+    //  if (found.length > 0)
+    //   { // try it at the text 
+    /*        found.map((item,index)=>{
+             if (index===found.length-1)
+             return (item)
+             else 
+             return( item +",")
+           })
+       } 
+  } */
 
     //findDirector()
     const writers = movieInfoCreditsProps.crew.filter(m =>
@@ -357,7 +361,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 {movieInfoProps.tagline}
                             </Text>
                             <Text align="justify"
-                                weight={700}
+                                weight={100}
                                 color="white"
                                 style={{
                                     fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
@@ -404,23 +408,23 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
                                 fontSize: "20px",
                                 backgroundColor: "#373A40",
-                               // wordWrap:"break-word",
-                              //  display:"flex",
-                              //  justifyContent:"flex-start",
-                                wordSpacing:"1px",
+                                // wordWrap:"break-word",
+                                //  display:"flex",
+                                //  justifyContent:"flex-start",
+                                wordSpacing: "1px",
                             }}>
 
                             Writer: {
-                                writers.map((item,index)=>{
-                                    if (index===writers.length-1)
-                                    return item
-                                    else 
-                                    return item +" ,"
-                                  })
-                            } 
-                           
+                                writers.map((item, index) => {
+                                    if (index === writers.length - 1)
+                                        return <Link href="/person" key={index}>{item}</Link>
+                                    else
+                                        return <React.Fragment key={index}><Link href={`/${item}`} >{item}</Link> <> , </></React.Fragment>
+                                })
+                            }
+
                         </Text>
-                         {/*  {movieInfoCreditsProps.crew.map((m)=>{
+                        {/*  {movieInfoCreditsProps.crew.map((m)=>{
                             if (m.job==="Director")
                             return  <span>{m.name} </span>
                         })
@@ -433,35 +437,46 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
                                 fontSize: "20px",
                                 backgroundColor: "#373A40",
-                               // wordWrap:"break-word",
-                              //  display:"flex",
-                              //  justifyContent:"flex-start",
-                                wordSpacing:"1px",
+                                // wordWrap:"break-word",
+                                //  display:"flex",
+                                //  justifyContent:"flex-start",
+                                wordSpacing: "1px",
                             }}>
 
                             Director: {
-                                directors.map((item,index)=>{
-                                    if (index===directors.length-1)
-                                    return item
-                                    else 
-                                    return item +" ,"
-                                  })
-                            } 
-                           
+                                directors.map((item, index) => {
+                                    if (index === directors.length - 1)
+                                        return <Link href="/person" key={index}>{item}</Link>
+                                    else
+                                        return <React.Fragment key={index}><Link href={`/${item}`} >{item}</Link> <> , </></React.Fragment>
+                                })
+                            }
+
                         </Text>
 
-                        <Text mb="md"
-                            size="xl"
-                            color="#ADB5BD">
+                        <Text align="justify"
+                            weight={700}
+                            color="white"
+                            style={{
+                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                fontSize: "20px",
+                                backgroundColor: "#373A40",
+                                // wordWrap:"break-word",
+                                //  display:"flex",
+                                //  justifyContent:"flex-start",
+                                wordSpacing: "1px",
+                            }}>
+                            <a href={movieInfoProps.homepage as string} style={{ color: "#4DABF7" }}>Homepage </a>
+                            - <a href={movieInfoProps.imdb_id as string} style={{ color: "#4DABF7" }}>IMDB </a>
 
-                            Director   Jaume Collet-Serra
                         </Text>
                     </Stack>
                     {/*    </Flex> */}
 
                 </SimpleGrid>
-
-
+                <Space />
+                <AccordionPeople/>
+                <Space h={666} />
             </Container>
         )
 }
