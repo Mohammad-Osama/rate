@@ -13,8 +13,9 @@ interface X {
 const PersonThumb = ({dataPerson}: X) => {
    /*  const userData= useSelector(authState)
     const userId=userData.id */
-
+    
     const { id , name,profile_path , character , job } = dataPerson
+    console.log(profile_path)
     return (
         <Stack align="center"
             justify="flex-start"
@@ -31,7 +32,10 @@ const PersonThumb = ({dataPerson}: X) => {
                     as={`/media/${mediaType}/${id}?type=${mediaType}&user=${userId}`}
             > */}
                 <Image
-                    src={`${tmdb.imgUrl}${tmdb.imgSize}${profile_path}`}
+                    src={profile_path
+                        ?`${tmdb.imgUrl}${tmdb.imgSize}${profile_path}`
+                        :"/images/no_person.jpg"
+                        }
                     fit="contain"
                     alt={name}
 
