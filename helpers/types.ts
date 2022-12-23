@@ -232,9 +232,25 @@ export interface ICrew {
     job: string,
 }
 
+export interface ICastOrCrew {
+    adult: boolean,
+    gender: number|null,
+    id: number,
+    known_for_department: string,
+    name: string,
+    original_name: string,
+    popularity: number,
+    profile_path: string|null,
+    cast_id?: number,
+    character?: string,
+    credit_id: string,
+    order: number,
+    department?: string,
+    job?: string,
+}
 export interface ICredits {
     id :number 
-    cast : ICast[]
-    crew : ICrew[]
+    cast : ICastOrCrew[]
+    crew : ICastOrCrew[]
 
 }

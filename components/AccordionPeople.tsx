@@ -1,5 +1,7 @@
 import React from 'react'
-import { Accordion, createStyles } from '@mantine/core';
+import { Accordion, createStyles, SimpleGrid } from '@mantine/core';
+import { ICast, ICastOrCrew, ICrew } from '../helpers/types';
+import PersonThumb from './personThumb'
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -30,22 +32,29 @@ const useStyles = createStyles((theme) => ({
         },
     },
 }));
-const AccordionPeople = () => {
+
+
+interface X {
+    type: string
+    data: ICastOrCrew[]
+}
+const AccordionPeople = ({ type, data }: X) => {
     const { classes } = useStyles();
 
     return (
         <Accordion variant="separated" styles={{
             control: {
                 backgroundColor: "#2C2E33",
-                
-            }, 
+
+            },
             label: {
-                 color: 'white',     
-                },
-            panel :{ 
+                color: 'white',
+                fontSize:"20px"
+            },
+            panel: {
                 backgroundColor: "grey",
-                
-            } , chevron :{
+
+            }, chevron: {
                 color: "white",
             }
 
@@ -55,9 +64,23 @@ const AccordionPeople = () => {
         //  classNames={classes}
         //   className={classes.root}
         >
-            <Accordion.Item value="customization">
-                <Accordion.Control>Customization</Accordion.Control>
-                <Accordion.Panel>Colors, fonts, shadows and many other parts are customizable to fit your design needs</Accordion.Panel>
+            <Accordion.Item value="Actors">
+                <Accordion.Control>{type}</Accordion.Control>
+                <Accordion.Panel>
+                    <SimpleGrid cols={6} spacing="lg"
+                        breakpoints={[
+                            { maxWidth: 1024, cols: 6, spacing: 'md' },
+                            { maxWidth: 768, cols: 6, spacing: 'sm' },
+                            { maxWidth: 500, cols: 3, spacing: 'sm' },
+                        ]}
+                    //   style={{backgroundColor:"#212529"}}
+                    >
+                        {data.slice(0, 12).map((d) => {
+                            return <PersonThumb dataPerson={d} key={d.id} />
+                        })
+                        }
+                    </SimpleGrid>
+                </Accordion.Panel>
             </Accordion.Item>
 
         </Accordion>

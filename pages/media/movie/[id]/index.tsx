@@ -386,7 +386,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             wrap="wrap"
                     > */}
                     <Stack m="xl">
-                        <Group position="left">
+                        <Group position="left" mt={-20}>
                             {movieInfoProps.genres.map((x) => {
 
                                 return <Button color="dark"
@@ -474,8 +474,16 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     {/*    </Flex> */}
 
                 </SimpleGrid>
-                <Space />
-                <AccordionPeople/>
+                   <Space h="md"/>
+                <AccordionPeople    
+                                type="Cast"
+                                data={movieInfoCreditsProps.cast}
+                 />
+                  <Space h="md" />
+                  <AccordionPeople    
+                                type="Crew"
+                                data={movieInfoCreditsProps.crew}
+                 />
                 <Space h={666} />
             </Container>
         )
