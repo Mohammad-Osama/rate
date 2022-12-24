@@ -15,7 +15,6 @@ const PersonThumb = ({dataPerson}: X) => {
     const userId=userData.id */
     
     const { id , name,profile_path , character , job } = dataPerson
-    console.log(profile_path)
     return (
         <Stack align="center"
             justify="flex-start"

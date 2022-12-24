@@ -1,7 +1,9 @@
 import React from 'react'
-import { Accordion, createStyles, SimpleGrid } from '@mantine/core';
+import { Accordion, createStyles, SimpleGrid, Button, ActionIcon, AccordionControlProps, Box } from '@mantine/core';
 import { ICast, ICastOrCrew, ICrew } from '../helpers/types';
 import PersonThumb from './personThumb'
+import Link from 'next/link'
+
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -37,35 +39,63 @@ const useStyles = createStyles((theme) => ({
 interface X {
     type: string
     data: ICastOrCrew[]
+    id:number
 }
-const AccordionPeople = ({ type, data }: X) => {
+const AccordionPeople = ({ type, data ,id}: X) => {
     const { classes } = useStyles();
 
+
+    function AccordionControl(props: AccordionControlProps) {
+        return (
+            <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: "#2C2E33" }}>
+                <Accordion.Control {...props} mih="100%" />
+           <Link href={{
+                        pathname :"/credits/[id]",
+                        query: {
+                            id: id,
+                            type:type
+                          },
+            }}
+              as={`../credits/${id}?type=${type}`}
+              style={{width:"50%"}}
+          >
+                <Button bg="#373A40"
+                    fz="md"
+                    w="100%">
+                    See all {type}
+                </Button>
+                </Link>
+            </Box>
+        );
+    }
     return (
-        <Accordion variant="separated" styles={{
-            control: {
-                backgroundColor: "#2C2E33",
+        <Accordion defaultValue="Cast"
+            chevronPosition="left"
+            variant="separated"
+            styles={{
+                control: {
+                    backgroundColor: "#2C2E33",
 
-            },
-            label: {
-                color: 'white',
-                fontSize:"20px"
-            },
-            panel: {
-                backgroundColor: "grey",
+                },
+                label: {
+                    color: 'white',
+                    fontSize: "20px"
+                },
+                panel: {
+                    backgroundColor: "grey",
 
-            }, chevron: {
-                color: "white",
-            }
+                }, chevron: {
+                    color: "white",
+                }
 
-        }}
+            }}
             style={{ borderColor: "red" }}
             radius="xs"
         //  classNames={classes}
         //   className={classes.root}
         >
-            <Accordion.Item value="Actors">
-                <Accordion.Control>{type}</Accordion.Control>
+            <Accordion.Item value={type}>
+                <AccordionControl>{type}</AccordionControl>
                 <Accordion.Panel>
                     <SimpleGrid cols={6} spacing="lg"
                         breakpoints={[
@@ -76,13 +106,12 @@ const AccordionPeople = ({ type, data }: X) => {
                     //   style={{backgroundColor:"#212529"}}
                     >
                         {data.slice(0, 12).map((d) => {
-                            return <PersonThumb dataPerson={d} key={d.id} />
+                            return <PersonThumb dataPerson={d} key={d.credit_id} />
                         })
                         }
                     </SimpleGrid>
                 </Accordion.Panel>
             </Accordion.Item>
-
         </Accordion>
     )
 }

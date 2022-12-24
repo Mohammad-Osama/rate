@@ -478,11 +478,13 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <AccordionPeople    
                                 type="Cast"
                                 data={movieInfoCreditsProps.cast}
+                                id={movieInfoCreditsProps.id}
                  />
                   <Space h="md" />
                   <AccordionPeople    
                                 type="Crew"
                                 data={movieInfoCreditsProps.crew}
+                                id={movieInfoCreditsProps.id}
                  />
                 <Space h={666} />
             </Container>
