@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion, createStyles, SimpleGrid, Button, ActionIcon, AccordionControlProps, Box } from '@mantine/core';
+import { Accordion, createStyles, SimpleGrid, Button, ActionIcon, AccordionControlProps, Box ,Text} from '@mantine/core';
 import { ICast, ICastOrCrew, ICrew } from '../helpers/types';
 import PersonThumb from './personThumb'
 import Link from 'next/link'
@@ -40,8 +40,9 @@ interface X {
     type: string
     data: ICastOrCrew[]
     id:number
+    title:string
 }
-const AccordionPeople = ({ type, data ,id}: X) => {
+const AccordionPeople = ({ type, data ,id,title}: X) => {
     const { classes } = useStyles();
 
 
@@ -53,10 +54,11 @@ const AccordionPeople = ({ type, data ,id}: X) => {
                         pathname :"/credits/[id]",
                         query: {
                             id: id,
-                            type:type
+                         //   type:type,
+                         //   title:title
                           },
             }}
-              as={`../credits/${id}?type=${type}`}
+              as={`/credits/${id}?type=${type}&title=${title}`}
               style={{width:"50%"}}
           >
                 <Button bg="#373A40"
