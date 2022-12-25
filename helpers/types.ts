@@ -244,7 +244,7 @@ export interface ICastOrCrew {
     cast_id?: number,
     character?: string,
     credit_id: string,
-    order: number,
+    order?: number,
     department?: string,
     job?: string,
 }

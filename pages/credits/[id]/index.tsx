@@ -12,6 +12,15 @@ import { useRouter } from 'next/router'
 
 const index = ({ creditProps, type, title, notFound }: X) => {
     const router = useRouter()
+
+ function moveDirector(){
+        const removeDirector = creditProps.filter((x: ICastOrCrew) => x.job !== "Director")
+        removeDirector.unshift(...creditProps)
+       //now back at the beginning  , not working ! 
+        return removeDirector
+    }
+
+
     if (notFound === true)
         return (<div>Error Page</div>)
     else
@@ -41,12 +50,22 @@ const index = ({ creditProps, type, title, notFound }: X) => {
                         { maxWidth: 768, cols: 4, spacing: 'sm' },
                         { maxWidth: 500, cols: 3, spacing: 'sm' },
                     ]} >
-                    {creditProps.map((x) => {
+                     {type==="Cast"
+                     ? creditProps.map((x) => {
                         // if (type==="Cast")
                         return <PersonThumb dataPerson={x}
                             key={x.credit_id}
                         />
-                    })}
+                    })
+                    : moveDirector().map((x) => {
+                        console.log("in func")
+                        // if (type==="Cast")
+                        return <PersonThumb dataPerson={x}
+                            key={x.credit_id}
+                        />
+                    })
+                     }   
+                    {}
                 </SimpleGrid>
                 {/*  <div>
             {creditProps.map((c) => {
