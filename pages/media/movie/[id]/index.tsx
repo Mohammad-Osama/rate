@@ -45,6 +45,7 @@ import { AppDispatch } from '../../../../redux/store';
 import { Movie } from '../../../../models/movieModel';
 import Link from 'next/link';
 import AccordionPeople from '../../../../components/AccordionPeople';
+import CarouselGallery from '../../../../components/CarouselGallery';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -488,6 +489,21 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 id={movieInfoCreditsProps.id}
                                 title={title}
                  />
+                 <Space h="xl" />
+                 <Text
+                //  p="xl"
+                align="justify"
+                weight={300}
+                color="white"
+                style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "25px" }}
+                mb="lg"
+            >
+               Photos
+            </Text>
+                 <CarouselGallery
+                                    id={movieInfoProps.id}
+                                    type="movie"
+                    />
                 <Space h={666} />
             </Container>
         )

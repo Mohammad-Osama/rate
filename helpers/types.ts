@@ -165,8 +165,8 @@ export interface ITv {
     seasons: ISeason[]
     spoken_languages: ISpokenLanguage[]
     status: string;
-    tagline:  string;
-    type:  string;
+    tagline: string;
+    type: string;
     vote_average: number;
     vote_count: number;
 }
@@ -174,44 +174,44 @@ export interface ITv {
 
 
 export interface IMovieRate {
-    title:string;
-    tmdb_id:number;
-    rating_count : number;
-    acting:number;
-    story:number;
-    dialogue:number;
-    cinematography :number;
-    visual_effects:number;
-    sound_effects:number;
-    directing:number
-    _id :string
+    title: string;
+    tmdb_id: number;
+    rating_count: number;
+    acting: number;
+    story: number;
+    dialogue: number;
+    cinematography: number;
+    visual_effects: number;
+    sound_effects: number;
+    directing: number
+    _id: string
 }
 
 
 export interface IRate {
-    title:string;
-    tmdb_id:number;
-    user:string;
+    title: string;
+    tmdb_id: number;
+    user: string;
     media_type: string,
-    acting:number;
-    story:number;
-    dialogue:number;
-    cinematography :number;
-    visual_effects:number;
-    sound_effects:number;
-    directing:number
-    _id :string
+    acting: number;
+    story: number;
+    dialogue: number;
+    cinematography: number;
+    visual_effects: number;
+    sound_effects: number;
+    directing: number
+    _id: string
 }
 
 export interface ICast {
     adult: boolean,
-    gender: number|null,
+    gender: number | null,
     id: number,
     known_for_department: string,
     name: string,
     original_name: string,
     popularity: number,
-    profile_path: string|null,
+    profile_path: string | null,
     cast_id: number,
     character: string,
     credit_id: string,
@@ -220,13 +220,13 @@ export interface ICast {
 
 export interface ICrew {
     adult: boolean,
-    gender: number|null,
+    gender: number | null,
     id: number,
     known_for_department: string,
     name: string,
     original_name: string,
     popularity: number,
-    profile_path: string|null,
+    profile_path: string | null,
     credit_id: string,
     department: string,
     job: string,
@@ -234,13 +234,13 @@ export interface ICrew {
 
 export interface ICastOrCrew {
     adult: boolean,
-    gender: number|null,
+    gender: number | null,
     id: number,
     known_for_department: string,
     name: string,
     original_name: string,
     popularity: number,
-    profile_path: string|null,
+    profile_path: string | null,
     cast_id?: number,
     character?: string,
     credit_id: string,
@@ -249,8 +249,23 @@ export interface ICastOrCrew {
     job?: string,
 }
 export interface ICredits {
-    id :number 
-    cast : ICastOrCrew[]
-    crew : ICastOrCrew[]
+    id: number
+    cast: ICastOrCrew[]
+    crew: ICastOrCrew[]
+}
 
+export interface IBackdropOrPoster {
+    aspect_ratio:number
+    file_path: string
+    height: number
+    iso_639_1: string |null
+    vote_average:number
+    vote_count:number
+    width: number
+}
+
+export interface IImages {
+    id :number
+    backdrops :IBackdropOrPoster[]
+    posters:IBackdropOrPoster[]
 }
