@@ -17,23 +17,23 @@ import {
     Accordion
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
-import { IImages } from '../helpers/types';
+import { IVideos } from '../helpers/types';
 
 
 interface X {
     id: number
     type: string
 }
-const CarouselGallery = ({ id, type }: X) => {
+const CarouselVideos = ({ id, type }: X) => {
 
-    const [images, setImages] = useState({} as IImages)
+    const [videos, setVideos] = useState({} as IVideos)
 
-    async function getImages(id: number, type: string) {
+    async function getVideos(id: number, type: string) {
         if (type === "movie") {
             try {
-                const response = await fetch(`${tmdb.urlMovie}${id}/images?api_key=${tmdb.keyClient}&language=null`)
+                const response = await fetch(`${tmdb.urlMovie}${id}/videos?api_key=${tmdb.keyClient}&language=en-US`)
                 const data = await response.json() //as IImages
-                setImages(data)
+                setVideos(data)
             } catch (error) {
                 alert(error)
             }
@@ -47,13 +47,14 @@ const CarouselGallery = ({ id, type }: X) => {
 
     }
     useEffect(() => {
-        getImages(id, type)
+        getVideos(id, type)
     }, [])
+
     return (
         <Container >
-          
+
             <Carousel //slideSize="170%"
-                //   height={500}
+                height={500}
                 slideGap="sm"
                 controlsOffset="xs"
                 controlSize={30}
@@ -71,19 +72,24 @@ const CarouselGallery = ({ id, type }: X) => {
                     },
                 }}
             >
-                {images?.backdrops?.map((i) => {
-                    return <Carousel.Slide>
-                        <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
-                            fit="contain"
+                {videos?.results?.map((v) => {
+                    return <Carousel.Slide key={v.key}>
+                        <iframe
+                            width="100%"
                             height="100%"
+                            src={`https://www.youtube.com/embed/${v.key}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title={`${v.name}`}
+                           // style={{ overflow: "hidden" }}
                         />
                     </Carousel.Slide>
-                })
-                }
-
-            </Carousel>
-        </Container>
+                })                   
+            }
+         </Carousel>
+        </Container >
     )
 }
 
-export default CarouselGallery
+export default CarouselVideos

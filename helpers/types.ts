@@ -255,17 +255,35 @@ export interface ICredits {
 }
 
 export interface IBackdropOrPoster {
-    aspect_ratio:number
+    aspect_ratio: number
     file_path: string
     height: number
-    iso_639_1: string |null
-    vote_average:number
-    vote_count:number
+    iso_639_1: string | null
+    vote_average: number
+    vote_count: number
     width: number
 }
 
 export interface IImages {
-    id :number
-    backdrops :IBackdropOrPoster[]
-    posters:IBackdropOrPoster[]
+    id: number
+    backdrops: IBackdropOrPoster[]
+    posters: IBackdropOrPoster[]
+}
+
+export interface IVideo {
+    iso_639_1: string
+    iso_3166_1: string
+    name: string
+    key: string
+    sit: string
+    size: number
+    type: string
+    official: boolean
+    published_at: string
+    id: string
+}
+
+export interface IVideos {
+    id :number 
+    results :IVideo[]
 }
