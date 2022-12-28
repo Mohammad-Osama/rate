@@ -25,7 +25,7 @@ const AddSlider = ({ field ,value,setValue,addToForm}: X) => {
                       }
                 max={10}
                 step={1}
-                min={0}
+                min={1}
                 defaultValue={5}
                 labelAlwaysOn 
             />
