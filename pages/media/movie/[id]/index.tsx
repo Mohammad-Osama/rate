@@ -420,9 +420,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             Writer: {
                                 writers.map((item, index) => {
                                     if (index === writers.length - 1)
-                                        return <Link href="/person" key={index}>{item}</Link>
+                                        return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} >{item}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
                                 })
                             }
 
@@ -449,9 +449,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             Director: {
                                 directors.map((item, index) => {
                                     if (index === directors.length - 1)
-                                        return <Link href="/person" key={index}>{item}</Link>
+                                        return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} >{item}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
                                 })
                             }
 
