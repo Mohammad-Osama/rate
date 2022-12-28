@@ -48,6 +48,7 @@ import AccordionPeople from '../../../../components/AccordionPeople';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
 import CarouselVideos from '../../../../components/CarouselVideos';
 import SideTitle from '../../../../components/SideTitle';
+import MiddleTitle from '../../../../components/Middletitle';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -174,6 +175,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     ).map((x) => {
         return x.name
     })
+
 
     if (notFound === true)
         return (<div>Error Page</div>)
@@ -506,6 +508,39 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     id={movieInfoProps.id}
                     type="movie"
                 />
+                <Space h="xl" />
+                <SideTitle text="More Details"
+                                />
+                <Container>
+                <MiddleTitle title="Release Date" content={movieInfoProps.release_date}/>
+                <MiddleTitle title="Budget" content={movieInfoProps.budget.toString()}/>
+                    <Text align="justify"
+                            weight={700}
+                            color="white" 
+                           
+                            style={{
+                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                fontSize: "20px",
+                                backgroundColor: "#373A40",
+                                // wordWrap:"break-word",
+                                //  display:"flex",
+                                //  justifyContent:"flex-start",
+                                wordSpacing: "1px",
+                            }}>
+
+                            Filming Locations: {
+                                movieInfoProps.production_countries.map((item, index) => {
+                                    if (index === movieInfoProps.production_countries.length - 1)
+                                        return <span key={index} style={{fontSize:"18px"}}>{item.name}</span>
+                                    else
+                                        return <span key={index} style={{fontSize:"18px"}}><>{item.name}</> <> , </></span>
+                                })
+                            }
+
+                        </Text>
+                    <MiddleTitle title="Revenue" content={movieInfoProps.revenue.toString()}/>
+        
+                </Container>                
                 <Space h={666} />
             </Container>
         )
