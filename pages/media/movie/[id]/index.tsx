@@ -48,7 +48,7 @@ import AccordionPeople from '../../../../components/AccordionPeople';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
 import CarouselVideos from '../../../../components/CarouselVideos';
 import SideTitle from '../../../../components/SideTitle';
-import MiddleTitle from '../../../../components/Middletitle';
+import MiddleTitle from '../../../../components/MiddleTitle';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -98,8 +98,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
             'Visual effects',
             'Sound effects'],
         datasets: [
-            {
-                label: 'Average',
+            { 
+                label: `Average - ${movieRateInfoProps.rating_count===1 
+                                    ?`${movieRateInfoProps.rating_count} Vote`
+                                    :`${movieRateInfoProps.rating_count} Votes`
+                                                    } `,
                 data: [actingData,
                     storyData,
                     dialogueData,
@@ -113,7 +116,8 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 fill: false,
                 fillColor: "red",
                 pointBorderColor: '#fff',
-                pointHoverBackgroundColor: 'red'
+                pointHoverBackgroundColor: 'red',
+            
             },
         ]
     };
@@ -234,9 +238,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     >
                         <Radar options={{
                             responsive: true,
-                            maintainAspectRatio: true,
-
-                            color: "yellow",// color of the main label at the top
+                            maintainAspectRatio: true,                            color: "yellow",// color of the main label at the top
                             scales: {
                                 r: {
                                     min: 0,
@@ -268,10 +270,10 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                         color: "#2C2E33",
                                         lineWidth: 2,
 
-                                    },
+                                    } 
                                 }
                             }
-                        }}
+                        }} 
                             data={data}
 
                         //  style={{ minHeight: "100%", minWidth: "100%" }}
