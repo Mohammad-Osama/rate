@@ -410,7 +410,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         </Group>
                         <Divider />
 
-                        <Text align="justify"
+                        {/* <Text align="justify"
                             weight={700}
                             color="white"
                             style={{
@@ -435,28 +435,28 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 })
                             }
 
-                        </Text>
+                        </Text> */}
                         {/* MiddleTitle not working with writers, probably wont work with directors */}
-                        {/* <MiddleTitle
-                            title={writers.length===1
-                                    ?"Writer"
-                                    :"Writers"
-                                     }
+                        <MiddleTitle
+                            title={writers.length === 1
+                                ? "Writer"
+                                : "Writers"
+                            }
                             content={
                                 writers.map((item, index) => {
-                                    if (index === directors.length - 1)
+                                    if (index === writers.length - 1)
                                         return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
                                     else
                                         return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
                                 })
-                            } /> */}
+                            } />
                         {/*  {movieInfoCreditsProps.crew.map((m)=>{
                             if (m.job==="Director")
                             return  <span>{m.name} </span>
                         })
 
                         } */}
-                        <Text align="justify"
+                        {/* <Text align="justify"
                             weight={700}
                             color="white"
                             style={{
@@ -481,8 +481,8 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 })
                             }
 
-                        </Text>
-                        {/* <MiddleTitle
+                        </Text> */}
+                        <MiddleTitle
                             title={directors.length === 1
                                 ? "Director"
                                 : "Directors"
@@ -494,7 +494,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                     else
                                         return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
                                 })
-                            } /> */}
+                            } />
                         {/*          <Text align="justify"
                             weight={700}
                             color="white"
@@ -551,15 +551,20 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <Space h="xl" />
                 <SideTitle text="More Details"
                 />
-                <Container>
+                <Container 
+                //style={{ border: "solid" }} 
+                >
+                    <Space h="lg"/>
                     <MiddleTitle
                         title="Release Date"
                         content={movieInfoProps.release_date}
                     />
+                    <Divider variant="solid" mt="lg" mb="lg"  />
                     <MiddleTitle
                         title="Budget"
-                        content={movieInfoProps.budget.toString()}
+                        content={`${movieInfoProps.budget.toString()} $`}
                     />
+                    <Divider variant="solid" mt="lg" mb="lg"/>
                     {/* <Text align="justify"
                         weight={700}
                         color="white"
@@ -593,11 +598,34 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 return <React.Fragment key={item.name}><>{item.name}</> <> , </></React.Fragment>
                         })}
                     />
+                    <Divider variant="solid" mt="lg" mb="lg"/>
                     <MiddleTitle
                         title="Revenue"
-                        content={movieInfoProps.revenue.toString()}
+                        content={`${movieInfoProps.revenue.toString()} $`}
                     />
-
+                    <Divider variant="solid" mt="lg" mb="lg" />
+                    <MiddleTitle
+                        title="Production Companies"
+                        content={
+                            movieInfoProps.production_companies.map((item, index) => {
+                                if (index === movieInfoProps.production_companies.length - 1)
+                                    return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
+                                else
+                                    return <React.Fragment key={index}><Link href={`/${item.name}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
+                            })
+                        } />
+                    <Divider variant="solid" mt="lg" mb="lg"/>
+                    <MiddleTitle
+                        title="Spoken Languages"
+                        content={
+                            movieInfoProps.spoken_languages.map((item, index) => {
+                                if (index === movieInfoProps.spoken_languages.length - 1)
+                                    return <>{item.english_name}</>
+                                else
+                                    return <React.Fragment key={index}><>{item.english_name}</> <> , </></React.Fragment>
+                            })
+                        } />
+                    <Space h="lg" />  {/* incase of another detail ? */}
                 </Container>
                 <Space h={666} />
             </Container>
