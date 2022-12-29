@@ -1,7 +1,7 @@
 import { Text } from "@mantine/core"
 interface X {
     title: string
-    content: string
+    content: JSX.Element[] | string |string[] | (string | JSX.Element)[] 
 }
 const MiddleTitle = ({ title,content }: X) => {
     return (
@@ -17,7 +17,7 @@ const MiddleTitle = ({ title,content }: X) => {
                 //  justifyContent:"flex-start",
                 wordSpacing: "1px",
             }}>
-            {title} : <span style={{fontSize:"18px"}}>{content}</span>
+            {title}: <span style={{fontSize:"18px"}}>{content}</span>
         </Text>
     )
 }

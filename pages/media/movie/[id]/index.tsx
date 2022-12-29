@@ -98,11 +98,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
             'Visual effects',
             'Sound effects'],
         datasets: [
-            { 
-                label: `Average - ${movieRateInfoProps.rating_count===1 
-                                    ?`${movieRateInfoProps.rating_count} Vote`
-                                    :`${movieRateInfoProps.rating_count} Votes`
-                                                    } `,
+            {
+                label: `Average - ${movieRateInfoProps.rating_count === 1
+                    ? `${movieRateInfoProps.rating_count} Vote`
+                    : `${movieRateInfoProps.rating_count} Votes`
+                    } `,
                 data: [actingData,
                     storyData,
                     dialogueData,
@@ -117,7 +117,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 fillColor: "red",
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: 'red',
-            
+
             },
         ]
     };
@@ -236,44 +236,46 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                     <div style={{}} //second col in simple grid
                     >
-                        <Radar options={{
-                            responsive: true,
-                            maintainAspectRatio: true,                            color: "yellow",// color of the main label at the top
-                            scales: {
-                                r: {
-                                    min: 0,
-                                    max: 10,
-                                    pointLabels: { // edit labels 
-                                        color: "white",
-                                        font: {
-                                            size: 15
+                        <Radar
+                            options={{
+                                responsive: true,
+                                maintainAspectRatio: true,
+                                color: "yellow",// color of the main label at the top
+                                scales: {
+                                    r: {
+                                        min: 0,
+                                        max: 10,
+                                        pointLabels: { // edit labels 
+                                            color: "white",
+                                            font: {
+                                                size: 15
+                                            }
+                                        },
+                                        //  reverse,
+                                        //  startAngle:33, // rotates the chart
+                                        //  suggestedMax:44,
+                                        //   suggestedMin,
+                                        ticks: {
+                                            display: false,
+                                            stepSize: 1
+
+                                            //  textStrokeColor: 'rgb(54, 162, 235)',
+                                            //   color: 'white',
+                                            //  backdropColor: 'red'
+                                        },
+                                        angleLines: {
+                                            //     color: 'yellow',
+                                        },
+                                        //  type,
+                                        //  weight,
+                                        grid: {
+                                            color: "#2C2E33",
+                                            lineWidth: 2,
+
                                         }
-                                    },
-                                    //  reverse,
-                                    //  startAngle:33, // rotates the chart
-                                    //  suggestedMax:44,
-                                    //   suggestedMin,
-                                    ticks: {
-                                        display: false,
-                                        stepSize: 1
-
-                                        //  textStrokeColor: 'rgb(54, 162, 235)',
-                                        //   color: 'white',
-                                        //  backdropColor: 'red'
-                                    },
-                                    angleLines: {
-                                        //     color: 'yellow',
-                                    },
-                                    //  type,
-                                    //  weight,
-                                    grid: {
-                                        color: "#2C2E33",
-                                        lineWidth: 2,
-
-                                    } 
+                                    }
                                 }
-                            }
-                        }} 
+                            }}
                             data={data}
 
                         //  style={{ minHeight: "100%", minWidth: "100%" }}
@@ -421,16 +423,33 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 wordSpacing: "1px",
                             }}>
 
-                            Writer: {
+                            {writers.length === 1
+                                ? "Writer"
+                                : "Writers"
+                            }: {
                                 writers.map((item, index) => {
                                     if (index === writers.length - 1)
-                                        return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
+                                        return <Link href="/person" key={index} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link> <> , </></React.Fragment>
                                 })
                             }
 
                         </Text>
+                        {/* MiddleTitle not working with writers, probably wont work with directors */}
+                        {/* <MiddleTitle
+                            title={writers.length===1
+                                    ?"Writer"
+                                    :"Writers"
+                                     }
+                            content={
+                                writers.map((item, index) => {
+                                    if (index === directors.length - 1)
+                                        return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
+                                    else
+                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
+                                })
+                            } /> */}
                         {/*  {movieInfoCreditsProps.crew.map((m)=>{
                             if (m.job==="Director")
                             return  <span>{m.name} </span>
@@ -450,18 +469,33 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 wordSpacing: "1px",
                             }}>
 
-                            Director: {
+                            {directors.length === 1
+                                ? "Director"
+                                : "Directors"
+                            }: {
+                                directors.map((item, index) => {
+                                    if (index === directors.length - 1)
+                                        return <Link href="/person" key={index} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link>
+                                    else
+                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link> <> , </></React.Fragment>
+                                })
+                            }
+
+                        </Text>
+                        {/* <MiddleTitle
+                            title={directors.length === 1
+                                ? "Director"
+                                : "Directors"
+                            }
+                            content={
                                 directors.map((item, index) => {
                                     if (index === directors.length - 1)
                                         return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
                                     else
                                         return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
                                 })
-                            }
-
-                        </Text>
-
-                        <Text align="justify"
+                            } /> */}
+                        {/*          <Text align="justify"
                             weight={700}
                             color="white"
                             style={{
@@ -476,7 +510,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             <a href={movieInfoProps.homepage as string} style={{ color: "#4DABF7" }}>Homepage </a>
                             - <a href={movieInfoProps.imdb_id as string} style={{ color: "#4DABF7" }}>IMDB </a>
 
-                        </Text>
+                        </Text> */}
+                        <MiddleTitle title="Websites" content={[<a href={movieInfoProps.homepage as string} key={1} style={{ color: "#4DABF7" }}>Homepage </a>,
+                            "- ",
+                        <a href={movieInfoProps.imdb_id as string} key={2} style={{ color: "#4DABF7" }}>IMDB </a>
+                        ]} />
                     </Stack>
                     {/*    </Flex> */}
 
@@ -497,7 +535,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 />
                 <Space h="xl" />
                 <SideTitle text="Photos"
-                                />
+                />
                 <CarouselPhotos
                     id={movieInfoProps.id}
                     type="movie"
@@ -505,44 +543,62 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                 <Space h="xl" />
                 <SideTitle text="Videos"
-                                />
+                />
                 <CarouselVideos
                     id={movieInfoProps.id}
                     type="movie"
                 />
                 <Space h="xl" />
                 <SideTitle text="More Details"
-                                />
+                />
                 <Container>
-                <MiddleTitle title="Release Date" content={movieInfoProps.release_date}/>
-                <MiddleTitle title="Budget" content={movieInfoProps.budget.toString()}/>
-                    <Text align="justify"
-                            weight={700}
-                            color="white" 
-                           
-                            style={{
-                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                                fontSize: "20px",
-                                backgroundColor: "#373A40",
-                                // wordWrap:"break-word",
-                                //  display:"flex",
-                                //  justifyContent:"flex-start",
-                                wordSpacing: "1px",
-                            }}>
+                    <MiddleTitle
+                        title="Release Date"
+                        content={movieInfoProps.release_date}
+                    />
+                    <MiddleTitle
+                        title="Budget"
+                        content={movieInfoProps.budget.toString()}
+                    />
+                    {/* <Text align="justify"
+                        weight={700}
+                        color="white"
 
-                            Filming Locations: {
-                                movieInfoProps.production_countries.map((item, index) => {
-                                    if (index === movieInfoProps.production_countries.length - 1)
-                                        return <span key={index} style={{fontSize:"18px"}}>{item.name}</span>
-                                    else
-                                        return <span key={index} style={{fontSize:"18px"}}><>{item.name}</> <> , </></span>
-                                })
-                            }
+                        style={{
+                            fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                            fontSize: "20px",
+                            backgroundColor: "#373A40",
+                            // wordWrap:"break-word",
+                            //  display:"flex",
+                            //  justifyContent:"flex-start",
+                            wordSpacing: "1px",
+                        }}>
 
-                        </Text>
-                    <MiddleTitle title="Revenue" content={movieInfoProps.revenue.toString()}/>
-        
-                </Container>                
+                        Filming Locations: {
+                            movieInfoProps.production_countries.map((item, index) => {
+                                if (index === movieInfoProps.production_countries.length - 1)
+                                    return <span key={index} style={{ fontSize: "18px" }}>{item.name}</span>
+                                else
+                                    return <span key={index} style={{ fontSize: "18px" }}><>{item.name}</> <> , </></span>
+                            })
+                        }
+
+                    </Text> */}
+                    <MiddleTitle
+                        title="Filming Locations"
+                        content={movieInfoProps.production_countries.map((item, index) => {
+                            if (index === movieInfoProps.production_countries.length - 1)
+                                return <React.Fragment key={item.name}>{item.name}</React.Fragment>
+                            else
+                                return <React.Fragment key={item.name}><>{item.name}</> <> , </></React.Fragment>
+                        })}
+                    />
+                    <MiddleTitle
+                        title="Revenue"
+                        content={movieInfoProps.revenue.toString()}
+                    />
+
+                </Container>
                 <Space h={666} />
             </Container>
         )
