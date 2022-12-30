@@ -443,11 +443,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 : "Writers"
                             }
                             content={
-                                writers.map((item, index) => {
-                                    if (index === writers.length - 1)
-                                        return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
+                                movieInfoCreditsProps.crew.filter(c=>c.job==="Writer").map((item, index) => {
+                                    if (index === writers.length - 1) // person page to be done later  , edit href
+                                        return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
                                 })
                             } />
                         {/*  {movieInfoCreditsProps.crew.map((m)=>{
@@ -488,11 +488,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 : "Directors"
                             }
                             content={
-                                directors.map((item, index) => {
-                                    if (index === directors.length - 1)
-                                        return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item}</Link>
+                                movieInfoCreditsProps.crew.filter(c=>c.job==="Director").map((item, index) => {
+                                    if (index === directors.length - 1) // person page to be done later  , edit href
+                                        return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7" }}>{item}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
                                 })
                             } />
                         {/*          <Text align="justify"
@@ -620,7 +620,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         content={
                             movieInfoProps.spoken_languages.map((item, index) => {
                                 if (index === movieInfoProps.spoken_languages.length - 1)
-                                    return <>{item.english_name}</>
+                                    return <React.Fragment key={index}>{item.english_name}</React.Fragment>
                                 else
                                     return <React.Fragment key={index}><>{item.english_name}</> <> , </></React.Fragment>
                             })
