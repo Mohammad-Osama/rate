@@ -44,7 +44,7 @@ const CarouselPhotos = ({ id, type }: X) => {
                 //   height={500}
                 slideGap="sm"
                 controlsOffset="xs"
-                controlSize={30}
+                controlSize={40}
                 // dragFree
                 withIndicators
                 styles={{

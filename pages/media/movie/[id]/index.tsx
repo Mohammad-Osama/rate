@@ -49,6 +49,7 @@ import CarouselPhotos from '../../../../components/CarouselPhotos';
 import CarouselVideos from '../../../../components/CarouselVideos';
 import SideTitle from '../../../../components/SideTitle';
 import MiddleTitle from '../../../../components/MiddleTitle';
+import CarouselMedia from '../../../../components/CarouselMedia';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -626,7 +627,14 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             })
                         } />
                     <Space h="lg" />  {/* incase of another detail ? */}
+                    <Divider variant="solid" mt="lg" mb="lg"/>
                 </Container>
+                <SideTitle text="Similar Movies"/>
+                <CarouselMedia
+                       id={movieInfoProps.id}
+                       callType="movie similar"
+                       mediaType="movie"
+                />
                 <Space h={666} />
             </Container>
         )
