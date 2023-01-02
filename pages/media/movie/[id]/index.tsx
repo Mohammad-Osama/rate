@@ -646,7 +646,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     mediaType="movie"
                 />
                 <Space h="xl" />
-                <SideTitle text="Where To Buy" />
+                <SideTitle text="Where To Watch" />
                 <Providers
                     id={movieInfoProps.id}
                   //  callType="movie recommendations"

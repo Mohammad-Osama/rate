@@ -43,7 +43,6 @@ const Providers = ({ id, mediaType }: X) => {
                 const response = await fetch(`${tmdb.urlMovie}${id}/watch/providers?api_key=${tmdb.keyClient}`)
                 const data = await response.json() as IAllProviders
                 const final = data.results[dataC.country_code]
-                console.log(final)
                 setstate(final)
             } catch (error) {
                 alert(error)
@@ -87,12 +86,12 @@ const Providers = ({ id, mediaType }: X) => {
                     weight={300}
                     color="white"
                     style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "23px" }}
-                 ml="xl"
+                    ml="xl"
                 >
-                   Not available in your country 
-                </Text>      
+                    Not available in your country
+                </Text>
             </Container>
-            
+
         )
     else
         return (
@@ -114,39 +113,162 @@ const Providers = ({ id, mediaType }: X) => {
                     </Text>
                     <img src={country} style={{ width: "30px", height: "20px", marginLeft: "30px" }} />
                 </Group>
-
+                <Text
+                    align="justify"
+                    weight={300}
+                    color="white"
+                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
+                    mb="lg"
+                >
+                    Stream
+                </Text>
                 <Group
                     spacing="xl"
                     mb="xl"
                     ml="xl"
                 >
-                    {state.buy.map((s) => {
-                        return <Stack
-                            align="center"
-                            key={s.provider_id}
-                        >
-                            <Link
-                                href={`/${s.provider_id}`}
+                    {state.flatrate
+                        ? state?.flatrate?.map((s) => {
+                            return <Stack
+                                align="center"
+                                key={s.provider_id}
                             >
-                                <Image
-                                    src={`${tmdb.imgUrl}w92${s.logo_path}`}
-                                //   style={{marginLeft:"20px"}}
-                                //  width={11}
-                                //   height={11}
-                                />
-                            </Link>
-                            <Text
-                                align="justify"
-                                weight={300}
-                                color="white"
-                                style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "14px" }}>
-                                {s.provider_name}
-                            </Text>
-                        </Stack>
-                    })
+                                <Link
+                                    href={`/${s.provider_id}`}
+                                >
+                                    <Image
+                                        src={`${tmdb.imgUrl}w92${s.logo_path}`}
+                                    //   style={{marginLeft:"20px"}}
+                                    //  width={11}
+                                    //   height={11}
+                                    />
+                                </Link>
+                                <Text
+                                    align="justify"
+                                    weight={300}
+                                    color="white"
+                                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "14px" }}>
+                                    {s.provider_name}
+                                </Text>
+                            </Stack>
+                        })
+                        : <Text
+                        align="justify"
+                        weight={300}
+                        color="white"
+                        style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "18px" }}
+                        mb="lg"
+                    >
+                        Not available
+                    </Text>
                     }
-                </Group>
 
+                </Group>
+                <Divider variant="solid" mt="lg" mb="lg" />
+                <Text
+                    align="justify"
+                    weight={300}
+                    color="white"
+                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
+                    mb="lg"
+                >
+                    Rent
+                </Text>
+                <Group
+                    spacing="xl"
+                    mb="xl"
+                    ml="xl"
+                >
+                    {state.rent
+                        ? state?.rent?.map((s) => {
+                            return <Stack
+                                align="center"
+                                key={s.provider_id}
+                            >
+                                <Link
+                                    href={`/${s.provider_id}`}
+                                >
+                                    <Image
+                                        src={`${tmdb.imgUrl}w92${s.logo_path}`}
+                                    //   style={{marginLeft:"20px"}}
+                                    //  width={11}
+                                    //   height={11}
+                                    />
+                                </Link>
+                                <Text
+                                    align="justify"
+                                    weight={300}
+                                    color="white"
+                                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "14px" }}>
+                                    {s.provider_name}
+                                </Text>
+                            </Stack>
+                        })
+                        : <Text
+                            align="justify"
+                            weight={300}
+                            color="white"
+                            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "18px" }}
+                            mb="lg"
+                        >
+                            Not available
+                        </Text>
+                    }
+
+                </Group>
+                <Divider variant="solid" mt="lg" mb="lg" />
+                <Text
+                    align="justify"
+                    weight={300}
+                    color="white"
+                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
+                 mb="lg"
+                >
+                    Buy
+                </Text>
+                <Group
+                    spacing="xl"
+                    mb="xl"
+                    ml="xl"
+                >
+                    {state.buy
+                        ? state?.buy?.map((s) => {
+                            return <Stack
+                                align="center"
+                                key={s.provider_id}
+                            >
+                                <Link
+                                    href={`/${s.provider_id}`}
+                                >
+                                    <Image
+                                        src={`${tmdb.imgUrl}w92${s.logo_path}`}
+                                    //   style={{marginLeft:"20px"}}
+                                    //  width={11}
+                                    //   height={11}
+                                    />
+                                </Link>
+                                <Text
+                                    align="justify"
+                                    weight={300}
+                                    color="white"
+                                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "14px" }}>
+                                    {s.provider_name}
+                                </Text>
+                            </Stack>
+                        })
+                        : <Text
+                            align="justify"
+                            weight={300}
+                            color="white"
+                            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "18px" }}
+                            mb="lg"
+                        >
+                            Not available
+                        </Text>
+                    }
+
+                </Group>
+                <Divider variant="solid" mt="lg" mb="lg" />
                 <Text
                     align="justify"
                     weight={300}
@@ -157,7 +279,6 @@ const Providers = ({ id, mediaType }: X) => {
                     Visit <a href={state.link} style={{ color: "#4DABF7" }} >TMDB</a> for more details
                 </Text>
             </Container>
-
         )
 }
 
