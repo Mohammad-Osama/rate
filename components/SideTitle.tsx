@@ -9,7 +9,7 @@ const SideTitle = ({text}:X) => {
             //  p="xl"
             align="justify"
             weight={300}
-            color="white"
+            color="yellow"
             style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "25px" }}
             mb="lg"
         >

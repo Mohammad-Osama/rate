@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import {
     Container,
     SimpleGrid,
@@ -19,7 +20,8 @@ import {
     Accordion
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
-import { IAllProviders } from '../helpers/types';
+import { IAllProviders, IProvidersList } from '../helpers/types';
+import Link from 'next/link';
 
 
 interface X {
@@ -28,55 +30,135 @@ interface X {
 }
 const Providers = ({ id, mediaType }: X) => {
     const [country, setCountry] = useState('')
-    const [state, setstate] = useState<any>()
-
-
-    async function getCountry() {
-        try {
-            const resCounrty = await fetch(`https://api.ipdata.co/?api-key=${process.env.NEXT_PUBLIC_IPDATA_KEY}&fields=country_code`)
-            const data = await resCounrty.json()
-            console.log("data from ip api", data.country_code)
-            setCountry(data.country_code)
-        } catch (error) {
-            setCountry("error")
-        }
-
-    }
+    const [state, setstate] = useState<IProvidersList>()
 
     async function getProviders() {
         const resCounrty = await fetch(`https://api.ipdata.co/?api-key=${process.env.NEXT_PUBLIC_IPDATA_KEY}&fields=country_code`)
         const dataC = await resCounrty.json()
-         if (mediaType === "movie") {
-        try {
-            const response = await fetch(`${tmdb.urlMovie}${id}/watch/providers?api_key=${tmdb.keyClient}`)
-            const data = await response.json() as IAllProviders
-            const final = data.results[dataC.country_code]
-            console.log(final)
-           setstate(final)
-        } catch (error) {
-            alert(error)
+        const resFlag = await fetch(`https://restcountries.com/v3.1/alpha/${dataC.country_code}?fields=flags`)
+        const dataFlag = await resFlag.json()
+        setCountry(dataFlag.flags.png)
+        if (mediaType === "movie") {
+            try {
+                const response = await fetch(`${tmdb.urlMovie}${id}/watch/providers?api_key=${tmdb.keyClient}`)
+                const data = await response.json() as IAllProviders
+                const final = data.results[dataC.country_code]
+                console.log(final)
+                setstate(final)
+            } catch (error) {
+                alert(error)
+            }
+            // fetch movie images 
+            // setstate with res 
         }
-        // fetch movie images 
-        // setstate with res 
+        else {
+            //fetch tv images 
+            //setstate with res 
+        }
     }
-    else {
-    //fetch tv images 
-    //setstate with res 
-      }
-      }
 
-useEffect(() => {
-    getProviders()
-}, [])
+    useEffect(() => {
+        getProviders()
+    }, [])
 
-return (
-    <div>
-        {state===undefined
-        ? "not available in your country , please visit Justwatch for more information "
-        :state.link
-        }
-    </div>
-)
+    if (state === undefined)
+        return (
+            <Container>
+                <Group
+                    //   position="center"
+                    mb="xl"
+                //mr="xl" 
+                //  ml="xl" 
+                >
+                    <Text
+                        align="justify"
+                        weight={300}
+                        color="white"
+                        style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
+                    // mb="lg"
+                    >
+                        Powered By <a href={"https://www.justwatch.com/"} style={{ color: "yellow" }}>JustWatch</a>
+                    </Text>
+                    <img src={country} style={{ width: "30px", height: "20px", marginLeft: "30px" }} />
+                </Group>
+
+                <Text
+                    align="justify"
+                    weight={300}
+                    color="white"
+                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "23px" }}
+                 ml="xl"
+                >
+                   Not available in your country 
+                </Text>      
+            </Container>
+            
+        )
+    else
+        return (
+            <Container>
+                <Group
+                    //   position="center"
+                    mb="xl"
+                //mr="xl" 
+                //  ml="xl" 
+                >
+                    <Text
+                        align="justify"
+                        weight={300}
+                        color="white"
+                        style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
+                    // mb="lg"
+                    >
+                        Powered By <a href={"https://www.justwatch.com/"} style={{ color: "yellow" }}>JustWatch</a>
+                    </Text>
+                    <img src={country} style={{ width: "30px", height: "20px", marginLeft: "30px" }} />
+                </Group>
+
+                <Group
+                    spacing="xl"
+                    mb="xl"
+                    ml="xl"
+                >
+                    {state.buy.map((s) => {
+                        return <Stack
+                            align="center"
+                            key={s.provider_id}
+                        >
+                            <Link
+                                href={`/${s.provider_id}`}
+                            >
+                                <Image
+                                    src={`${tmdb.imgUrl}w92${s.logo_path}`}
+                                //   style={{marginLeft:"20px"}}
+                                //  width={11}
+                                //   height={11}
+                                />
+                            </Link>
+                            <Text
+                                align="justify"
+                                weight={300}
+                                color="white"
+                                style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "14px" }}>
+                                {s.provider_name}
+                            </Text>
+                        </Stack>
+                    })
+                    }
+                </Group>
+
+                <Text
+                    align="justify"
+                    weight={300}
+                    color="white"
+                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "23px" }}
+                // mb="lg"
+                >
+                    Visit <a href={state.link} style={{ color: "#4DABF7" }} >TMDB</a> for more details
+                </Text>
+            </Container>
+
+        )
 }
 
 export default Providers

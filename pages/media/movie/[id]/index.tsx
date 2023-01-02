@@ -631,21 +631,21 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     <Divider variant="solid" mt="lg" mb="lg" />
                     <Space h="lg" />
                 </Container>
-                <Space h="lg" />
+                <Space h="xl" />
                 <SideTitle text="Similar Movies" />
                 <CarouselMedia
                     id={movieInfoProps.id}
                     callType="movie similar"
                     mediaType="movie"
                 />
-                <Space h="lg" />
+                <Space h="xl" />
                 <SideTitle text="Recommendations" />
                 <CarouselMedia
                     id={movieInfoProps.id}
                     callType="movie recommendations"
                     mediaType="movie"
                 />
-                <Space h="lg" />
+                <Space h="xl" />
                 <SideTitle text="Where To Buy" />
                 <Providers
                     id={movieInfoProps.id}
