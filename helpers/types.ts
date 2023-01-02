@@ -284,6 +284,26 @@ export interface IVideo {
 }
 
 export interface IVideos {
-    id :number 
-    results :IVideo[]
+    id: number
+    results: IVideo[]
+}
+
+export interface IProviderData {
+    logo_path: string
+    provider_id: number
+    provider_name: string
+    display_priority: number
+}
+export interface IProvidersList {
+    link: string
+    flatrate: IProviderData[]
+    rent: IProviderData[]
+    buy: IProviderData[]
+}
+
+export interface IAllProviders {
+    id: number
+    results: {
+        [key: string]: IProvidersList
+    }
 }

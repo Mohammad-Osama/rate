@@ -38,11 +38,18 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
                 alert(error)
             }
         }
-        else {
-            //fetch other movies
-            //setstate with res 
+        else if (callType === "movie recommendations") {
+            try {
+                const response = await fetch(`${tmdb.urlMovie}${id}/recommendations?api_key=${tmdb.keyClient}&language=en-US&page=1`)
+                const data = await response.json()
+                setList(data.results)
+            } catch (error) {
+                alert(error)
+            }
         }
+        else {
 
+        }
     }
 
     const userData = useSelector(authState)
@@ -123,7 +130,10 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
                                 as={`/media/${mediaType}/${l.id}?type=${mediaType}&user=${userId}`}
                             >
                                 <Image
-                                    src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${l.poster_path}`}
+                                    src={l.poster_path
+                                        ?`${tmdb.imgUrl}${tmdb.imgSizeW1280}${l.poster_path}`
+                                        :"/images/no_media.jpg"
+                                        }
                                     fit="contain"
                                 //  height="100%"
                                 />

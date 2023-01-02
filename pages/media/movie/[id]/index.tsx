@@ -50,6 +50,7 @@ import CarouselVideos from '../../../../components/CarouselVideos';
 import SideTitle from '../../../../components/SideTitle';
 import MiddleTitle from '../../../../components/MiddleTitle';
 import CarouselMedia from '../../../../components/CarouselMedia';
+import Providers from '../../../../components/Providers';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -444,7 +445,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 : "Writers"
                             }
                             content={
-                                movieInfoCreditsProps.crew.filter(c=>c.job==="Writer").map((item, index) => {
+                                movieInfoCreditsProps.crew.filter(c => c.job === "Writer").map((item, index) => {
                                     if (index === writers.length - 1) // person page to be done later  , edit href
                                         return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
                                     else
@@ -489,7 +490,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 : "Directors"
                             }
                             content={
-                                movieInfoCreditsProps.crew.filter(c=>c.job==="Director").map((item, index) => {
+                                movieInfoCreditsProps.crew.filter(c => c.job === "Director").map((item, index) => {
                                     if (index === directors.length - 1) // person page to be done later  , edit href
                                         return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
                                     else
@@ -552,20 +553,20 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <Space h="xl" />
                 <SideTitle text="More Details"
                 />
-                <Container 
+                <Container
                 //style={{ border: "solid" }} 
                 >
-                    <Space h="lg"/>
+                    <Space h="lg" />
                     <MiddleTitle
                         title="Release Date"
                         content={movieInfoProps.release_date}
                     />
-                    <Divider variant="solid" mt="lg" mb="lg"  />
+                    <Divider variant="solid" mt="lg" mb="lg" />
                     <MiddleTitle
                         title="Budget"
                         content={`${movieInfoProps.budget.toString()} $`}
                     />
-                    <Divider variant="solid" mt="lg" mb="lg"/>
+                    <Divider variant="solid" mt="lg" mb="lg" />
                     {/* <Text align="justify"
                         weight={700}
                         color="white"
@@ -599,7 +600,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                 return <React.Fragment key={item.name}><>{item.name}</> <> , </></React.Fragment>
                         })}
                     />
-                    <Divider variant="solid" mt="lg" mb="lg"/>
+                    <Divider variant="solid" mt="lg" mb="lg" />
                     <MiddleTitle
                         title="Revenue"
                         content={`${movieInfoProps.revenue.toString()} $`}
@@ -615,7 +616,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                     return <React.Fragment key={index}><Link href={`/${item.name}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
                             })
                         } />
-                    <Divider variant="solid" mt="lg" mb="lg"/>
+                    <Divider variant="solid" mt="lg" mb="lg" />
                     <MiddleTitle
                         title="Spoken Languages"
                         content={
@@ -627,13 +628,29 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             })
                         } />
                     <Space h="lg" />  {/* incase of another detail ? */}
-                    <Divider variant="solid" mt="lg" mb="lg"/>
+                    <Divider variant="solid" mt="lg" mb="lg" />
+                    <Space h="lg" />
                 </Container>
-                <SideTitle text="Similar Movies"/>
+                <Space h="lg" />
+                <SideTitle text="Similar Movies" />
                 <CarouselMedia
-                       id={movieInfoProps.id}
-                       callType="movie similar"
-                       mediaType="movie"
+                    id={movieInfoProps.id}
+                    callType="movie similar"
+                    mediaType="movie"
+                />
+                <Space h="lg" />
+                <SideTitle text="Recommendations" />
+                <CarouselMedia
+                    id={movieInfoProps.id}
+                    callType="movie recommendations"
+                    mediaType="movie"
+                />
+                <Space h="lg" />
+                <SideTitle text="Where To Buy" />
+                <Providers
+                    id={movieInfoProps.id}
+                  //  callType="movie recommendations"
+                    mediaType="movie"
                 />
                 <Space h={666} />
             </Container>
