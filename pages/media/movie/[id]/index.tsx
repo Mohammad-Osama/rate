@@ -51,6 +51,7 @@ import SideTitle from '../../../../components/SideTitle';
 import MiddleTitle from '../../../../components/MiddleTitle';
 import CarouselMedia from '../../../../components/CarouselMedia';
 import Providers from '../../../../components/Providers';
+import CollectionThumb from '../../../../components/CollectionThumb';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -184,8 +185,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     const budget = Math.round((movieInfoProps.budget / 1000000) * 100) / 100
     const revenue = Math.round((movieInfoProps.revenue / 1000000) * 100) / 100
     const profit = revenue - budget
-
-
 
     if (notFound === true)
         return (<div>Error Page</div>)
@@ -562,6 +561,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 >
                     <Space h="lg" />
                     <MiddleTitle
+                        title="Status"
+                        content={movieInfoProps.status}
+                    />
+                    <Divider variant="solid" mt="lg" mb="lg" />
+                    <MiddleTitle
                         title="Release Date"
                         content={movieInfoProps.release_date}
                     />
@@ -597,9 +601,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     </Text> */}
                     <MiddleTitle
                         title="Revenue"
-                        content={`${revenue.toString()} mil $ (${profit >0
-                                                      ?" +"
-                                                      :" -"
+                        content={`${revenue.toString()} mil $  (${profit >0
+                                                      ?"+"
+                                                      :"-"
                                                        }  ${profit.toString()} mil $)`}
                     />
                     <Divider variant="solid" mt="lg" mb="lg" />
@@ -661,6 +665,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     //  callType="movie recommendations"
                     mediaType="movie"
                 />
+                <Space h="xl" />
+                <SideTitle text="Belongs To Collection" />
+                <CollectionThumb data={movieInfoProps.belongs_to_collection}/>
                 <Space h={666} />
             </Container>
         )

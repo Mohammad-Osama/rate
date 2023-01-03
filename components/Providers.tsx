@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from 'react'
-
 import {
     Container,
-    SimpleGrid,
-    Grid,
     Image,
-    Badge,
-    Slider,
-    Drawer,
-    Button,
     Group,
-    Progress,
     Text,
-    Space,
-    Card,
     Stack,
-    Flex,
     Divider,
-    Accordion
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
 import { IAllProviders, IProvidersList } from '../helpers/types';
