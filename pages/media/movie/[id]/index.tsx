@@ -181,6 +181,10 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     ).map((x) => {
         return x.name
     })
+    const budget = Math.round((movieInfoProps.budget / 1000000) * 100) / 100
+    const revenue = Math.round((movieInfoProps.revenue / 1000000) * 100) / 100
+    const profit = revenue - budget
+
 
 
     if (notFound === true)
@@ -564,7 +568,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     <Divider variant="solid" mt="lg" mb="lg" />
                     <MiddleTitle
                         title="Budget"
-                        content={`${movieInfoProps.budget.toString()} $`}
+                        content={`${budget.toString()} mil $`}
                     />
                     <Divider variant="solid" mt="lg" mb="lg" />
                     {/* <Text align="justify"
@@ -592,6 +596,14 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                     </Text> */}
                     <MiddleTitle
+                        title="Revenue"
+                        content={`${revenue.toString()} mil $ (${profit >0
+                                                      ?" +"
+                                                      :" -"
+                                                       }  ${profit.toString()} mil $)`}
+                    />
+                    <Divider variant="solid" mt="lg" mb="lg" />
+                    <MiddleTitle
                         title="Filming Locations"
                         content={movieInfoProps.production_countries.map((item, index) => {
                             if (index === movieInfoProps.production_countries.length - 1)
@@ -601,11 +613,8 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         })}
                     />
                     <Divider variant="solid" mt="lg" mb="lg" />
-                    <MiddleTitle
-                        title="Revenue"
-                        content={`${movieInfoProps.revenue.toString()} $`}
-                    />
-                    <Divider variant="solid" mt="lg" mb="lg" />
+                    
+                    
                     <MiddleTitle
                         title="Production Companies"
                         content={
@@ -649,7 +658,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <SideTitle text="Where To Watch" />
                 <Providers
                     id={movieInfoProps.id}
-                  //  callType="movie recommendations"
+                    //  callType="movie recommendations"
                     mediaType="movie"
                 />
                 <Space h={666} />
