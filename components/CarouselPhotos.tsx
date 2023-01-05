@@ -59,7 +59,8 @@ const CarouselPhotos = ({ id, type }: X) => {
                     },
                 }}
             >
-                {images?.backdrops?.map((i) => {
+                {images?.backdrops?.length>0 
+                ?images?.backdrops?.map((i) => {
                     return <Carousel.Slide key={i.file_path}>
                         <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
                             fit="contain"
@@ -67,6 +68,14 @@ const CarouselPhotos = ({ id, type }: X) => {
                         />
                     </Carousel.Slide>
                 })
+                : <Carousel.Slide >
+                <Image src={`/images/no_media.jpg`}
+                    fit="contain"
+                    height={400}
+                />
+            </Carousel.Slide>
+                
+                
                 }
 
             </Carousel>

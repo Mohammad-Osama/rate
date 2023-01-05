@@ -604,10 +604,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     </Text> */}
                     <MiddleTitle
                         title="Revenue"
-                        content={`${revenue.toString()} mil $  (${profit >0
-                                                      ?"+"
-                                                      :"-"
-                                                       }  ${profit.toString()} mil $)`}
+                        content={`${revenue.toString()} mil $  (${movieInfoProps.status==="Released"
+                                                        ?` ${profit.toString()} mil $)`
+                                                        : ')'
+                                                      }`
+                                                    }
                     />
                     <Divider variant="solid" mt="lg" mb="lg" />
                     <MiddleTitle

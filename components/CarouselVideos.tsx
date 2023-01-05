@@ -72,22 +72,32 @@ const CarouselVideos = ({ id, type }: X) => {
                     },
                 }}
             >
-                {videos?.results?.map((v) => {
-                    return <Carousel.Slide key={v.key}>
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${v.key}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            title={`${v.name}`}
-                           // style={{ overflow: "hidden" }}
+                {videos?.results?.length > 0
+                    ? videos?.results?.map((v) => {
+                        return <Carousel.Slide key={v.key}>
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={`https://www.youtube.com/embed/${v.key}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title={`${v.name}`}
+                            // style={{ overflow: "hidden" }}
+                            />
+                        </Carousel.Slide>
+                    })
+                    : <Carousel.Slide >
+                        <Image 
+                        src={`/images/no_video.jpg`}
+                            fit="contain"
+                            height={400}
                         />
                     </Carousel.Slide>
-                })                   
-            }
-         </Carousel>
+
+
+                }
+            </Carousel>
         </Container >
     )
 }
