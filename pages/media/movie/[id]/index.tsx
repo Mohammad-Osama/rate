@@ -234,7 +234,10 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 //   style={{backgroundColor:"#212529"}}
                 >
                     <Image
-                        src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
+                        src={poster_path
+                            ? `${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`
+                            :'/images/no_media.jpg' 
+                        }
                         fit="contain"
                         alt={title}
                     />

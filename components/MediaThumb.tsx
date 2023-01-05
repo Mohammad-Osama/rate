@@ -33,7 +33,11 @@ const MediaThumb = ({ media, genre ,mediaType}: X) => {
                     as={`/media/${mediaType}/${id}?type=${mediaType}&user=${userId}`}
             >
                 <Image
-                    src={`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`}
+                    src={poster_path
+                        ?`${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`
+                        :'/images/no_media.jpg'
+                        
+                    }
                     fit="contain"
                     alt={title}
 

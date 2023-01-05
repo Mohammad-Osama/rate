@@ -50,7 +50,15 @@ const CollectionThumb = ({ data }: X) => {
           ml="xl"
         >
           <Link
-            href={`/hhhhh`}
+            href={{
+              pathname :"/collection/[id]",
+              query: {
+                  id: data.id,
+               //   type:type,
+               //   title:title
+                },
+  }}
+          as={`/collection/${data.id}`}
           >
             <Image
               src={`${tmdb.imgUrl}${tmdb.imgSize}${data.poster_path}`}
