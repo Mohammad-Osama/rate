@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from 'react'
-
 import {
   Container,
-  SimpleGrid,
-  Grid,
   Image,
-  Badge,
-  Slider,
-  Drawer,
-  Button,
-  Group,
-  Progress,
   Text,
-  Space,
-  Card,
   Stack,
-  Flex,
-  Divider,
-  Accordion
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
-import { IAllProviders, ICollection, IProvidersList } from '../helpers/types';
+import { ICollection } from '../helpers/types';
 import Link from 'next/link';
 
 
@@ -39,32 +24,28 @@ const CollectionThumb = ({ data }: X) => {
         mb="lg"
         ml="xl"
       >
-       Does not belong to a collection
+        Does not belong to a collection
       </Text>)
   else
     return (
       <Container>
         <Stack
-          align="flex-start"
-          //  key={s.provider_id}
+          align="center"
           ml="xl"
         >
           <Link
             href={{
-              pathname :"/collection/[id]",
+              pathname: "/collection/[id]",
               query: {
-                  id: data.id,
-               //   type:type,
-               //   title:title
-                },
-  }}
-          as={`/collection/${data.id}`}
+                id: data.id,
+              },
+            }}
+            as={`/collection/${data.id}`}
           >
             <Image
               src={`${tmdb.imgUrl}${tmdb.imgSize}${data.poster_path}`}
-              //   style={{marginLeft:"20px"}}
               fit="fill"
-            width={250}
+              width={250}
               height={350}
             />
           </Link>

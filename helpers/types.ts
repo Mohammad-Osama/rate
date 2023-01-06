@@ -41,7 +41,7 @@ export interface IProductionCompany {
     id: number;
     logo_path: string | null;
     name: string;
-    origin_country: string;
+    origin_country?: string;
 }
 
 export interface IProductionCountry {
@@ -310,11 +310,20 @@ export interface IAllProviders {
 
 
 export interface ICollectionDetails {
-
     id: number;
     name: string;
-    overview:string;
+    overview: string;
     poster_path: string | null;
     backdrop_path: string | null;
-    parts:IMovieOrTv[]
+    parts: IMovieOrTv[]
+}
+
+export interface IProductionCompanyDetails {
+    id: number;
+    name: string;
+    description: string;
+    headquarters: string;
+    logo_path: string | null;
+    origin_country: string;
+    parent_company: IProductionCompany | null;
 }

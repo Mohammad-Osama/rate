@@ -52,6 +52,7 @@ import MiddleTitle from '../../../../components/MiddleTitle';
 import CarouselMedia from '../../../../components/CarouselMedia';
 import Providers from '../../../../components/Providers';
 import CollectionThumb from '../../../../components/CollectionThumb';
+import MovieDetails from '../../../../components/MovieDetails';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -182,9 +183,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     ).map((x) => {
         return x.name
     })
-    const budget = Math.round((movieInfoProps.budget / 1000000) * 100) / 100
-    const revenue = Math.round((movieInfoProps.revenue / 1000000) * 100) / 100
-    const profit = revenue - budget
+    
 
     if (notFound === true)
         return (<div>Error Page</div>)
@@ -559,95 +558,15 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <Space h="xl" />
                 <SideTitle text="More Details"
                 />
-                <Container
-                //style={{ border: "solid" }} 
-                >
-                    <Space h="lg" />
-                    <MiddleTitle
-                        title="Status"
-                        content={movieInfoProps.status}
-                    />
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    <MiddleTitle
-                        title="Release Date"
-                        content={movieInfoProps.release_date}
-                    />
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    <MiddleTitle
-                        title="Budget"
-                        content={`${budget.toString()} mil $`}
-                    />
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    {/* <Text align="justify"
-                        weight={700}
-                        color="white"
-
-                        style={{
-                            fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                            fontSize: "20px",
-                            backgroundColor: "#373A40",
-                            // wordWrap:"break-word",
-                            //  display:"flex",
-                            //  justifyContent:"flex-start",
-                            wordSpacing: "1px",
-                        }}>
-
-                        Filming Locations: {
-                            movieInfoProps.production_countries.map((item, index) => {
-                                if (index === movieInfoProps.production_countries.length - 1)
-                                    return <span key={index} style={{ fontSize: "18px" }}>{item.name}</span>
-                                else
-                                    return <span key={index} style={{ fontSize: "18px" }}><>{item.name}</> <> , </></span>
-                            })
-                        }
-
-                    </Text> */}
-                    <MiddleTitle
-                        title="Revenue"
-                        content={`${revenue.toString()} mil $  (${movieInfoProps.status==="Released"
-                                                        ?` ${profit.toString()} mil $)`
-                                                        : ')'
-                                                      }`
-                                                    }
-                    />
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    <MiddleTitle
-                        title="Filming Locations"
-                        content={movieInfoProps.production_countries.map((item, index) => {
-                            if (index === movieInfoProps.production_countries.length - 1)
-                                return <React.Fragment key={item.name}>{item.name}</React.Fragment>
-                            else
-                                return <React.Fragment key={item.name}><>{item.name}</> <> , </></React.Fragment>
-                        })}
-                    />
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    
-                    
-                    <MiddleTitle
-                        title="Production Companies"
-                        content={
-                            movieInfoProps.production_companies.map((item, index) => {
-                                if (index === movieInfoProps.production_companies.length - 1)
-                                    return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
-                                else
-                                    return <React.Fragment key={index}><Link href={`/${item.name}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
-                            })
-                        } />
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    <MiddleTitle
-                        title="Spoken Languages"
-                        content={
-                            movieInfoProps.spoken_languages.map((item, index) => {
-                                if (index === movieInfoProps.spoken_languages.length - 1)
-                                    return <React.Fragment key={index}>{item.english_name}</React.Fragment>
-                                else
-                                    return <React.Fragment key={index}><>{item.english_name}</> <> , </></React.Fragment>
-                            })
-                        } />
-                    <Space h="lg" />  {/* incase of another detail ? */}
-                    <Divider variant="solid" mt="lg" mb="lg" />
-                    <Space h="lg" />
-                </Container>
+                <MovieDetails
+                        status={movieInfoProps.status}
+                        release_date={movieInfoProps.release_date}
+                        budget={movieInfoProps.budget}
+                        revenue={movieInfoProps.revenue}
+                        production_countries={movieInfoProps.production_countries}
+                        production_companies={movieInfoProps.production_companies}
+                        spoken_languages={movieInfoProps.spoken_languages}
+                />
                 <Space h="xl" />
                 <SideTitle text="Similar Movies" />
                 <CarouselMedia
