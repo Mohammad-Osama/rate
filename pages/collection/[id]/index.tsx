@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
 import { IGenre, ICollectionDetails, IMovieOrTv } from '../../../helpers/types';
-import { Group,Space, Container, SimpleGrid, Card, Chip, useMantineTheme, createStyles, Button, Image, Text } from '@mantine/core';
-import PersonThumb from '../../../components/personThumb';
-import Link from 'next/link'
+import { Space, Container, SimpleGrid, Card, Image, Text } from '@mantine/core';
 import { useRouter } from 'next/router'
 import * as colors from '../../../helpers/colors'
 import axios from 'axios';
@@ -15,7 +13,7 @@ import SideTitle from '../../../components/SideTitle';
 
 
 const index = ({ collectionProps, notFound }: X) => {
-    const { name, overview, backdrop_path, poster_path, parts } = collectionProps
+    const { name, overview, poster_path, parts } = collectionProps
     const mediaType = "movie"
     const router = useRouter()
     const emptyGenres: IGenre[] = []
@@ -31,12 +29,9 @@ const index = ({ collectionProps, notFound }: X) => {
                     ao.id != bo.id
                 })
             })
-
         )
         setGenres(result as IGenre[])
     }
-
-
 
     const findGenre = (x: IMovieOrTv) => {
         let names: IGenre[] = []
@@ -113,7 +108,6 @@ const index = ({ collectionProps, notFound }: X) => {
                         { maxWidth: 500, cols: 1, spacing: 'sm' },
                     ]} >
                     {parts.map((x) => {
-
                         return <MediaThumb media={x}
                             genre={findGenre(x)}
                             key={x.id}
@@ -124,51 +118,29 @@ const index = ({ collectionProps, notFound }: X) => {
             </Container>
         )
 }
-
 export default index
 
 
 
 interface X {
     collectionProps: ICollectionDetails
-    //  type: string
-    // title: string
     notFound: boolean
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     const { id } = context.query
-    //  let movieCredits
     try {
         const response = await fetch(`${tmdb.url}/collection/${id}?api_key=${tmdb.key}&language=en-US`)
         const resData = await response.json()
-        //   if (type === "Cast") {
-        //     movieCredits = dataCredits.cast
         return {
             props: {
                 collectionProps: resData as ICollectionDetails,
-                // type: "Cast",
-                //  title: title as string,
                 notFound: false
             },
         }
-        //  }
-        //   else {
-        /*  movieCredits = dataCredits.crew
-         return {
-             props: {
-                 creditProps: movieCredits,
-                 type: "Crew",
-                 title: title as string,
-                 notFound: false */
-        //   },
-        //   }
-        //  }
     } catch (error) {
         return {
             props: {
                 collectionProps: {} as ICollectionDetails,
-                //  type: "Error",
-                //  title: "Error",
                 notFound: false
             },
         }

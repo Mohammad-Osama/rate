@@ -1,26 +1,17 @@
 import React from 'react'
 import {
     Container,
-    SimpleGrid,
-    Grid,
     Image,
-    Badge,
-    Slider,
-    Drawer,
-    Button,
-    Group,
-    Progress,
-    Text,
     Space,
-    Card,
-    Stack,
-    Flex,
     Divider,
-    Accordion
+    HoverCard
 } from '@mantine/core';
 import MiddleTitle from './MiddleTitle';
 import Link from 'next/link';
 import { IProductionCompany, IProductionCountry, ISpokenLanguage, IStatus } from '../helpers/types';
+import * as tmdb from "../helpers/tmdb"
+
+
 
 interface X {
     status: IStatus;
@@ -46,7 +37,7 @@ const MovieDetails = ({
     const budgetFinal = Math.round((budget / 1000000) * 100) / 100
     const revenueFinal = Math.round((revenue / 1000000) * 100) / 100
     const profit = revenue - budget
-    
+
     return (
         <Container
         //style={{ border: "solid" }} 
@@ -101,9 +92,32 @@ const MovieDetails = ({
                 content={
                     production_companies.map((item, index) => {
                         if (index === production_companies.length - 1)
-                            return <Link href="/person" key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
+                            return <HoverCard position="top" key={index}>
+                                <HoverCard.Target>
+                                    <Link href="/person" style={{ color: "#4DABF7" }}>{item.name}</Link>
+                                </HoverCard.Target>
+                                <HoverCard.Dropdown bg="gray">
+                                    <Image 
+                                        src={`${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`}  
+                                        height={133}
+                                        width={133}
+
+                                    />
+                                </HoverCard.Dropdown>
+                            </HoverCard>
                         else
-                            return <React.Fragment key={index}><Link href={`/${item.name}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
+                            return <HoverCard position="top" key={index}>
+                                <HoverCard.Target>
+                                <span ><Link href={`/${item.name}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></span>
+                                </HoverCard.Target>
+                                <HoverCard.Dropdown bg="gray">
+                                <Image 
+                                        src={`${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`}  
+                                        height={133}
+                                        width={133}
+                                    />
+                                </HoverCard.Dropdown>
+                            </HoverCard>
                     })
                 } />
 
