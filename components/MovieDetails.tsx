@@ -36,7 +36,8 @@ const MovieDetails = ({
 
     const budgetFinal = Math.round((budget / 1000000) * 100) / 100
     const revenueFinal = Math.round((revenue / 1000000) * 100) / 100
-    const profit = revenue - budget
+    const profit = revenueFinal - budgetFinal
+    const profitFinal = Math.round(profit * 100) / 100
 
     return (
         <Container
@@ -67,7 +68,7 @@ const MovieDetails = ({
             <MiddleTitle
                 title="Revenue"
                 content={`${revenueFinal.toString()} mil $  (${status === "Released"
-                    ? ` ${profit.toString()} mil $)`
+                    ? ` ${profitFinal.toString()} mil $)`
                     : ')'
                     }`
                 }
@@ -94,27 +95,58 @@ const MovieDetails = ({
                         if (index === production_companies.length - 1)
                             return <HoverCard position="top" key={index}>
                                 <HoverCard.Target>
-                                    <Link href="/person" style={{ color: "#4DABF7" }}>{item.name}</Link>
+                                    <Link
+                                        href={{
+                                            pathname: "/company/[id]",
+                                            query: {
+                                                id: item.id,
+                                            },
+                                        }}
+                                        as={`/company/${item.id}`}
+                                        style={{ color: "#4DABF7" }}
+                                    >
+                                        {item.name}
+                                    </Link>
                                 </HoverCard.Target>
                                 <HoverCard.Dropdown bg="gray">
-                                    <Image 
-                                        src={`${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`}  
+                                    <Image
+                                        src={item.logo_path
+                                            ? `${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`
+                                            : '/images/no_media.jpg'
+                                        }
                                         height={133}
                                         width={133}
-
+                                        fit="contain"
                                     />
                                 </HoverCard.Dropdown>
                             </HoverCard>
                         else
                             return <HoverCard position="top" key={index}>
                                 <HoverCard.Target>
-                                <span ><Link href={`/${item.name}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></span>
+                                    <span ><Link
+                                        href={{
+                                            pathname: "/company/[id]",
+                                            query: {
+                                                id: item.id,
+                                            },
+                                        }}
+                                        as={`/company/${item.id}`}
+                                        style={{ color: "#4DABF7" }}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                        <> , </>
+                                    </span>
                                 </HoverCard.Target>
                                 <HoverCard.Dropdown bg="gray">
-                                <Image 
-                                        src={`${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`}  
+                                    <Image
+                                        src={item.logo_path
+                                            ? `${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`
+                                            : '/images/no_media.jpg'
+                                        }
                                         height={133}
                                         width={133}
+                                        fit="contain"
                                     />
                                 </HoverCard.Dropdown>
                             </HoverCard>
