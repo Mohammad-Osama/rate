@@ -22,7 +22,7 @@ const MiddleTitle = ({ title, content }: X) => {
             }}>
             {title}: 
         </Text>
-        <Text
+        <Text mt={3}
            // m="lg"  <span style={{ fontSize: "22px" }}>{content}</span>
           //  align="justify"
           //  weight={500}

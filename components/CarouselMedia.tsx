@@ -111,34 +111,35 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
                     },
                 }}
             >
-                {list.map((l) => {
-                    return <Carousel.Slide key={l.id}
-                    >
-                        <Stack
-                            align="center"
-                            justify="space-between"
-                            spacing="sm" sx={() => ({
-                                backgroundColor: '#212529',
-                            })}>
-                            <Link
-                                href={{
-                                    pathname: "/media/${mediaType}/[id]",
-                                    query: {
-                                        id: l.id
-                                    },
-                                }}
-                                as={`/media/${mediaType}/${l.id}?type=${mediaType}&user=${userId}`}
-                            >
-                                <Image
-                                    src={l.poster_path
-                                        ?`${tmdb.imgUrl}${tmdb.imgSizeW1280}${l.poster_path}`
-                                        :"/images/no_media.jpg"
+                {list.length > 0
+                    ? list.map((l) => {
+                        return <Carousel.Slide key={l.id}
+                        >
+                            <Stack
+                                align="center"
+                                justify="space-between"
+                                spacing="sm" sx={() => ({
+                                    backgroundColor: '#212529',
+                                })}>
+                                <Link
+                                    href={{
+                                        pathname: "/media/${mediaType}/[id]",
+                                        query: {
+                                            id: l.id
+                                        },
+                                    }}
+                                    as={`/media/${mediaType}/${l.id}?type=${mediaType}&user=${userId}`}
+                                >
+                                    <Image
+                                        src={l.poster_path
+                                            ? `${tmdb.imgUrl}${tmdb.imgSizeW1280}${l.poster_path}`
+                                            : "/images/no_media.jpg"
                                         }
-                                    fit="contain"
-                                //  height="100%"
-                                />
-                            </Link>
-                            {/*  <Text color="white"
+                                        fit="contain"
+                                    //  height="100%"
+                                    />
+                                </Link>
+                                {/*  <Text color="white"
                                     align="center"
                                     size="xl"
                                     weight={700}
@@ -152,9 +153,15 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
                                             : l.name
                                         }                                  
                                 </Text> */}
-                        </Stack>
+                            </Stack>
+                        </Carousel.Slide>
+                    })
+                    : <Carousel.Slide >
+                        <Image src={`/images/no_media.jpg`}
+                            fit="contain"
+                            height={400}
+                        />
                     </Carousel.Slide>
-                })
                 }
             </Carousel>
         </Container>

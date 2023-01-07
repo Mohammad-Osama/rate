@@ -39,7 +39,7 @@ const CarouselPhotos = ({ id, type }: X) => {
     }, [])
     return (
         <Container >
-          
+
             <Carousel //slideSize="170%"
                 //   height={500}
                 slideGap="sm"
@@ -59,23 +59,23 @@ const CarouselPhotos = ({ id, type }: X) => {
                     },
                 }}
             >
-                {images?.backdrops?.length>0 
-                ?images?.backdrops?.map((i) => {
-                    return <Carousel.Slide key={i.file_path}>
-                        <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
+                {images?.backdrops?.length > 0
+                    ? images?.backdrops?.map((i) => {
+                        return <Carousel.Slide key={i.file_path}>
+                            <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
+                                fit="contain"
+                                height="100%"
+                            />
+                        </Carousel.Slide>
+                    })
+                    : <Carousel.Slide >
+                        <Image src={`/images/no_media.jpg`}
                             fit="contain"
-                            height="100%"
+                            height={400}
                         />
-                    </Carousel.Slide>
-                })
-                : <Carousel.Slide >
-                <Image src={`/images/no_media.jpg`}
-                    fit="contain"
-                    height={400}
-                />
-            </Carousel.Slide>
-                
-                
+                      </Carousel.Slide>
+
+
                 }
 
             </Carousel>
