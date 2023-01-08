@@ -6,6 +6,7 @@ import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Butt
 import PersonThumb from '../../../components/personThumb';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import HeadPage from '../../../components/HeadPage';
 
 
 
@@ -13,10 +14,10 @@ import { useRouter } from 'next/router'
 const index = ({ creditProps, type, title, notFound }: X) => {
     const router = useRouter()
 
- function moveDirector(){
+    function moveDirector() {
         const removeDirector = creditProps.filter((x: ICastOrCrew) => x.job !== "Director")
         removeDirector.unshift(...creditProps)
-       //now back at the beginning  , not working ! 
+        //now back at the beginning  , not working ! 
         return removeDirector
     }
 
@@ -26,6 +27,11 @@ const index = ({ creditProps, type, title, notFound }: X) => {
     else
         return (
             <Container size="xl" my="md" pb="xl" >
+                <HeadPage
+                            title={`${title} - ${type}`}
+                            description={`${title} - ${type}`}
+
+                />
                 <Group position="apart" mr="xl" ml="xl" mb="xl">
                     <Text
                         align="justify"
@@ -50,22 +56,22 @@ const index = ({ creditProps, type, title, notFound }: X) => {
                         { maxWidth: 768, cols: 4, spacing: 'sm' },
                         { maxWidth: 500, cols: 3, spacing: 'sm' },
                     ]} >
-                     {type==="Cast"
-                     ? creditProps.map((x) => {
-                        // if (type==="Cast")
-                        return <PersonThumb dataPerson={x}
-                            key={x.credit_id}
-                        />
-                    })
-                    : moveDirector().map((x) => {
-                        console.log("in func")
-                        // if (type==="Cast")
-                        return <PersonThumb dataPerson={x}
-                            key={x.credit_id}
-                        />
-                    })
-                     }   
-                    {}
+                    {type === "Cast"
+                        ? creditProps.map((x) => {
+                            // if (type==="Cast")
+                            return <PersonThumb dataPerson={x}
+                                key={x.credit_id}
+                            />
+                        })
+                        : moveDirector().map((x) => {
+                            console.log("in func")
+                            // if (type==="Cast")
+                            return <PersonThumb dataPerson={x}
+                                key={x.credit_id}
+                            />
+                        })
+                    }
+                    { }
                 </SimpleGrid>
                 {/*  <div>
             {creditProps.map((c) => {

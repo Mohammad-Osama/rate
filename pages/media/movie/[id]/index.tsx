@@ -10,18 +10,13 @@ import {
     Grid,
     Image,
     Badge,
-    Slider,
-    Drawer,
     Button,
     Group,
-    Progress,
     Text,
     Space,
     Card,
     Stack,
-    Flex,
     Divider,
-    Accordion
 } from '@mantine/core';
 import {
     Chart as ChartJS,
@@ -35,7 +30,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import mongoose from "mongoose"
 
 import { authState } from '../../../../redux/slices/authSlice';
@@ -53,6 +48,7 @@ import CarouselMedia from '../../../../components/CarouselMedia';
 import Providers from '../../../../components/Providers';
 import CollectionThumb from '../../../../components/CollectionThumb';
 import MovieDetails from '../../../../components/MovieDetails';
+import HeadPage from '../../../../components/HeadPage';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -183,13 +179,17 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     ).map((x) => {
         return x.name
     })
-    
+
 
     if (notFound === true)
         return (<div>Error Page</div>)
     else
         return (
             <Container size="xl">
+                <HeadPage
+                    title={movieInfoProps.title}
+                    description={movieInfoProps.overview as string}
+                />
                 <Group position="apart" m="xl"
                 //maybe change mr and ml later 
                 >
@@ -235,7 +235,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     <Image
                         src={poster_path
                             ? `${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`
-                            :'/images/no_media.jpg' 
+                            : '/images/no_media.jpg'
                         }
                         fit="contain"
                         alt={title}
@@ -342,11 +342,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                                 </Grid.Col>
                                             })
                                     }
-
                                 </Grid>
                             </div>
                         }
-
                     </div>
 
                 </SimpleGrid>
@@ -363,7 +361,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         { maxWidth: 768, cols: 2, spacing: 'sm' },
                         { maxWidth: 500, cols: 1, spacing: 'sm' },
                     ]} >
-
 
                     <Card radius="md" // first col in 2nd simple grid
                         p="md"
@@ -388,10 +385,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             </Text>
 
                         </Card.Section>
-
-
                     </Card>
-
                     {/* <Flex // second col in simple grid
                           //  mih={50}
                            // bg="rgba(0, 0, 0, .3)"
@@ -404,7 +398,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     <Stack m="xl">
                         <Group position="left" mt={-20}>
                             {movieInfoProps.genres.map((x) => {
-
                                 return <Button color="dark"
                                     style={{ borderColor: "white" }}
 
@@ -416,7 +409,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             })}
                         </Group>
                         <Divider />
-
                         {/* <Text align="justify"
                             weight={700}
                             color="white"
@@ -526,6 +518,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     {/*    </Flex> */}
 
                 </SimpleGrid>
+                
                 <Space h="md" />
                 <AccordionPeople
                     type="Cast"
@@ -559,13 +552,13 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <SideTitle text="More Details"
                 />
                 <MovieDetails
-                        status={movieInfoProps.status}
-                        release_date={movieInfoProps.release_date}
-                        budget={movieInfoProps.budget}
-                        revenue={movieInfoProps.revenue}
-                        production_countries={movieInfoProps.production_countries}
-                        production_companies={movieInfoProps.production_companies}
-                        spoken_languages={movieInfoProps.spoken_languages}
+                    status={movieInfoProps.status}
+                    release_date={movieInfoProps.release_date}
+                    budget={movieInfoProps.budget}
+                    revenue={movieInfoProps.revenue}
+                    production_countries={movieInfoProps.production_countries}
+                    production_companies={movieInfoProps.production_companies}
+                    spoken_languages={movieInfoProps.spoken_languages}
                 />
                 <Space h="xl" />
                 <SideTitle text="Similar Movies" />
@@ -590,7 +583,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 />
                 <Space h="xl" />
                 <SideTitle text="Belongs To Collection" />
-                <CollectionThumb data={movieInfoProps.belongs_to_collection}/>
+                <CollectionThumb data={movieInfoProps.belongs_to_collection} />
                 <Space h={666} />
             </Container>
         )
@@ -656,9 +649,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                         '-__v'])
 
                 movieRateInfoUser = JSON.parse(JSON.stringify(existingRateUser))
-
             }
-
             return {
                 props: {
                     movieInfoProps: movieInfo,
@@ -669,9 +660,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                     notFound: false
                 },
             }
-
         }
-
         else {
             return {
                 props: {

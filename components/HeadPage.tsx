@@ -8,7 +8,7 @@ interface X {
 const HeadPage = ({title , description}:X) => {
     return (
         <Head>
-            <title>{title}</title>
+            <title>Rate - {title}</title>
             <meta name="description" content={description}/>
         </Head>
     )

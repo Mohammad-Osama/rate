@@ -8,6 +8,7 @@ import * as colors from '../../../helpers/colors'
 import axios from 'axios';
 import MediaThumb from '../../../components/MediaThumb';
 import SideTitle from '../../../components/SideTitle';
+import HeadPage from '../../../components/HeadPage';
 
 
 
@@ -57,6 +58,11 @@ const index = ({ collectionProps, notFound }: X) => {
     else
         return (
             <Container size="xl" my="md" pb="xl" >
+                <HeadPage
+                            title={name}
+                            description={overview}
+
+                />
                 <Text
                     //  p="xl"
                     align="center"

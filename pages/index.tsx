@@ -7,7 +7,7 @@ import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Butt
 import * as tmdb from "./../helpers/tmdb"
 import MediaThumb from '../components/MediaThumb';
 import HomeFilter from '../components/HomeFilter';
-import HeadPage from '../components/navbar/HeadPage';
+import HeadPage from '../components/HeadPage';
 
 
 

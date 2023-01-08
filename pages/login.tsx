@@ -19,6 +19,7 @@ import { showNotification } from '@mantine/notifications'
 import { AlertCircle } from 'tabler-icons-react'
 import { authState, login, register, reset } from '../redux/slices/authSlice';
 import { AppDispatch } from '../redux/store';
+import HeadPage from '../components/HeadPage';
 //import ErrorPage from '../components/ErrorPage';
 
 
@@ -120,6 +121,10 @@ const Login = (props: PaperProps ) => {
    else  */
   return (
     <Container size="sm" px="xs" py={60} >
+      <HeadPage
+        title="Login"
+        description="Welcome to Rate"
+      />
     <Paper radius="md" p="xl" withBorder {...props} style={{backgroundColor:"#25262B"}}>
       <Text size="lg" weight={500} color="white">
         Welcome , {type} with

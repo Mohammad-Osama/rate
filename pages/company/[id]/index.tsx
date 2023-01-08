@@ -5,6 +5,7 @@ import { Space, Container, SimpleGrid, Card, Image, Text, Stack, HoverCard } fro
 import * as colors from '../../../helpers/colors'
 import MiddleTitle from '../../../components/MiddleTitle';
 import Link from 'next/link';
+import HeadPage from '../../../components/HeadPage';
 
 
 
@@ -19,6 +20,13 @@ console.log(companyProps)
     else
         return (
             <Container size="xl" my="md" pb="xl" >
+                <HeadPage
+                    title={name}
+                    description={description!==''
+                        ?description
+                        :name
+                    }
+                />
                 <Text
                     align="center"
                     weight={700}
