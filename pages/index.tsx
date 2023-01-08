@@ -7,6 +7,7 @@ import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Butt
 import * as tmdb from "./../helpers/tmdb"
 import MediaThumb from '../components/MediaThumb';
 import HomeFilter from '../components/HomeFilter';
+import HeadPage from '../components/navbar/HeadPage';
 
 
 
@@ -97,11 +98,10 @@ export default function Home() {
   }, [moviesTypes , mediaType ,tvTypes ])
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Rate My Media</title>
-        <meta name="rate" content="rate a movie or a tv show" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadPage
+          title="Rate My Media"
+          description="Rate a movie or a tv show"
+      />
       <Container size="xl" my="md" pb="xl" className={classes.container}>
           <HomeFilter  mediaType={mediaType}
                        setMediaType={setMediaType}
