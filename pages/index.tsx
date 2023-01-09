@@ -41,13 +41,13 @@ export default function Home() {
   const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("popular")
 
 
-  async function getMovies(type : string) {
-    const movies = await axios.get(`/api/movies?type=${type}` )
+  async function getMovies(type: string) {
+    const movies = await axios.get(`/api/movies?type=${type}`)
     setList(movies.data.results as IMovieOrTv[])
   }
 
-  async function getTvs(type : string) {
-    const tvs = await axios.get(`/api/tv?type=${type}` )
+  async function getTvs(type: string) {
+    const tvs = await axios.get(`/api/tv?type=${type}`)
     setList(tvs.data.results as IMovieOrTv[])
   }
 
@@ -82,34 +82,38 @@ export default function Home() {
 
 
   useEffect(() => {
-    if (mediaType==="movie")
-    {
+    if (mediaType === "movie") {
       getMovies(moviesTypes)
     }
     else {
       getTvs(tvTypes)
     }
-   
-   
+
+
     getGenres()
     return () => {
 
     }
-  }, [moviesTypes , mediaType ,tvTypes ])
+  }, [moviesTypes, mediaType, tvTypes])
   return (
     <div className={styles.container}>
       <HeadPage
-          title="Rate My Media"
-          description="Rate a movie or a tv show"
+        title="Rate My Media"
+        description="Rate a movie or a tv show"
       />
-      <Container size="xl" my="md" pb="xl" className={classes.container}>
-          <HomeFilter  mediaType={mediaType}
-                       setMediaType={setMediaType}
-                       moviesTypes={moviesTypes}
-                       setMoviestypes={setMoviestypes} 
-                       tvTypes={tvTypes}
-                       setTvTypes={setTvTypes}
-                        />
+      <Container
+        size="xl"
+        my="md"
+        pb="xl"
+        className={classes.container}
+      >
+        <HomeFilter mediaType={mediaType}
+          setMediaType={setMediaType}
+          moviesTypes={moviesTypes}
+          setMoviestypes={setMoviestypes}
+          tvTypes={tvTypes}
+          setTvTypes={setTvTypes}
+        />
 
         <SimpleGrid cols={4} spacing="lg"
           breakpoints={[
@@ -120,11 +124,11 @@ export default function Home() {
           {list?.map((x) => {
 
             return <MediaThumb media={x}
-                               genre={findGenre(x)}
-                               key={x.id} 
-                               mediaType={mediaType}
-                               />
-                          })}
+              genre={findGenre(x)}
+              key={x.id}
+              mediaType={mediaType}
+            />
+          })}
         </SimpleGrid>
       </Container>
 
