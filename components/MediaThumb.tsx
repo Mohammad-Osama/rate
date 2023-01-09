@@ -1,11 +1,10 @@
 import React from 'react'
 import { IGenre, IMovieOrTv } from '../helpers/types'
-import { Card, Image, Text, Badge, Button, Group, Center, Stack } from '@mantine/core';
+import { Image, Text, Badge, Button, Group, Stack } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
 import Link from 'next/link'
-import { AppDispatch } from '../redux/store';
-import { authState ,logout } from '../redux/slices/authSlice';
-import { useSelector ,useDispatch} from 'react-redux';
+import { authState  } from '../redux/slices/authSlice';
+import { useSelector } from 'react-redux';
 
 interface X {
     media: IMovieOrTv;
@@ -16,12 +15,17 @@ const MediaThumb = ({ media, genre ,mediaType}: X) => {
     const userData= useSelector(authState)
     const userId=userData.id
 
-    const { id, title, poster_path, vote_average, release_date, genre_ids ,name,first_air_date} = media
+    const { id, title, poster_path, vote_average, release_date ,name,first_air_date} = media
     return (
         <Stack align="center"
             justify="space-between"
-            spacing="sm" sx={() => ({
+            spacing="sm" 
+            sx={() => ({
                 backgroundColor: '#212529',
+                '&:hover': {
+                    transform: 'scale(1.03)',
+                  //  boxShadow: '',
+                  },
             })}>
             
             <Link   href={{
@@ -40,7 +44,6 @@ const MediaThumb = ({ media, genre ,mediaType}: X) => {
                     }
                     fit="contain"
                     alt={title}
-
                 />
             </Link>
             <Text color="white"
@@ -56,7 +59,6 @@ const MediaThumb = ({ media, genre ,mediaType}: X) => {
             </Text>
             <Group position="center">
                 {genre.map((x) => {
-
                     return <Button color="dark"
                         style={{ borderColor: "white" }}
                         compact
