@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { Movie ,IMovie} from "../../../../../models/movieModel"
+import { Tv ,ITv} from "../../../../../models/tvModel"
 import clientPromise from "../../../../../lib/db"
 import { IRate, Rate } from "../../../../../models/rateModel"
 import mongoose from "mongoose"
@@ -9,23 +9,23 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     await clientPromise()
     const authStatus = await authJwt(req,res)
     if (authStatus==="authorized"){
-    const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id }) 
+    const exisitingTv = await Tv.findOne({ tmdb_id: req.body.tmdb_id }) 
     // if the movie exists in the database 
-     if (exisitingMovie) {  
+     if (exisitingTv) {  
          const userIdBody = req.body.user as string
          const ObjectId = mongoose.Types.ObjectId
          const finalUserId = new ObjectId(userIdBody);
        // check if the user already voted for that movie 
        //need to add more filters ----------------->>> 
-         const existingRate = await Rate.findOne({user: finalUserId ,tmdb_id: req.body.tmdb_id})
+         const existingRate = await Rate.findOne({user: finalUserId ,tmdb_id: req.body.tmdb_id ,media_type:req.body.media_type})
        
         if (existingRate)
         {
          res.status(400).json("you already voted")
         }
         else {
-         try { // update the existing movie 
-           const updatedMovie=  await Movie.findOneAndUpdate(
+         try { // update the existing tv 
+           const updatedTv=  await Tv.findOneAndUpdate(
                  {tmdb_id : req.body.tmdb_id} ,
                    { 
                      $inc: { "rating_count" : 1 , 
@@ -54,7 +54,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                      sound_effects: req.body.sound_effects,
                      directing: req.body.directing,
                  })
-                 res.status(201).json({updatedMovie , newRate})
+                 res.status(201).json({updatedTv , newRate})
  
          } catch (error) {
              res.status(400).json(`Error==>${error}`);
@@ -62,8 +62,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
      }
      }
      else  
-      { // if the movie doesnt exist , add a movie document and a rate document
-         const newMovie: IMovie = await Movie.create({
+      { // if the tv doesnt exist , add a tv document and a rate document
+         const newMovie: ITv = await Tv.create({
              title: req.body.title,
              tmdb_id: req.body.tmdb_id,
              rating_count: 1,

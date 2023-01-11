@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { Movie, IMovie } from "../../../../../models/movieModel"
+import { Tv ,ITv} from "../../../../../models/tvModel"
 import clientPromise from "../../../../../lib/db"
 import { IRate, Rate } from "../../../../../models/rateModel"
 import mongoose from "mongoose"
@@ -10,13 +10,13 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     const userIdBody = req.body.user as string
     const ObjectId = mongoose.Types.ObjectId
     const finalUserId = new ObjectId(userIdBody);
-    // exisitg movie maybe not needed 
-    const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id })
-    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id })
+    // exisitg tv maybe not needed 
+    const exisitingTv = await Tv.findOne({ tmdb_id: req.body.tmdb_id })
+    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id  , media_type:req.body.media_type })
 
-    // remove exising user`s rate from the movie 
-    const removedUserRateFromMovie = await Movie.findOneAndUpdate(
-      { tmdb_id: req.body.tmdb_id },
+    // remove exising user`s rate from the tv 
+    const removedUserRateFromTv = await Tv.findOneAndUpdate(
+      { tmdb_id: req.body.tmdb_id  , media_type:req.body.media_type},
       {
         $inc: {
           "acting": -existingRate?.acting,
@@ -31,10 +31,10 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
       { returnDocument: "after" }
     )
 
-    //update that movie with the new user`s rating 
+    //update that tv with the new user`s rating 
 
-    const updatedMovie = await Movie.findOneAndUpdate(
-      { tmdb_id: req.body.tmdb_id },
+    const updatedTv = await Tv.findOneAndUpdate(
+      { tmdb_id: req.body.tmdb_id , media_type:req.body.media_type },
       {
         $inc: {
           "acting": req.body.acting,
@@ -52,7 +52,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     //update user`s rating 
 
     const updatedRate = await Rate.findOneAndUpdate(
-      { user: finalUserId, tmdb_id: req.body.tmdb_id },
+      { user: finalUserId, tmdb_id: req.body.tmdb_id, media_type:req.body.media_type },
       {
         "acting": req.body.acting,
         "story": req.body.story,
@@ -64,7 +64,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
       },
       { returnDocument: "after" }
     )
-    res.status(200).json({updatedMovie , updatedRate})
+    res.status(200).json({updatedTv , updatedRate})
   } catch (error) {
     res.status(400).json(`Error==>${error}`);
   }

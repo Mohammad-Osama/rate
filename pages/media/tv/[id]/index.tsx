@@ -55,7 +55,7 @@ import RadarChart from '../../../../components/RadarChart';
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps,media_type, notFound }: X) => {
 console.log("tvRateInfoProps" , tvRateInfoProps)
-console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
+//console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
 
     const userInfo = useSelector(authState)

@@ -185,6 +185,7 @@ export interface IMovieRate {
     sound_effects: number;
     directing: number
     _id: string
+    media_type:string
 }
 
 
