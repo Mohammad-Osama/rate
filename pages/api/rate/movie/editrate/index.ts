@@ -12,7 +12,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     const finalUserId = new ObjectId(userIdBody);
     // exisitg movie maybe not needed 
     const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id })
-    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id })
+    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id , media_type:req.body.media_type})
 
     // remove exising user`s rate from the movie 
     const removedUserRateFromMovie = await Movie.findOneAndUpdate(
@@ -52,7 +52,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     //update user`s rating 
 
     const updatedRate = await Rate.findOneAndUpdate(
-      { user: finalUserId, tmdb_id: req.body.tmdb_id },
+      { user: finalUserId, tmdb_id: req.body.tmdb_id , media_type:req.body.media_type},
       {
         "acting": req.body.acting,
         "story": req.body.story,

@@ -17,7 +17,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
          const finalUserId = new ObjectId(userIdBody);
        // check if the user already voted for that movie 
        //need to add more filters ----------------->>> 
-         const existingRate = await Rate.findOne({user: finalUserId ,tmdb_id: req.body.tmdb_id})
+         const existingRate = await Rate.findOne({user: finalUserId ,tmdb_id: req.body.tmdb_id , media_type:req.body.media_type})
        
         if (existingRate)
         {
@@ -26,7 +26,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
         else {
          try { // update the existing movie 
            const updatedMovie=  await Movie.findOneAndUpdate(
-                 {tmdb_id : req.body.tmdb_id} ,
+                 {tmdb_id : req.body.tmdb_id , media_type:req.body.media_type} ,
                    { 
                      $inc: { "rating_count" : 1 , 
                              "acting" : req.body.acting ,
