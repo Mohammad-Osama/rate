@@ -49,24 +49,33 @@ import Providers from '../../../../components/Providers';
 import CollectionThumb from '../../../../components/CollectionThumb';
 import MovieDetails from '../../../../components/MovieDetails';
 import HeadPage from '../../../../components/HeadPage';
-const index = () => {
+import { Tv as TvModel, ITv as TvModelType} from '../../../../models/tvModel';
+const index = ({tvInfoProps,tvRateInfoProps ,tvRateInfoUserProps , tvInfoCreditsProps}:X) => {
+    console.log(tvInfoProps,tvRateInfoProps ,tvRateInfoUserProps , tvInfoCreditsProps)
     return (
         <div>
-            i need to know type of media first before getServerSideProps ?!
+            testing
         </div>
     )
 }
 
 export default index
 
-// tv model first !!!!!!!!!!!!!!!!!!
+interface X {
+    tvInfoProps: ITv
+    tvInfoCreditsProps: ICredits
+    media_type: string
+    tvRateInfoProps: IMovieRate
+    tvRateInfoUserProps: IRate | null
+    notFound: boolean
+}
 
-/* export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
+ export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id, type, user } = context.query
     //  console.log("uuuu", context.query)
     let tvInfo = {} as ITv
-    let tvRateInfo
+    let tvRateInfo = {} as TvModelType
     let tvRateInfoUser
     let tvCredits
     try {
@@ -74,17 +83,18 @@ export default index
             const response = await fetch(`${tmdb.urlTv}${id}?api_key=${tmdb.key}&language=en-US`)
             const data = await response.json()
             tvInfo = data
-            const responseCredits = await fetch(`${tmdb.urlMovie}${id}/credits?api_key=${tmdb.key}&language=en-US`)
+            const responseCredits = await fetch(`${tmdb.urlTv}${id}/credits?api_key=${tmdb.key}&language=en-US`)
             const dataCredits = await responseCredits.json()
-            movieCredits = dataCredits
-            const rateResponse = await Movie.findOne({ tmdb_id: id })
+            tvCredits = dataCredits
+            const rateResponse = await TvModel.findOne({ tmdb_id: id ,  media_type:type})
                 .select(['-createdAt',
                     '-updatedAt',
                     '-__v'])
             if (rateResponse === null) {
-                movieRateInfo = {
-                    title: movieInfo.title,
-                    tmdb_id: movieInfo.id,
+                tvRateInfo  =  {
+                    title: tvInfo.name,
+                    tmdb_id: tvInfo.id,
+                    media_type:type,
                     rating_count: 0,
                     acting: 0,
                     story: 0,
@@ -93,32 +103,32 @@ export default index
                     visual_effects: 0,
                     sound_effects: 0,
                     directing: 0,
-                }
+                } as  TvModelType
             }
             else {
-                movieRateInfo = JSON.parse(JSON.stringify(rateResponse))
+                tvRateInfo = JSON.parse(JSON.stringify(rateResponse))
             }
             if (user === "null") {
-                movieRateInfoUser = null
+                tvRateInfoUser = null
             }
             else {
                 const ObjectId = mongoose.Types.ObjectId
                 const userId = new ObjectId(user as string);
 
-                const existingRateUser = await RateModel.findOne({ user: userId, tmdb_id: id })
+                const existingRateUser = await RateModel.findOne({ user: userId, tmdb_id: id , media_type:type})
                     .select(['-createdAt',
                         '-updatedAt',
                         '-__v'])
 
-                movieRateInfoUser = JSON.parse(JSON.stringify(existingRateUser))
+                tvRateInfoUser = JSON.parse(JSON.stringify(existingRateUser))
             }
             return {
                 props: {
-                    movieInfoProps: movieInfo,
-                    movieInfoCreditsProps: movieCredits,
+                    tvInfoProps: tvInfo,
+                    tvInfoCreditsProps: tvCredits as ICredits,
                     media_type: type as string,
-                    movieRateInfoProps: movieRateInfo as IMovieRate,
-                    movieRateInfoUserProps: movieRateInfoUser as IRate,
+                    tvRateInfoProps: tvRateInfo as IMovieRate,
+                    tvRateInfoUserProps: tvRateInfoUser as IRate,
                     notFound: false
                 },
             }
@@ -126,11 +136,11 @@ export default index
         else {
             return {
                 props: {
-                    movieInfoProps: {} as IMovie,
-                    movieInfoCreditsProps: {} as ICredits,
+                    tvInfoProps: {} as ITv,
+                    tvInfoCreditsProps: {} as ICredits,
                     media_type: type as string,
-                    movieRateInfoProps: {} as IMovieRate,
-                    movieRateInfoUserProps: null,
+                    tvRateInfoProps: {} as IMovieRate,
+                    tvRateInfoUserProps: null,
                     notFound: true
                 },
             }
@@ -138,13 +148,13 @@ export default index
     } catch (error) {
         return {
             props: {
-                movieInfoProps: {} as IMovie,
-                movieInfoCreditsProps: {} as ICredits,
+                tvInfoProps: {} as ITv,
+                tvInfoCreditsProps: {} as ICredits,
                 media_type: type as string,
-                movieRateInfoProps: {} as IMovieRate,
-                movieRateInfoUserProps: null,
+                tvRateInfoProps: {} as IMovieRate,
+                tvRateInfoUserProps: null,
                 notFound: true
             },
         }
     }
-} */
+} 
