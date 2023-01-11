@@ -75,7 +75,7 @@ const AddRate = ({ tmdb_id, title, media_type, user , movieRateInfoUserProps,isR
 		const config = {
 			headers: { Authorization: `Bearer ` + token }
 		};
-        axios.post('/api/rate/movies/addrate',
+        axios.post(`/api/rate/${media_type}/addrate`,
             values,
             config)
             .then((response) => {
@@ -140,7 +140,7 @@ const AddRate = ({ tmdb_id, title, media_type, user , movieRateInfoUserProps,isR
 		const config = {
 			headers: { Authorization: `Bearer ` + token }
 		}; */
-        axios.post('/api/rate/movies/editrate',
+        axios.post(`/api/rate/${media_type}/editrate`,
             values,
           //  config
             )

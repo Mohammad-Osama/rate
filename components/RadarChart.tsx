@@ -59,10 +59,10 @@ ChartJS.register(
     Legend
 );
 
-interface X{
-    rateInfo :IMovieRate
+interface X {
+    rateInfo: IMovieRate
 }
-const RadarChart = ({rateInfo}:X) => {
+const RadarChart = ({ rateInfo }: X) => {
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = rateInfo
     const actingData = Math.round((acting / rating_count) * 10) / 10
     const storyData = Math.round((story / rating_count) * 10) / 10
@@ -105,52 +105,49 @@ const RadarChart = ({rateInfo}:X) => {
         ]
     };
     return (
-        <div>
-            <Radar
-                            options={{
-                                responsive: true,
-                                maintainAspectRatio: true,
-                                color: "yellow",// color of the main label at the top
-                                scales: {
-                                    r: {
-                                        min: 0,
-                                        max: 10,
-                                        pointLabels: { // edit labels 
-                                            color: "white",
-                                            font: {
-                                                size: 15
-                                            }
-                                        },
-                                        //  reverse,
-                                        //  startAngle:33, // rotates the chart
-                                        //  suggestedMax:44,
-                                        //   suggestedMin,
-                                        ticks: {
-                                            display: false,
-                                            stepSize: 1
+        <Radar
+            options={{
+                responsive: true,
+                maintainAspectRatio: true,
+                color: "yellow",// color of the main label at the top
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 10,
+                        pointLabels: { // edit labels 
+                            color: "white",
+                            font: {
+                                size: 15
+                            }
+                        },
+                        //  reverse,
+                        //  startAngle:33, // rotates the chart
+                        //  suggestedMax:44,
+                        //   suggestedMin,
+                        ticks: {
+                            display: false,
+                            stepSize: 1
 
-                                            //  textStrokeColor: 'rgb(54, 162, 235)',
-                                            //   color: 'white',
-                                            //  backdropColor: 'red'
-                                        },
-                                        angleLines: {
-                                            //     color: 'yellow',
-                                        },
-                                        //  type,
-                                        //  weight,
-                                        grid: {
-                                            color: "#2C2E33",
-                                            lineWidth: 2,
+                            //  textStrokeColor: 'rgb(54, 162, 235)',
+                            //   color: 'white',
+                            //  backdropColor: 'red'
+                        },
+                        angleLines: {
+                            //     color: 'yellow',
+                        },
+                        //  type,
+                        //  weight,
+                        grid: {
+                            color: "#2C2E33",
+                            lineWidth: 2,
+                        }
+                    }
+                }
+            }}
+            data={data}
 
-                                        }
-                                    }
-                                }
-                            }}
-                            data={data}
-
-                        //  style={{ minHeight: "100%", minWidth: "100%" }}
-                        />
-        </div>
+        //  style={{ minHeight: "100%", minWidth: "100%" }}
+        />
     )
 }
 

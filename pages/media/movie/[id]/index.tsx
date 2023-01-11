@@ -228,7 +228,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <SimpleGrid cols={2} spacing="lg"
                     breakpoints={[
                         { maxWidth: 1024, cols: 2, spacing: 'md' },
-                        { maxWidth: 768, cols: 2, spacing: 'sm' },
+                        { maxWidth: 768, cols: 1, spacing: 'sm' },
                         { maxWidth: 500, cols: 1, spacing: 'sm' },
                     ]}
                 //   style={{backgroundColor:"#212529"}}
