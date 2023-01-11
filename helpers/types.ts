@@ -140,13 +140,13 @@ export interface ITv {
     adult?: boolean;
     backdrop_path: string | null;
     created_by: ICreatedBy[];
-    episode_run_time: [number];
+    episode_run_time: number[];
     first_air_date: string;
     genres: IGenre[];
     homepage: string;
     id: number;
     in_production: boolean;
-    languages: [string];
+    languages: string[];
     last_air_date: string;
     last_episode_to_air: IEpisode;
     name: string;
@@ -154,7 +154,7 @@ export interface ITv {
     networks: INetwork[];
     number_of_episodes: number;
     number_of_seasons: number;
-    origin_country: [string];
+    origin_country: string[];
     original_language: string;
     original_name: string;
     overview: string;
