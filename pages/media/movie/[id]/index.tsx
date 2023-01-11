@@ -49,6 +49,7 @@ import Providers from '../../../../components/Providers';
 import CollectionThumb from '../../../../components/CollectionThumb';
 import MovieDetails from '../../../../components/MovieDetails';
 import HeadPage from '../../../../components/HeadPage';
+import RadarChart from '../../../../components/RadarChart';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -243,7 +244,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                     <div style={{}} //second col in simple grid
                     >
-                        <Radar
+                        {/* <Radar
                             options={{
                                 responsive: true,
                                 maintainAspectRatio: true,
@@ -286,6 +287,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             data={data}
 
                         //  style={{ minHeight: "100%", minWidth: "100%" }}
+                        /> */}
+                        <RadarChart
+                                    rateInfo={movieRateInfoProps}
                         />
                         <AddRate tmdb_id={id}
                             title={title}
