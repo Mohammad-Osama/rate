@@ -53,9 +53,10 @@ import { Tv as TvModel, ITv as TvModelType } from '../../../../models/tvModel';
 import RadarChart from '../../../../components/RadarChart';
 
 
-const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps,media_type, notFound }: X) => {
-console.log("tvRateInfoProps" , tvRateInfoProps)
-//console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
+const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
+    console.log("tvInfoProps", tvInfoProps)
+
+    //console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
 
     const userInfo = useSelector(authState)
@@ -69,12 +70,31 @@ console.log("tvRateInfoProps" , tvRateInfoProps)
         vote_average,
         vote_count,
         poster_path,
-        id
+        id,
+        seasons,
+        status,
+        episode_run_time,
+        tagline,
+        genres,
+        homepage,
+        created_by
+
+
 
 
     } = tvInfoProps
 
+    const writers = tvInfoCreditsProps.crew.filter(m =>
+        m.job === "Writer"
+    ).map((x) => {
+        return x.name
+    })
 
+    const directors = tvInfoCreditsProps.crew.filter(m =>
+        m.job === "Director"
+    ).map((x) => {
+        return x.name
+    })
     function ValueBadge(x: number) {
         return (
             <Badge //color="green"
@@ -123,13 +143,13 @@ console.log("tvRateInfoProps" , tvRateInfoProps)
                             color="white"
                             style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
                         >
-                            {name}
+                            {name} <span style={{ fontSize: "16px", color: "#ADB5BD" }}>{status}</span>
                         </Text>
                         <Text
                             size="xl"
                             color="#ADB5BD"
                         >
-                            {first_air_date.substring(0, 4)} - {original_language} - {/* {runtime} minutes */}
+                            {first_air_date.substring(0, 4)} - {original_language} - {seasons.length} Seasons - {episode_run_time[0]} minutes
                         </Text>
                     </div>
                     <div>
@@ -159,13 +179,14 @@ console.log("tvRateInfoProps" , tvRateInfoProps)
                             ? `${tmdb.imgUrl}${tmdb.imgSize}${poster_path}`
                             : '/images/no_media.jpg'
                         }
+                        //  height="600px"
+                        //  width="600px"
                         fit="contain"
                         alt={name}
                     />
-
                     <div style={{}} //second col in simple grid
                     >
-                        
+
                         <RadarChart
                             rateInfo={tvRateInfoProps}
                         />
@@ -230,8 +251,79 @@ console.log("tvRateInfoProps" , tvRateInfoProps)
                     </div>
 
                 </SimpleGrid>
+                <Divider />
+                <Space h="md" />
+                <Group >
+                    {genres.map((x) => {
+                        return <Button color="dark"
+                            style={{ borderColor: "white" }}
+
+                            radius="xl"
+                            key={x.id}
+                        >
+                            {x.name}
+                        </Button>
+                    })}
+                </Group>
+                <Space h="md" />
+                <Divider w="50%" />
+                <Space h="md" />
+                <MiddleTitle
+                    title="Created By"
+                    content={
+                        created_by.map((item, index) => {
+                            if (index === created_by.length - 1) // person page to be done later  , edit href
+                                return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
+                            else
+                                return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
+                        })
+                    } />
+                <Space h="md" />
+                <Divider />
+                <Space h="md" />
+                <Card radius="md" // first col in 2nd simple grid
+                    p="md"
+                    style={{ backgroundColor: colors.bodyBackground }}>
+
+                    <Card.Section>
+                        <Text mb="md"
+                            size="xl"
+                            color="#ADB5BD"
+                        >
+                            {tagline}
+                        </Text>
+                        <Text align="justify"
+                            weight={100}
+                            color="white"
+                            style={{
+                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+                                fontSize: "25px",
+                                backgroundColor: "#373A40"
+                            }}>
+                            {overview}
+                        </Text>
+
+                    </Card.Section>
+                </Card>
+                <Space h="md" />
+                <Divider />
+                <Space h="md" />
+                <AccordionPeople
+                    type="Cast"
+                    data={tvInfoCreditsProps.cast}
+                    id={tvInfoCreditsProps.id}
+                    title={name}
+                />
+                <Space h="xl" />
+                <AccordionPeople
+                    type="Crew"
+                    data={tvInfoCreditsProps.crew}
+                    id={tvInfoCreditsProps.id}
+                    title={name}
+                />
 
 
+                <Space h={666} />
             </Container>
         )
 }
