@@ -28,19 +28,24 @@ const Providers = ({ id, mediaType }: X) => {
         setCountry(dataFlag.flags.png)
         if (mediaType === "movie") {
             try {
-                const response = await fetch(`${tmdb.urlMovie}${id}/watch/providers?api_key=${tmdb.keyClient}`)
+                const response = await fetch(`/api/movies/providers?id=${id}`)
                 const data = await response.json() as IAllProviders
                 const final = data.results[dataC.country_code]
                 setstate(final)
             } catch (error) {
                 alert(error)
             }
-            // fetch movie images 
-            // setstate with res 
         }
         else {
-            //fetch tv images 
-            //setstate with res 
+            //fetch tv providers 
+            try {
+                const response = await fetch(`/api/tv/providers?id=${id}`)
+                const data = await response.json() as IAllProviders
+                const final = data.results[dataC.country_code]
+                setstate(final)
+            } catch (error) {
+                alert(error)
+            }
         }
     }
 

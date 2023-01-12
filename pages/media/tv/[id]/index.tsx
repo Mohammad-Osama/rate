@@ -415,7 +415,12 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     callType="tv recommendations"
 
                 />
-
+                <Space h="xl" />
+                <SideTitle text="Where To Watch" />
+                <Providers
+                    id={id}
+                    mediaType="tv"
+                />
 
 
 
