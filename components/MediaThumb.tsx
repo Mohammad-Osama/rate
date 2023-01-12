@@ -23,7 +23,7 @@ const MediaThumb = ({ media, genre ,mediaType}: X) => {
             sx={() => ({
                 backgroundColor: '#212529',
                 '&:hover': {
-                    transform: 'scale(1.03)',
+                    transform: 'scale(1.01)',
                   //  boxShadow: '',
                   },
             })}>

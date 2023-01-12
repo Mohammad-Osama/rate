@@ -21,7 +21,7 @@ const Providers = ({ id, mediaType }: X) => {
     const [state, setstate] = useState<IProvidersList>()
 
     async function getProviders() {
-        const resCounrty = await fetch(`https://api.ipdata.co/?api-key=${process.env.NEXT_PUBLIC_IPDATA_KEY}&fields=country_code`)
+        const resCounrty = await fetch(`/api/services/ipdata`)
         const dataC = await resCounrty.json()
         const resFlag = await fetch(`https://restcountries.com/v3.1/alpha/${dataC.country_code}?fields=flags`)
         const dataFlag = await resFlag.json()
