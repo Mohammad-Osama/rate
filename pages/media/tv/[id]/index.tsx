@@ -395,6 +395,21 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     homepage={homepage}
                     networks={networks}
                 />
+
+                <Space h="xl" />
+                <SideTitle text="Similar Tv Shows"
+                />
+                <CarouselMedia
+                    id={id}
+                    mediaType={media_type}
+                    callType="tv similar"
+
+                />
+
+
+
+
+
                 <Space h={666} />
             </Container>
         )
