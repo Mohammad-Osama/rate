@@ -43,6 +43,7 @@ import HeadPage from '../../../../components/HeadPage';
 import { Tv as TvModel, ITv as TvModelType } from '../../../../models/tvModel';
 import RadarChart from '../../../../components/RadarChart';
 import TvDetails from '../../../../components/TvDetails';
+import CarouselSeasons from '../../../../components/CarouselSeasons';
 
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
@@ -324,48 +325,9 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 <Space h="xl" />
                 <SideTitle text="Seasons"
                 />
-                <Carousel
-                    //slideSize="170%"
-                    //  height={900}
-                    slideGap="sm"
-                    controlsOffset="xs"
-                    controlSize={40}
-                    // dragFree
-                    withIndicators
-                    slideSize="33.333333%"
-                    slidesToScroll={3}
-                    styles={{
-                        indicator: {
-                            width: 12,
-                            height: 4,
-                            transition: 'width 250ms ease',
-
-                            '&[data-active]': {
-                                width: 40,
-                            },
-                        },
-                    }}
-                >
-                    {seasons.length > 0
-                        ? seasons.map((i) => {
-                            return <Carousel.Slide key={i.id}>
-                                <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.poster_path}`}
-                                    fit="contain"
-                                //  height="100%"
-                                />
-                            </Carousel.Slide>
-                        })
-                        : <Carousel.Slide >
-                            <Image src={`/images/no_media.jpg`}
-                                fit="contain"
-                                height={400}
-                            />
-                        </Carousel.Slide>
-
-
-                    }
-
-                </Carousel>
+                <CarouselSeasons
+                                seasons={seasons}
+                />
                 <Space h="xl" />
                 <SideTitle text="Photos"
                 />
