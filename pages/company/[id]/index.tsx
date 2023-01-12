@@ -12,7 +12,6 @@ import HeadPage from '../../../components/HeadPage';
 
 
 const index = ({ companyProps, notFound }: X) => {
-console.log(companyProps)
     const { name, description, headquarters, logo_path, origin_country, parent_company } = companyProps
 
     if (notFound === true)

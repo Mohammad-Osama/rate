@@ -74,7 +74,8 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
         number_of_episodes,
         production_companies,
         production_countries,
-        spoken_languages
+        spoken_languages,
+        networks
 
 
 
@@ -392,6 +393,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     production_countries={production_countries}
                     spoken_languages={spoken_languages}
                     homepage={homepage}
+                    networks={networks}
                 />
                 <Space h={666} />
             </Container>

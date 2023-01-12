@@ -328,3 +328,12 @@ export interface IProductionCompanyDetails {
     origin_country: string;
     parent_company: IProductionCompany | null;
 }
+
+export interface INetworkDetails {
+    id: number;
+    name: string;
+    headquarters: string;
+    homepage:string;
+    logo_path: string | null;
+    origin_country: string;
+}

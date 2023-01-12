@@ -8,7 +8,7 @@ import {
 } from '@mantine/core';
 import MiddleTitle from './MiddleTitle';
 import Link from 'next/link';
-import { IProductionCompany, IProductionCountry, ISpokenLanguage, IStatus } from '../helpers/types';
+import { INetwork, IProductionCompany, IProductionCountry, ISpokenLanguage, IStatus } from '../helpers/types';
 import * as tmdb from "../helpers/tmdb"
 
 
@@ -22,6 +22,7 @@ interface X {
     production_companies: IProductionCompany[]
     spoken_languages: ISpokenLanguage[]
     homepage:string
+    networks:INetwork[]
 }
 
 const TvDetails = ({ status,
@@ -31,7 +32,8 @@ const TvDetails = ({ status,
     production_companies,
     production_countries,
     spoken_languages,
-    homepage
+    homepage,
+    networks
 }: X) => {
     return (
         <Container
@@ -155,6 +157,73 @@ const TvDetails = ({ status,
                             return <React.Fragment key={index}><>{item.english_name}</> <> , </></React.Fragment>
                     })
                 } />
+
+<Divider variant="solid" mt="lg" mb="lg" />
+
+<MiddleTitle
+    title="Networks"
+    content={
+        networks.map((item, index) => {
+            if (index === networks.length - 1)
+                return <HoverCard position="top" key={index}>
+                    <HoverCard.Target>
+                        <Link
+                            href={{
+                                pathname: "/network/[id]",
+                                query: {
+                                    id: item.id,
+                                },
+                            }}
+                            as={`/network/${item.id}`}
+                            style={{ color: "#4DABF7" }}
+                        >
+                            {item.name}
+                        </Link>
+                    </HoverCard.Target>
+                    <HoverCard.Dropdown bg="gray">
+                        <Image
+                            src={item.logo_path
+                                ? `${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`
+                                : '/images/no_media.jpg'
+                            }
+                            height={133}
+                            width={133}
+                            fit="contain"
+                        />
+                    </HoverCard.Dropdown>
+                </HoverCard>
+            else
+                return <HoverCard position="top" key={index}>
+                    <HoverCard.Target>
+                        <span ><Link
+                            href={{
+                                pathname: "/network/[id]",
+                                query: {
+                                    id: item.id,
+                                },
+                            }}
+                            as={`/network/${item.id}`}
+                            style={{ color: "#4DABF7" }}
+                        >
+                            {item.name}
+                        </Link>
+                            <> , </>
+                        </span>
+                    </HoverCard.Target>
+                    <HoverCard.Dropdown bg="gray">
+                        <Image
+                            src={item.logo_path
+                                ? `${tmdb.imgUrl}${tmdb.imgOriginal}${item.logo_path}`
+                                : '/images/no_media.jpg'
+                            }
+                            height={133}
+                            width={133}
+                            fit="contain"
+                        />
+                    </HoverCard.Dropdown>
+                </HoverCard>
+        })
+    } />
             <Divider variant="solid" mt="lg" mb="lg" />
 
             <MiddleTitle
