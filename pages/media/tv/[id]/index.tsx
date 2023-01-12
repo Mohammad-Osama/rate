@@ -313,6 +313,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     data={tvInfoCreditsProps.cast}
                     id={tvInfoCreditsProps.id}
                     title={name}
+                    media_type={media_type}
                 />
                 <Space h="xl" />
                 <AccordionPeople
@@ -320,6 +321,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     data={tvInfoCreditsProps.crew}
                     id={tvInfoCreditsProps.id}
                     title={name}
+                    media_type={media_type}
                 />
 
 

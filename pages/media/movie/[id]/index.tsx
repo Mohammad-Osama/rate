@@ -529,6 +529,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     data={movieInfoCreditsProps.cast}
                     id={movieInfoCreditsProps.id}
                     title={title}
+                    media_type={media_type}
                 />
                 <Space h="xl" />
                 <AccordionPeople
@@ -536,6 +537,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     data={movieInfoCreditsProps.crew}
                     id={movieInfoCreditsProps.id}
                     title={title}
+                    media_type={media_type}
                 />
                 <Space h="xl" />
                 <SideTitle text="Photos"

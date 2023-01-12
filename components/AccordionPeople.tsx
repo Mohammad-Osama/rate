@@ -41,8 +41,9 @@ interface X {
     data: ICastOrCrew[]
     id:number
     title:string
+    media_type:string
 }
-const AccordionPeople = ({ type, data ,id,title}: X) => {
+const AccordionPeople = ({ type, data ,id,title,media_type}: X) => {
     const { classes } = useStyles();
 
 
@@ -58,7 +59,7 @@ const AccordionPeople = ({ type, data ,id,title}: X) => {
                          //   title:title
                           },
             }}
-              as={`/credits/${id}?type=${type}&title=${title}`}
+              as={`/credits/${id}?type=${type}&title=${title}&mediatype=${media_type}`}
               style={{width:"50%"}}
           >
                 <Button bg="#373A40"
