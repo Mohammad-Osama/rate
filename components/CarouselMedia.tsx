@@ -40,7 +40,7 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
         }
         else if (callType === "movie recommendations") {
             try {
-                const response = await fetch(`${tmdb.urlMovie}${id}/recommendations?api_key=${tmdb.keyClient}&language=en-US&page=1`)
+                const response = await fetch(`/api/movies/recommendations?id=${id}`)
                 const data = await response.json()
                 setList(data.results)
             } catch (error) {
@@ -50,6 +50,15 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
         else if (callType === "tv similar") {
             try {
                 const response = await fetch(`/api/tv/similar?id=${id}`)
+                const data = await response.json()
+                setList(data.results)
+            } catch (error) {
+                alert(error)
+            }
+        }
+        else if (callType === "tv recommendations") {
+            try {
+                const response = await fetch(`/api/tv/recommendations?id=${id}`)
                 const data = await response.json()
                 setList(data.results)
             } catch (error) {

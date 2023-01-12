@@ -406,6 +406,16 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
 
                 />
 
+                <Space h="xl" />
+                <SideTitle text="Recommendations"
+                />
+                <CarouselMedia
+                    id={id}
+                    mediaType={media_type}
+                    callType="tv recommendations"
+
+                />
+
 
 
 
