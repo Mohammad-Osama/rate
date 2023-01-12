@@ -2,21 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Carousel } from '@mantine/carousel';
 import {
     Container,
-    SimpleGrid,
-    Grid,
     Image,
-    Badge,
-    Button,
-    Group,
-    Text,
-    Space,
-    Card,
-    Stack,
-    Flex,
-    Divider,
-    Accordion
 } from '@mantine/core';
-import * as tmdb from "../helpers/tmdb"
 import { IVideos } from '../helpers/types';
 
 
@@ -31,20 +18,19 @@ const CarouselVideos = ({ id, type }: X) => {
     async function getVideos(id: number, type: string) {
         if (type === "movie") {
             try {
-                const response = await fetch(`${tmdb.urlMovie}${id}/videos?api_key=${tmdb.keyClient}&language=en-US`)
+                const response = await fetch(`/api/movies/videos?id=${id}`)
                 const data = await response.json() //as IImages
                 setVideos(data)
             } catch (error) {
                 alert(error)
-            }
-            // fetch movie images 
-            // setstate with res 
+            }      
         }
         else {
-            //fetch tv images 
-            //setstate with res 
+            //fetch tv videos 
+            const response = await fetch(`/api/tv/videos?id=${id}`)
+            const data = await response.json() //as IImages
+            setVideos(data)
         }
-
     }
     useEffect(() => {
         getVideos(id, type)
@@ -94,8 +80,6 @@ const CarouselVideos = ({ id, type }: X) => {
                             height={400}
                         />
                     </Carousel.Slide>
-
-
                 }
             </Carousel>
         </Container >
