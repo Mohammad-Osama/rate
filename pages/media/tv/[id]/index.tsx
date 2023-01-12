@@ -42,6 +42,7 @@ import MovieDetails from '../../../../components/MovieDetails';
 import HeadPage from '../../../../components/HeadPage';
 import { Tv as TvModel, ITv as TvModelType } from '../../../../models/tvModel';
 import RadarChart from '../../../../components/RadarChart';
+import TvDetails from '../../../../components/TvDetails';
 
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
@@ -68,7 +69,12 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
         tagline,
         genres,
         homepage,
-        created_by
+        created_by,
+        number_of_seasons,
+        number_of_episodes,
+        production_companies,
+        production_countries,
+        spoken_languages
 
 
 
@@ -140,7 +146,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                             size="xl"
                             color="#ADB5BD"
                         >
-                            {first_air_date.substring(0, 4)} - {original_language} - {seasons.length} Seasons - {episode_run_time[0]} minutes
+                            {first_air_date.substring(0, 4)} - {original_language} - {number_of_seasons} Seasons - {episode_run_time[0]} minutes
                         </Text>
                     </div>
                     <div>
@@ -368,11 +374,24 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 />
 
                 <Space h="xl" />
-                <SideTitle text="Photos"
+                <SideTitle text="Videos"
                 />
                 <CarouselVideos
                     id={id}
                     type="tv"
+                />
+                <Space h="xl" />
+                <SideTitle text="More Details"
+                />
+                <TvDetails
+                    status={status}
+                    first_air_date={first_air_date}
+                    number_of_seasons={number_of_seasons}
+                    number_of_episodes={number_of_episodes}
+                    production_companies={production_companies}
+                    production_countries={production_countries}
+                    spoken_languages={spoken_languages}
+                    homepage={homepage}
                 />
                 <Space h={666} />
             </Container>
