@@ -359,6 +359,13 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     }
 
                 </Carousel>
+                <Space h="xl" />
+                <SideTitle text="Photos"
+                />
+                <CarouselPhotos
+                    id={id}
+                    type="tv"
+                />
                 <Space h={666} />
             </Container>
         )

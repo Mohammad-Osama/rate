@@ -15,22 +15,21 @@ interface X {
 const CarouselPhotos = ({ id, type }: X) => {
 
     const [images, setImages] = useState({} as IImages)
-
     async function getImages(id: number, type: string) {
         if (type === "movie") {
             try {
-                const response = await fetch(`${tmdb.urlMovie}${id}/images?api_key=${tmdb.keyClient}&language=null`)
+                const response = await fetch(`/api/movies/images?id=${id}`)
                 const data = await response.json() //as IImages
                 setImages(data)
             } catch (error) {
                 alert(error)
             }
-            // fetch movie images 
-            // setstate with res 
         }
         else {
             //fetch tv images 
-            //setstate with res 
+            const response = await fetch(`/api/tv/images?id=${id}`)
+                const data = await response.json() //as IImages
+                setImages(data)
         }
 
     }
@@ -74,10 +73,7 @@ const CarouselPhotos = ({ id, type }: X) => {
                             height={400}
                         />
                       </Carousel.Slide>
-
-
                 }
-
             </Carousel>
         </Container>
     )
