@@ -1,4 +1,3 @@
-import { NumberLiteralType } from "typescript";
 
 export interface IMovieOrTv {
 
@@ -29,12 +28,10 @@ export interface IGenre {
 }
 
 export interface ICollection {
-
     id: number;
     name: string;
     poster_path: string;
     backdrop_path: string;
-
 }
 
 export interface IProductionCompany {
@@ -64,7 +61,6 @@ export type IStatus =
     "Canceled";
 
 export interface IMovie {
-
     adult?: boolean;
     backdrop_path: string | null;
     belongs_to_collection: ICollection | null;
@@ -102,22 +98,19 @@ export interface ICreatedBy {
 }
 //check runtime  , show_id
 // add type for crew guest_stars, IPerson maybe ?
-export interface IEpisode {
+export interface ILastEpisode {
     air_date: string;
     episode_number: number;
     id: number;
     name: string;
     overview: string;
     production_code: string | null;
-    runtime?: any | null,
+    runtime: number,
     season_number: number;
-    show_id?: number;
+    show_id: number;
     still_path: string | null;
     vote_average: number;
     vote_count: number;
-    crew?: any;
-    guest_stars?: any;
-
 }
 export interface INetwork {
     id: number;
@@ -148,7 +141,7 @@ export interface ITv {
     in_production: boolean;
     languages: string[];
     last_air_date: string;
-    last_episode_to_air: IEpisode;
+    last_episode_to_air: ILastEpisode;
     name: string;
     next_episode_to_air: null,
     networks: INetwork[];
@@ -185,7 +178,7 @@ export interface IMovieRate {
     sound_effects: number;
     directing: number
     _id: string
-    media_type:string
+    media_type: string
 }
 
 
@@ -333,7 +326,34 @@ export interface INetworkDetails {
     id: number;
     name: string;
     headquarters: string;
-    homepage:string;
+    homepage: string;
     logo_path: string | null;
     origin_country: string;
+}
+
+
+export interface IEpisode {
+    id: number;
+    name: string;
+    overview: string;
+    production_code: string;
+    season_number: string;
+    still_path: string;
+    air_date: string;
+    episode_number: string;
+    vote_average: number;
+    vote_count: number;
+    crew: ICastOrCrew[];
+    guest_stars: ICastOrCrew[];
+}
+
+export interface ISeasonDetails {
+    _id: string;
+    air_date: string;
+    id: number;
+    name: string;
+    overview: string;
+    season_number: string;
+    poster_path: string | null;
+    episodes:IEpisode[]
 }

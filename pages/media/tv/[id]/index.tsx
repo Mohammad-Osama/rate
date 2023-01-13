@@ -326,7 +326,8 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 <SideTitle text="Seasons"
                 />
                 <CarouselSeasons
-                                seasons={seasons}
+                    id={id}
+                    seasons={seasons}
                 />
                 <Space h="xl" />
                 <SideTitle text="Photos"
