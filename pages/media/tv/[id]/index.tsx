@@ -83,17 +83,6 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
 
     } = tvInfoProps
 
-    const writers = tvInfoCreditsProps.crew.filter(m =>
-        m.job === "Writer"
-    ).map((x) => {
-        return x.name
-    })
-
-    const directors = tvInfoCreditsProps.crew.filter(m =>
-        m.job === "Director"
-    ).map((x) => {
-        return x.name
-    })
     function ValueBadge(x: number) {
         return (
             <Badge //color="green"
@@ -122,6 +111,8 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
 
         }
     }, [])
+
+    
     if (notFound === true)
         return (<div>Error Page</div>)
     else
@@ -328,6 +319,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 <CarouselSeasons
                     id={id}
                     seasons={seasons}
+                    title={name}
                 />
                 <Space h="xl" />
                 <SideTitle text="Photos"

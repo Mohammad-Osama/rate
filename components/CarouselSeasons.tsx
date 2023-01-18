@@ -17,8 +17,9 @@ import Link from 'next/link'
 interface X {
     id:number;
     seasons: ISeason[];
+    title:string;
 }
-const CarouselSeasons = ({ seasons ,id }: X) => {
+const CarouselSeasons = ({ seasons ,id ,title}: X) => {
     return (
         <Container>
             <Carousel
@@ -53,7 +54,7 @@ const CarouselSeasons = ({ seasons ,id }: X) => {
                                         id: l.id
                                     }, */
                                 }}
-                                as={`/media/tv/season?id=${id}&season_number=${i.season_number}`}
+                                as={`/media/tv/season?id=${id}&title=${title}&season_number=${i.season_number}`}
                             >
                                 <Image
                                     src={i.poster_path
