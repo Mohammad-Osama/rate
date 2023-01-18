@@ -15,6 +15,9 @@ import EpisodeThumb from '../../../../components/EpisodeThumb';
 const index = ({ seasonProps, notFound, title }: X) => {
     const { name, overview, episodes, poster_path } = seasonProps
     console.log(seasonProps)
+    if (notFound === true)
+        return (<div>Error Page</div>)
+    else
     return (
         <Container size="xl">
             <HeadPage
@@ -40,7 +43,6 @@ const index = ({ seasonProps, notFound, title }: X) => {
                 </Grid.Col>
                 <Grid.Col sm={9}>
                     <div>
-
                         <Text
                             //  p="xl"
                             align="justify"
@@ -54,6 +56,7 @@ const index = ({ seasonProps, notFound, title }: X) => {
                         <Space h="md" />
                         <Divider />
                         <Space h="md" />
+
                         <Text align="justify"
                             weight={100}
                             color="white"
@@ -66,34 +69,12 @@ const index = ({ seasonProps, notFound, title }: X) => {
                         </Text>
                     </div>
                 </Grid.Col>
-
             </Grid>
-            {/*  <Text
-                //  p="xl"
-                align="justify"
-                weight={700}
-                color="white"
-                style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
-            >
-                {title} - {name}
-            </Text> */}
 
-            {/*  <Space h="md" />
-            <Divider />
-            <Space h="md" /> */}
-            {/* <Text align="justify"
-                weight={100}
-                color="white"
-                style={{
-                    fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                    fontSize: "25px",
-                    backgroundColor: "#373A40"
-                }}>
-                {overview}
-            </Text> */}
             <Space h="md" />
             <Divider />
             <Space h="md" />
+
             <SideTitle text="Episode List" />
             {episodes.map((e) => {
                 return <EpisodeThumb
@@ -101,15 +82,7 @@ const index = ({ seasonProps, notFound, title }: X) => {
                     title={title}
                     key={e.id}
                 />
-                
             })}
-
-
-
-
-
-
-
         </Container>
     )
 }

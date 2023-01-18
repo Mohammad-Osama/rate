@@ -342,7 +342,7 @@ export interface IEpisode {
     air_date: string;
     runtime:number;
     episode_number: string;
-    show_id:number;
+    show_id?:number;
     vote_average: number;
     vote_count: number;
     crew: ICastOrCrew[];
