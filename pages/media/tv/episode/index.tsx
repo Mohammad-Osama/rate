@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { IGenre, ICollectionDetails, IMovieOrTv, ISeasonDetails, IEpisode } from '../../../../helpers/types';
+import { IGenre, ICollectionDetails, IMovieOrTv, ISeasonDetails, IEpisode, ICredits } from '../../../../helpers/types';
 import { Space, Container, SimpleGrid, Card, Image, Text, Group, Divider, Grid } from '@mantine/core';
 import { useRouter } from 'next/router'
 import * as colors from '../../../../helpers/colors'
@@ -14,8 +14,10 @@ import ValueBadge from '../../../../components/ValueBadge';
 
 
 
-const index = ({ episodeProps, title, notFound }: X) => {
+const index = ({ episodeProps, title, notFound , episodeCreditProps }: X) => {
+    console.log(episodeProps)
 
+console.log(episodeCreditProps)
     const {
         name,
         season_number,
@@ -79,14 +81,15 @@ const index = ({ episodeProps, title, notFound }: X) => {
                                     </Text>
                                 </div>
                                 <div>
-                                    <Text size="xl"
+                                    <Text
+                                        size="xl"
                                         color="#ADB5BD"
                                     // mb='md'
                                     >
                                         TMDB Rating
                                     </Text>
                                     <Group>
-                                        <ValueBadge x={vote_average}/><Text ml="-md" size="xl" color="#ADB5BD">/10</Text>
+                                        <ValueBadge x={vote_average} /><Text ml="-md" size="xl" color="#ADB5BD">/10</Text>
                                     </Group>
                                     <Text ml="40%" size="xl" color="#ADB5BD">{vote_count}</Text>
                                 </div>
@@ -115,6 +118,7 @@ const index = ({ episodeProps, title, notFound }: X) => {
 
                 <SideTitle text="Guest Stars" />
 
+
             </Container>
         )
 }
@@ -124,6 +128,7 @@ export default index
 
 interface X {
     episodeProps: IEpisode;
+    episodeCreditProps: ICredits ;
     title: string;
     notFound: boolean;
 }
@@ -132,9 +137,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
     try {
         const response = await fetch(`${tmdb.urlTv}${id}/season/${season_number}/episode/${episode_number}?api_key=${tmdb.key}&language=en-US`)
         const resData = await response.json()
+        const responseCredits = await fetch(`${tmdb.urlTv}${id}/season/${season_number}/episode/${episode_number}/credits?api_key=${tmdb.key}&language=en-US`)
+        const resDataCredits = await responseCredits.json()
+
         return {
             props: {
                 episodeProps: resData as IEpisode,
+                episodeCreditProps: resDataCredits as ICredits,
                 title: title as string,
                 notFound: false
             },
@@ -143,6 +152,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
         return {
             props: {
                 episodeProps: {} as IEpisode,
+                episodeCreditProps: {} as ICredits,
                 title: title as string,
                 notFound: false
             },

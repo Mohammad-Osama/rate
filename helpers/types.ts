@@ -246,6 +246,7 @@ export interface ICredits {
     id: number
     cast: ICastOrCrew[]
     crew: ICastOrCrew[]
+    guest_stars?:ICastOrCrew[]
 }
 
 export interface IBackdropOrPoster {
@@ -359,3 +360,10 @@ export interface ISeasonDetails {
     poster_path: string | null;
     episodes:IEpisode[]
 }
+
+/* export interface ICreditsEpisode {
+    id: number
+    cast: ICastOrCrew[]
+    crew: ICastOrCrew[]
+    
+} */
