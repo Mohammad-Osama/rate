@@ -4,6 +4,7 @@ import { persistReducer } from 'redux-persist'
 import { combineReducers } from 'redux';
 import authReducer from './slices/authSlice'
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import creditsReducer from './slices/creditsEpisodeSlice'
 
 const createNoopStorage = () => {
   return {
@@ -28,6 +29,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   auth : authReducer ,
+  credits: creditsReducer ,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

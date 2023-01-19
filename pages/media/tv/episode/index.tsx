@@ -11,7 +11,8 @@ import SideTitle from '../../../../components/SideTitle';
 import HeadPage from '../../../../components/HeadPage';
 import EpisodeThumb from '../../../../components/EpisodeThumb';
 import ValueBadge from '../../../../components/ValueBadge';
-
+import { addCredits } from '../../../../redux/slices/creditsEpisodeSlice';
+import { useDispatch } from 'react-redux';
 
 
 const index = ({ episodeProps, title, notFound , episodeCreditProps }: X) => {
@@ -29,6 +30,10 @@ console.log(episodeCreditProps)
         vote_average,
         vote_count
     } = episodeProps
+ const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(addCredits(episodeCreditProps))
+    }, [])
 
     if (notFound === true)
         return (<div>Error Page</div>)
