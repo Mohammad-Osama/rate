@@ -14,6 +14,7 @@ import ValueBadge from '../../../../components/ValueBadge';
 import { addCredits, removeCredits } from '../../../../redux/slices/creditsEpisodeSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../redux/store';
+import AccordionCredits from '../../../../components/AccordionCredits';
 
 
 const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
@@ -125,13 +126,32 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
                     </Grid.Col>
                 </Grid>
 
-                <Space h="md" />
-                <Divider />
-                <Space h="md" />
+                <Space h="xl" />
 
-                <SideTitle text="Guest Stars" />
-
-
+               <AccordionCredits
+                    type="Guest Stars"
+                    title={`${title} S${season_number}-E${episode_number}`}
+                    data={episodeCreditProps.guest_stars}
+                    media_type="tv"
+                    id={episodeCreditProps.id}
+                />
+                <Space h="xl" />
+                <AccordionCredits
+                    type="Cast"
+                    title={`${title} S${season_number}-E${episode_number}`}
+                    data={episodeCreditProps.cast}
+                    media_type="tv"
+                    id={episodeCreditProps.id}
+                />
+                <Space h="xl" />
+                <AccordionCredits
+                    type="Crew"
+                    title={`${title} S${season_number}-E${episode_number}`}
+                    data={episodeCreditProps.crew}
+                    media_type="tv"
+                    id={episodeCreditProps.id}
+                />
+                 <Space h={333} />
             </Container>
         )
 }
