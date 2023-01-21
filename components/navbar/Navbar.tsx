@@ -16,6 +16,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
 import UserDisplay from './UserDisplay';
+import { useSelector ,useDispatch} from 'react-redux';
+import { creditsState } from '../../redux/slices/creditsEpisodeSlice';
+import { authState } from '../../redux/slices/authSlice';
 
 
 const useStyles = createStyles((theme) => ({
@@ -87,11 +90,17 @@ const useStyles = createStyles((theme) => ({
 
 export function Navbar() {
     const { classes } = useStyles();
+    const {id} = useSelector(creditsState)
+ //   const {id} = useSelector(authState)
 
+useEffect(() => {
+    
+}, [id])
     return (
         <Header height={60} mb={12} className={classes.container} >
             <Container size="xl" className={classes.inner}>
                 <div >
+                    
                     <Link style={{
                         textDecoration: 'none',
                         color: 'black',
@@ -101,8 +110,9 @@ export function Navbar() {
                             className={classes.text}
 
                         >
-                            Home
+                            Home  {id}
                         </div>
+                        
                     </Link>
 
                 </div>

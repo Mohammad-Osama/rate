@@ -11,14 +11,15 @@ import SideTitle from '../../../../components/SideTitle';
 import HeadPage from '../../../../components/HeadPage';
 import EpisodeThumb from '../../../../components/EpisodeThumb';
 import ValueBadge from '../../../../components/ValueBadge';
-import { addCredits } from '../../../../redux/slices/creditsEpisodeSlice';
+import { addCredits, removeCredits } from '../../../../redux/slices/creditsEpisodeSlice';
 import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../../redux/store';
 
 
-const index = ({ episodeProps, title, notFound , episodeCreditProps }: X) => {
+const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
     console.log(episodeProps)
 
-console.log(episodeCreditProps)
+    console.log(episodeCreditProps)
     const {
         name,
         season_number,
@@ -30,10 +31,17 @@ console.log(episodeCreditProps)
         vote_average,
         vote_count
     } = episodeProps
- const dispatch = useDispatch()
+
+    const dispatch = useDispatch<AppDispatch>()
+
     useEffect(() => {
         dispatch(addCredits(episodeCreditProps))
+        return () => {
+            dispatch(removeCredits())
+        }
     }, [])
+
+
 
     if (notFound === true)
         return (<div>Error Page</div>)
@@ -133,7 +141,7 @@ export default index
 
 interface X {
     episodeProps: IEpisode;
-    episodeCreditProps: ICredits ;
+    episodeCreditProps: ICredits;
     title: string;
     notFound: boolean;
 }
@@ -144,7 +152,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
         const resData = await response.json()
         const responseCredits = await fetch(`${tmdb.urlTv}${id}/season/${season_number}/episode/${episode_number}/credits?api_key=${tmdb.key}&language=en-US`)
         const resDataCredits = await responseCredits.json()
-
         return {
             props: {
                 episodeProps: resData as IEpisode,
