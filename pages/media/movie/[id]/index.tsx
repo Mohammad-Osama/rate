@@ -50,6 +50,8 @@ import CollectionThumb from '../../../../components/CollectionThumb';
 import MovieDetails from '../../../../components/MovieDetails';
 import HeadPage from '../../../../components/HeadPage';
 import RadarChart from '../../../../components/RadarChart';
+import { addCredits, removeCredits } from '../../../../redux/slices/creditsEpisodeSlice';
+import AccordionCredits from '../../../../components/AccordionCredits';
 
 //import AddRateCopy from "../../../../components/AddRateCopy"
 ChartJS.register(
@@ -61,6 +63,7 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
+    console.log(movieInfoCreditsProps)
     //   console.log("movie", movieRateInfoProps)
     //  console.log("user", movieRateInfoUserProps)
     // console.log("movie from tmdb", movieInfoProps)
@@ -140,6 +143,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         );
     }
     useEffect(() => {
+       dispatch(addCredits(movieInfoCreditsProps))
         if (movieRateInfoUserProps === null) {
             setIsRatedUser(false)
         }
@@ -147,11 +151,16 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
             setIsRatedUser(true)
         }
         return () => {
-
+           // dispatch(removeCredits())
         }
     }, [])
 
-
+    /* useEffect(() => {
+        dispatch(addCredits(movieInfoCreditsProps))
+        return () => {
+            dispatch(removeCredits())
+        }
+    }, []) */
 
     //  const findDirector = () => {
     //  let final
@@ -212,7 +221,8 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         </Text>
                     </div>
                     <div>
-                        <Text size="xl"
+                        <Text
+                            size="xl"
                             color="#ADB5BD"
                         // mb='md'
                         >
@@ -244,52 +254,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                     <div style={{}} //second col in simple grid
                     >
-                        {/* <Radar
-                            options={{
-                                responsive: true,
-                                maintainAspectRatio: true,
-                                color: "yellow",// color of the main label at the top
-                                scales: {
-                                    r: {
-                                        min: 0,
-                                        max: 10,
-                                        pointLabels: { // edit labels 
-                                            color: "white",
-                                            font: {
-                                                size: 15
-                                            }
-                                        },
-                                        //  reverse,
-                                        //  startAngle:33, // rotates the chart
-                                        //  suggestedMax:44,
-                                        //   suggestedMin,
-                                        ticks: {
-                                            display: false,
-                                            stepSize: 1
 
-                                            //  textStrokeColor: 'rgb(54, 162, 235)',
-                                            //   color: 'white',
-                                            //  backdropColor: 'red'
-                                        },
-                                        angleLines: {
-                                            //     color: 'yellow',
-                                        },
-                                        //  type,
-                                        //  weight,
-                                        grid: {
-                                            color: "#2C2E33",
-                                            lineWidth: 2,
-
-                                        }
-                                    }
-                                }
-                            }}
-                            data={data}
-
-                        //  style={{ minHeight: "100%", minWidth: "100%" }}
-                        /> */}
                         <RadarChart
-                                    rateInfo={movieRateInfoProps}
+                            rateInfo={movieRateInfoProps}
                         />
                         <AddRate tmdb_id={id}
                             title={title}
@@ -298,11 +265,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             isRatedUser={isRatedUser}
                             movieRateInfoUserProps={movieRateInfoUserProps}
                         />
-                        {/*  { isRatedUser===true
-                              ?<Text>voted</Text>
-                              :<Text>didnt vote</Text>
 
-                            } */}
                         {movieRateInfoUserProps !== null &&
                             <div>
                                 <Text ml="40%" mt="xl"
@@ -352,11 +315,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     </div>
 
                 </SimpleGrid>
-                {/* <AddRate tmdb_id={id}
-                title={title}
-                media_type={media_type}
-                user={user}
-            /> */}
+
                 <Divider />
                 <Space h="md" />
                 <SimpleGrid cols={2} spacing="lg"
@@ -390,15 +349,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                         </Card.Section>
                     </Card>
-                    {/* <Flex // second col in simple grid
-                          //  mih={50}
-                           // bg="rgba(0, 0, 0, .3)"
-                           // gap="xs"
-                            justify="flex-start"
-                            align="center"
-                            direction="row"
-                            wrap="wrap"
-                    > */}
+
                     <Stack m="xl">
                         <Group position="left" mt={-20}>
                             {movieInfoProps.genres.map((x) => {
@@ -413,32 +364,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             })}
                         </Group>
                         <Divider />
-                        {/* <Text align="justify"
-                            weight={700}
-                            color="white"
-                            style={{
-                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                                fontSize: "20px",
-                                backgroundColor: "#373A40",
-                                // wordWrap:"break-word",
-                                //  display:"flex",
-                                //  justifyContent:"flex-start",
-                                wordSpacing: "1px",
-                            }}>
 
-                            {writers.length === 1
-                                ? "Writer"
-                                : "Writers"
-                            }: {
-                                writers.map((item, index) => {
-                                    if (index === writers.length - 1)
-                                        return <Link href="/person" key={index} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link>
-                                    else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link> <> , </></React.Fragment>
-                                })
-                            }
-
-                        </Text> */}
                         {/* MiddleTitle not working with writers, probably wont work with directors */}
                         <MiddleTitle
                             title={writers.length === 1
@@ -453,38 +379,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                         return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
                                 })
                             } />
-                        {/*  {movieInfoCreditsProps.crew.map((m)=>{
-                            if (m.job==="Director")
-                            return  <span>{m.name} </span>
-                        })
-
-                        } */}
-                        {/* <Text align="justify"
-                            weight={700}
-                            color="white"
-                            style={{
-                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                                fontSize: "20px",
-                                backgroundColor: "#373A40",
-                                // wordWrap:"break-word",
-                                //  display:"flex",
-                                //  justifyContent:"flex-start",
-                                wordSpacing: "1px",
-                            }}>
-
-                            {directors.length === 1
-                                ? "Director"
-                                : "Directors"
-                            }: {
-                                directors.map((item, index) => {
-                                    if (index === directors.length - 1)
-                                        return <Link href="/person" key={index} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link>
-                                    else
-                                        return <React.Fragment key={index}><Link href={`/${item}`} style={{ color: "#4DABF7", fontSize: "18px" }}>{item}</Link> <> , </></React.Fragment>
-                                })
-                            }
-
-                        </Text> */}
                         <MiddleTitle
                             title={directors.length === 1
                                 ? "Director"
@@ -498,38 +392,28 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                         return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
                                 })
                             } />
-                        {/*          <Text align="justify"
-                            weight={700}
-                            color="white"
-                            style={{
-                                fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
-                                fontSize: "20px",
-                                backgroundColor: "#373A40",
-                                // wordWrap:"break-word",
-                                //  display:"flex",
-                                //  justifyContent:"flex-start",
-                                wordSpacing: "1px",
-                            }}>
-                            <a href={movieInfoProps.homepage as string} style={{ color: "#4DABF7" }}>Homepage </a>
-                            - <a href={movieInfoProps.imdb_id as string} style={{ color: "#4DABF7" }}>IMDB </a>
-
-                        </Text> */}
                         <MiddleTitle title="Websites" content={[<a href={movieInfoProps.homepage as string} key={1} style={{ color: "#4DABF7" }}>Homepage </a>,
                             "- ",
                         <a href={movieInfoProps.imdb_id as string} key={2} style={{ color: "#4DABF7" }}>IMDB </a>
                         ]} />
                     </Stack>
-                    {/*    </Flex> */}
-
                 </SimpleGrid>
-                
+
                 <Space h="md" />
-                <AccordionPeople
+                {/* <AccordionPeople
                     type="Cast"
                     data={movieInfoCreditsProps.cast}
                     id={movieInfoCreditsProps.id}
                     title={title}
                     media_type={media_type}
+                /> */}
+                <AccordionCredits
+                    type="Cast"
+                    data={movieInfoCreditsProps.cast}
+                    id={movieInfoCreditsProps.id}
+                    title={title}
+                    media_type={media_type}
+
                 />
                 <Space h="xl" />
                 <AccordionPeople

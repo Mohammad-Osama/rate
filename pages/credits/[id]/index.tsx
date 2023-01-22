@@ -28,8 +28,8 @@ const index = ({ creditProps, type, title, notFound }: X) => {
         return (
             <Container size="xl" my="md" pb="xl" >
                 <HeadPage
-                            title={`${title} - ${type}`}
-                            description={`${title} - ${type}`}
+                    title={`${title} - ${type}`}
+                    description={`${title} - ${type}`}
 
                 />
                 <Group position="apart" mr="xl" ml="xl" mb="xl">
@@ -98,37 +98,36 @@ interface X {
     notFound: boolean
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
-    const { id, type, title ,media_type} = context.query
-    console.log(context.query)
+    const { id, type, title, mediatype } = context.query
     let movieCredits
     try {
-        if (media_type==="movie"){
-        const responseCredits = await fetch(`${tmdb.urlMovie}${id}/credits?api_key=${tmdb.key}&language=en-US`)
-        const dataCredits = await responseCredits.json()
-        if (type === "Cast") {
-            movieCredits = dataCredits.cast
-            return {
-                props: {
-                    creditProps: movieCredits,
-                    type: "Cast",
-                    title: title as string,
-                    notFound: false
-                },
+        if (mediatype === "movie") {
+            const responseCredits = await fetch(`${tmdb.urlMovie}${id}/credits?api_key=${tmdb.key}&language=en-US`)
+            const dataCredits = await responseCredits.json()
+            if (type === "Cast") {
+                movieCredits = dataCredits.cast
+                return {
+                    props: {
+                        creditProps: movieCredits,
+                        type: "Cast",
+                        title: title as string,
+                        notFound: false
+                    },
+                }
+            }
+            else {
+                movieCredits = dataCredits.crew
+                return {
+                    props: {
+                        creditProps: movieCredits,
+                        type: "Crew",
+                        title: title as string,
+                        notFound: false
+                    },
+                }
             }
         }
-        else {
-            movieCredits = dataCredits.crew
-            return {
-                props: {
-                    creditProps: movieCredits,
-                    type: "Crew",
-                    title: title as string,
-                    notFound: false
-                },
-            }
-        }}
         else { // media type is tv 
-
             const responseCredits = await fetch(`${tmdb.urlTv}${id}/credits?api_key=${tmdb.key}&language=en-US`)
             const dataCredits = await responseCredits.json()
             if (type === "Cast") {
@@ -153,10 +152,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                     },
                 }
             }
-
         }
-
-
     } catch (error) {
         return {
             props: {
