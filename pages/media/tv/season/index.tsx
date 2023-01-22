@@ -14,7 +14,7 @@ import EpisodeThumb from '../../../../components/EpisodeThumb';
 
 const index = ({ seasonProps, notFound, title }: X) => {
     const { name, overview, episodes, poster_path } = seasonProps
-    console.log(seasonProps)
+   // console.log(seasonProps)
     if (notFound === true)
         return (<div>Error Page</div>)
     else

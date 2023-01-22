@@ -63,7 +63,7 @@ ChartJS.register(
     Legend
 );
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
-    console.log(movieInfoCreditsProps)
+  //  console.log(movieInfoCreditsProps)
     //   console.log("movie", movieRateInfoProps)
     //  console.log("user", movieRateInfoUserProps)
     // console.log("movie from tmdb", movieInfoProps)
@@ -416,7 +416,14 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                 />
                 <Space h="xl" />
-                <AccordionPeople
+                {/* <AccordionPeople
+                    type="Crew"
+                    data={movieInfoCreditsProps.crew}
+                    id={movieInfoCreditsProps.id}
+                    title={title}
+                    media_type={media_type}
+                /> */}
+                <AccordionCredits
                     type="Crew"
                     data={movieInfoCreditsProps.crew}
                     id={movieInfoCreditsProps.id}

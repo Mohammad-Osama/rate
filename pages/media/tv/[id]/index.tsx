@@ -47,7 +47,7 @@ import CarouselSeasons from '../../../../components/CarouselSeasons';
 
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
-    console.log("tvInfoProps", tvInfoProps)
+  //  console.log("tvInfoProps", tvInfoProps)
 
     //console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();

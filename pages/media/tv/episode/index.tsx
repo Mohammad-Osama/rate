@@ -18,9 +18,6 @@ import AccordionCredits from '../../../../components/AccordionCredits';
 
 
 const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
-    console.log(episodeProps)
-
-    console.log(episodeCreditProps)
     const {
         name,
         season_number,
@@ -41,7 +38,6 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
             dispatch(removeCredits())
         }
     }, [])
-
 
 
     if (notFound === true)

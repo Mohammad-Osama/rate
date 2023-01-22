@@ -31,10 +31,6 @@ const creditsSlice = createSlice({
       state.cast = action.payload.cast
       state.crew = action.payload.crew
       state.guest_stars = action.payload.guest_stars?action.payload.guest_stars:[]
-      console.log(state.id)
-      console.log(state.cast)
-      console.log(state.crew)
-      console.log(state.guest_stars)
     },
     removeCredits: (state) => {
       state.id = 0
