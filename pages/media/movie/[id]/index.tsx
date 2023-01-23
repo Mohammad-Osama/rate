@@ -392,6 +392,8 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <CarouselVideos
                     id={movieInfoProps.id}
                     type="movie"
+                    season_number=''
+                    episode_number=''
                 />
                 <Space h="xl" />
                 <SideTitle text="More Details"

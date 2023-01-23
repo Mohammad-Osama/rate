@@ -11,9 +11,10 @@ import { AppDispatch } from '../../../../redux/store';
 import AccordionCredits from '../../../../components/AccordionCredits';
 import SideTitle from '../../../../components/SideTitle';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
+import CarouselVideos from '../../../../components/CarouselVideos';
 
 
-const index = ({ episodeProps, title, notFound, episodeCreditProps ,tvId}: X) => {
+const index = ({ episodeProps, title, notFound, episodeCreditProps, tvId }: X) => {
     const {
         name,
         season_number,
@@ -147,12 +148,22 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps ,tvId}: X) =>
                 <SideTitle text="Photos"
                 />
                 <CarouselPhotos
-                        id={parseInt(tvId) }
-                        type="episode"
-                        season_number={season_number}
-                        episode_number={episode_number}
+                    id={parseInt(tvId)}
+                    type="episode"
+                    season_number={season_number}
+                    episode_number={episode_number}
                 />
 
+                <Space h="xl" />
+                <SideTitle text="Videos"
+                />
+
+                <CarouselVideos
+                    id={parseInt(tvId)}
+                    type="episode"
+                    season_number={season_number}
+                    episode_number={episode_number}
+                />
                 <Space h={333} />
             </Container>
         )

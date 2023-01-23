@@ -15,7 +15,6 @@ import {
     Text,
     Space,
     Card,
-    Stack,
     Divider
 } from '@mantine/core';
 import clientPromise from '../../../../lib/db';
@@ -336,6 +335,8 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 <CarouselVideos
                     id={id}
                     type="tv"
+                    season_number=''
+                    episode_number=''
                 />
                 <Space h="xl" />
                 <SideTitle text="More Details"

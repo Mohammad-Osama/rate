@@ -10,8 +10,10 @@ import { IVideos } from '../helpers/types';
 interface X {
     id: number
     type: string
+    season_number: string
+    episode_number: string
 }
-const CarouselVideos = ({ id, type }: X) => {
+const CarouselVideos = ({ id, type,season_number,episode_number }: X) => {
 
     const [videos, setVideos] = useState({} as IVideos)
 
@@ -25,10 +27,15 @@ const CarouselVideos = ({ id, type }: X) => {
                 alert(error)
             }      
         }
-        else {
+        else if (type === "tv") {
             //fetch tv videos 
             const response = await fetch(`/api/tv/videos?id=${id}`)
-            const data = await response.json() //as IImages
+            const data = await response.json() 
+            setVideos(data)
+        }
+        else {
+            const response = await fetch(`/api/episode/videos?tvid=${id}&season_number=${season_number}&episode_number=${episode_number}`)
+            const data = await response.json() 
             setVideos(data)
         }
     }

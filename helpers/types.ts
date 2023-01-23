@@ -263,6 +263,7 @@ export interface IImages {
     id: number
     backdrops: IBackdropOrPoster[]
     posters: IBackdropOrPoster[]
+    stills: IBackdropOrPoster[]
 }
 
 export interface IVideo {
