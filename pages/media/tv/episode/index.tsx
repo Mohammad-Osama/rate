@@ -35,7 +35,7 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
     useEffect(() => {
         dispatch(addCredits(episodeCreditProps))
         return () => {
-            dispatch(removeCredits())
+         //   dispatch(removeCredits())
         }
     }, [])
 
@@ -128,7 +128,7 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
                     type="Guest Stars"
                     title={`${title} S${season_number}-E${episode_number}`}
                     data={episodeCreditProps.guest_stars}
-                    media_type="tv"
+                    media_type="episode"
                     id={episodeCreditProps.id}
                 />
                 <Space h="xl" />
@@ -136,7 +136,7 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
                     type="Cast"
                     title={`${title} S${season_number}-E${episode_number}`}
                     data={episodeCreditProps.cast}
-                    media_type="tv"
+                    media_type="episode"
                     id={episodeCreditProps.id}
                 />
                 <Space h="xl" />
@@ -144,7 +144,7 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
                     type="Crew"
                     title={`${title} S${season_number}-E${episode_number}`}
                     data={episodeCreditProps.crew}
-                    media_type="tv"
+                    media_type="episode"
                     id={episodeCreditProps.id}
                 />
                  <Space h={333} />
