@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { ICredits, IMovie, IMovieRate, IRate, ITv } from '../../../../helpers/types';
+import { ICredits, IMovieRate, IRate, ITv } from '../../../../helpers/types';
 import { IRate as IRateModelType, Rate as RateModel } from "../../../../models/rateModel"
 import * as colors from '../../../../helpers/colors'
 import {
@@ -18,17 +18,13 @@ import {
     Stack,
     Divider
 } from '@mantine/core';
-import { Carousel } from '@mantine/carousel';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
 import { useState, useEffect } from 'react';
 import mongoose from "mongoose"
 
 import { authState } from '../../../../redux/slices/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { AppDispatch } from '../../../../redux/store';
-import { Movie } from '../../../../models/movieModel';
+import { useSelector , useDispatch} from 'react-redux';
 import Link from 'next/link';
 import AccordionPeople from '../../../../components/AccordionPeople';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
@@ -37,13 +33,14 @@ import SideTitle from '../../../../components/SideTitle';
 import MiddleTitle from '../../../../components/MiddleTitle';
 import CarouselMedia from '../../../../components/CarouselMedia';
 import Providers from '../../../../components/Providers';
-import CollectionThumb from '../../../../components/CollectionThumb';
-import MovieDetails from '../../../../components/MovieDetails';
 import HeadPage from '../../../../components/HeadPage';
 import { Tv as TvModel, ITv as TvModelType } from '../../../../models/tvModel';
 import RadarChart from '../../../../components/RadarChart';
 import TvDetails from '../../../../components/TvDetails';
 import CarouselSeasons from '../../../../components/CarouselSeasons';
+import AccordionCredits from '../../../../components/AccordionCredits';
+import { addCredits } from '../../../../redux/slices/creditsEpisodeSlice';
+import { AppDispatch } from '../../../../redux/store';
 
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
@@ -77,10 +74,6 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
         production_countries,
         spoken_languages,
         networks
-
-
-
-
     } = tvInfoProps
 
     function ValueBadge(x: number) {
@@ -99,8 +92,10 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
             </Badge>
         );
     }
+    const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
+        dispatch(addCredits(tvInfoCreditsProps))
         if (tvRateInfoUserProps === null) {
             setIsRatedUser(false)
         }
@@ -295,17 +290,21 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
 
                     </Card.Section>
                 </Card>
+
                 <Space h="md" />
                 <Divider />
                 <Space h="md" />
-                <AccordionPeople
+    
+                <AccordionCredits
                     type="Cast"
                     data={tvInfoCreditsProps.cast}
                     id={tvInfoCreditsProps.id}
                     title={name}
                     media_type={media_type}
                 />
+
                 <Space h="xl" />
+                
                 <AccordionPeople
                     type="Crew"
                     data={tvInfoCreditsProps.crew}

@@ -40,12 +40,12 @@ const useStyles = createStyles((theme) => ({
 
 interface X {
     type: string
-    data: ICastOrCrew[]| undefined
+    data: ICastOrCrew[] | undefined
     id: number
     title: string
     media_type: string
 }
-const AccordionCredits = ({ type, id,data, title, media_type }: X) => {
+const AccordionCredits = ({ type, id, data, title, media_type }: X) => {
     const { classes } = useStyles();
 
     function AccordionControl(props: AccordionControlProps) {
@@ -72,7 +72,7 @@ const AccordionCredits = ({ type, id,data, title, media_type }: X) => {
     }
     return (
         <Accordion
-            defaultValue={media_type === "movie"
+            defaultValue={media_type === "movie" || media_type === "tv"
                 ? "Cast"
                 : "Guest Stars"
             }

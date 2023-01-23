@@ -27,19 +27,15 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import { Radar } from 'react-chartjs-2';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
 import { useState, useEffect } from 'react';
 import mongoose from "mongoose"
-
 import { authState } from '../../../../redux/slices/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 import { AppDispatch } from '../../../../redux/store';
 import { Movie } from '../../../../models/movieModel';
 import Link from 'next/link';
-import AccordionPeople from '../../../../components/AccordionPeople';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
 import CarouselVideos from '../../../../components/CarouselVideos';
 import SideTitle from '../../../../components/SideTitle';
@@ -50,18 +46,10 @@ import CollectionThumb from '../../../../components/CollectionThumb';
 import MovieDetails from '../../../../components/MovieDetails';
 import HeadPage from '../../../../components/HeadPage';
 import RadarChart from '../../../../components/RadarChart';
-import { addCredits, removeCredits } from '../../../../redux/slices/creditsEpisodeSlice';
+import { addCredits } from '../../../../redux/slices/creditsEpisodeSlice';
 import AccordionCredits from '../../../../components/AccordionCredits';
 
-//import AddRateCopy from "../../../../components/AddRateCopy"
-ChartJS.register(
-    RadialLinearScale,
-    PointElement,
-    LineElement,
-    Filler,
-    Tooltip,
-    Legend
-);
+
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
   //  console.log(movieInfoCreditsProps)
     //   console.log("movie", movieRateInfoProps)
@@ -92,39 +80,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     const cinematographyData = Math.round((cinematography / rating_count) * 10) / 10
     const visualEffData = Math.round((visual_effects / rating_count) * 10) / 10
     const soundEffData = Math.round((sound_effects / rating_count) * 10) / 10
-
-    const data = {
-        labels: ['Acting',
-            'Story',
-            'Dialogue',
-            'Directing',
-            'Cinematography',
-            'Visual effects',
-            'Sound effects'],
-        datasets: [
-            {
-                label: `Average - ${movieRateInfoProps.rating_count === 1
-                    ? `${movieRateInfoProps.rating_count} Vote`
-                    : `${movieRateInfoProps.rating_count} Votes`
-                    } `,
-                data: [actingData,
-                    storyData,
-                    dialogueData,
-                    directingData,
-                    cinematographyData,
-                    visualEffData,
-                    soundEffData],
-                backgroundColor: '#39d353', // label box  background
-                borderColor: '#39d353', // lines 
-                borderWidth: 5,
-                fill: false,
-                fillColor: "red",
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: 'red',
-
-            },
-        ]
-    };
 
     function ValueBadge(x: number) {
         return (
