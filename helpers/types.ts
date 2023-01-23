@@ -246,7 +246,7 @@ export interface ICredits {
     id: number
     cast: ICastOrCrew[]
     crew: ICastOrCrew[]
-    guest_stars?:ICastOrCrew[]
+    guest_stars?: ICastOrCrew[]
 }
 
 export interface IBackdropOrPoster {
@@ -342,9 +342,9 @@ export interface IEpisode {
     season_number: string;
     still_path: string;
     air_date: string;
-    runtime:number;
+    runtime: number;
     episode_number: string;
-    show_id?:number;
+    show_id?: number;
     vote_average: number;
     vote_count: number;
     crew: ICastOrCrew[];
@@ -359,7 +359,7 @@ export interface ISeasonDetails {
     overview: string;
     season_number: string;
     poster_path: string | null;
-    episodes:IEpisode[]
+    episodes: IEpisode[]
 }
 
 /* export interface ICreditsEpisode {
@@ -368,3 +368,20 @@ export interface ISeasonDetails {
     crew: ICastOrCrew[]
     
 } */
+
+export interface IPerson {
+    birthday: string | null;
+    known_for_department: string;
+    deathday: string | null;
+    id: number;
+    name: string;
+    also_known_as: string[];
+    gender: number;
+    biography: string;
+    popularity: number;
+    place_of_birth: string | null;
+    profile_path: string | null;
+    adult: boolean;
+    imdb_id: string;
+    homepage: string | null;
+}
