@@ -19,14 +19,14 @@ const PersonThumb = ({ dataPerson }: X) => {
                 backgroundColor: '#212529',
             })}>
 
-            {/* <Link   href={{
-                        pathname :"/media/${mediaType}/[id]",
+            <Link   href={{
+                        pathname :"/person/[id]",
                         query: {
                             id: id
                           },
             }}
-                    as={`/media/${mediaType}/${id}?type=${mediaType}&user=${userId}`}
-            > */}
+                    as={`/person/${id}`}
+            >
             <Image
                 src={profile_path
                     ? `${tmdb.imgUrl}${tmdb.imgSize}${profile_path}`
@@ -36,7 +36,7 @@ const PersonThumb = ({ dataPerson }: X) => {
                 alt={name}
 
             />
-            {/*   </Link> */}
+              </Link>
             <Text color="white"
                 align="center"
                 size="xl"
