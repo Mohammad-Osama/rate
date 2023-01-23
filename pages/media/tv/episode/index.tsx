@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
-import { IGenre, ICollectionDetails, IMovieOrTv, ISeasonDetails, IEpisode, ICredits } from '../../../../helpers/types';
-import { Space, Container, SimpleGrid, Card, Image, Text, Group, Divider, Grid } from '@mantine/core';
-import { useRouter } from 'next/router'
-import * as colors from '../../../../helpers/colors'
-import axios from 'axios';
-import MediaThumb from '../../../../components/MediaThumb';
-import SideTitle from '../../../../components/SideTitle';
+import { IEpisode, ICredits } from '../../../../helpers/types';
+import { Space, Container, Image, Text, Group, Divider, Grid } from '@mantine/core';
 import HeadPage from '../../../../components/HeadPage';
-import EpisodeThumb from '../../../../components/EpisodeThumb';
 import ValueBadge from '../../../../components/ValueBadge';
 import { addCredits, removeCredits } from '../../../../redux/slices/creditsEpisodeSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../redux/store';
 import AccordionCredits from '../../../../components/AccordionCredits';
+import SideTitle from '../../../../components/SideTitle';
+import CarouselPhotos from '../../../../components/CarouselPhotos';
 
 
-const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
+const index = ({ episodeProps, title, notFound, episodeCreditProps ,tvId}: X) => {
     const {
         name,
         season_number,
@@ -29,13 +25,13 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
         vote_average,
         vote_count
     } = episodeProps
-
+    console.log(episodeProps)
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
         dispatch(addCredits(episodeCreditProps))
         return () => {
-         //   dispatch(removeCredits())
+            //   dispatch(removeCredits())
         }
     }, [])
 
@@ -124,7 +120,7 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
 
                 <Space h="xl" />
 
-               <AccordionCredits
+                <AccordionCredits
                     type="Guest Stars"
                     title={`${title} S${season_number}-E${episode_number}`}
                     data={episodeCreditProps.guest_stars}
@@ -147,7 +143,17 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps }: X) => {
                     media_type="episode"
                     id={episodeCreditProps.id}
                 />
-                 <Space h={333} />
+                <Space h="xl" />
+                <SideTitle text="Photos"
+                />
+                <CarouselPhotos
+                        id={parseInt(tvId) }
+                        type="episode"
+                        season_number={season_number}
+                        episode_number={episode_number}
+                />
+
+                <Space h={333} />
             </Container>
         )
 }
@@ -159,6 +165,7 @@ interface X {
     episodeProps: IEpisode;
     episodeCreditProps: ICredits;
     title: string;
+    tvId: string;
     notFound: boolean;
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
@@ -173,6 +180,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 episodeProps: resData as IEpisode,
                 episodeCreditProps: resDataCredits as ICredits,
                 title: title as string,
+                tvId: id as string,
                 notFound: false
             },
         }
@@ -182,6 +190,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 episodeProps: {} as IEpisode,
                 episodeCreditProps: {} as ICredits,
                 title: title as string,
+                tvId: id as string,
                 notFound: false
             },
         }

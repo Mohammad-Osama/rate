@@ -11,8 +11,10 @@ import { IImages } from '../helpers/types';
 interface X {
     id: number
     type: string
+    season_number: string
+    episode_number: string
 }
-const CarouselPhotos = ({ id, type }: X) => {
+const CarouselPhotos = ({ id, type , episode_number,season_number }: X) => {
 
     const [images, setImages] = useState({} as IImages)
     async function getImages(id: number, type: string) {
@@ -25,11 +27,16 @@ const CarouselPhotos = ({ id, type }: X) => {
                 alert(error)
             }
         }
-        else {
+        else if (type==="tv"){
             //fetch tv images 
             const response = await fetch(`/api/tv/images?id=${id}`)
-                const data = await response.json() //as IImages
-                setImages(data)
+            const data = await response.json() //as IImages
+            setImages(data)
+        }
+        else {
+            const response = await fetch(`/api/episode/images?tvid=${id}&season_number=${season_number}&episode_number=${episode_number}`)
+            const data = await response.json() //as IImages
+            setImages(data)
         }
 
     }
@@ -72,7 +79,7 @@ const CarouselPhotos = ({ id, type }: X) => {
                             fit="contain"
                             height={400}
                         />
-                      </Carousel.Slide>
+                    </Carousel.Slide>
                 }
             </Carousel>
         </Container>

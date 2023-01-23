@@ -18,15 +18,6 @@ import {
     Stack,
     Divider,
 } from '@mantine/core';
-import {
-    Chart as ChartJS,
-    RadialLinearScale,
-    PointElement,
-    LineElement,
-    Filler,
-    Tooltip,
-    Legend,
-} from 'chart.js';
 import clientPromise from '../../../../lib/db';
 import AddRate from "../../../../components/AddRate"
 import { useState, useEffect } from 'react';
@@ -391,6 +382,8 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <CarouselPhotos
                     id={movieInfoProps.id}
                     type="movie"
+                    season_number=''
+                    episode_number=''
                 />
 
                 <Space h="xl" />

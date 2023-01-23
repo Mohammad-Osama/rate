@@ -326,6 +326,8 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 <CarouselPhotos
                     id={id}
                     type="tv"
+                    season_number=''
+                    episode_number=''
                 />
 
                 <Space h="xl" />
