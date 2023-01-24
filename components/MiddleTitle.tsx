@@ -1,7 +1,7 @@
 import { Group, Text } from "@mantine/core"
 interface X {
     title: string
-    content: JSX.Element[] | string | string[] | (string | JSX.Element)[] |JSX.Element
+    content: JSX.Element[] | string | string[] | (string | JSX.Element)[] |JSX.Element |null
 }
 const MiddleTitle = ({ title, content }: X) => {
     return (
@@ -31,6 +31,7 @@ const MiddleTitle = ({ title, content }: X) => {
                 fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
                 fontSize: "22px",
                 backgroundColor: "#373A40",
+              //  whiteSpace:"nowrap"
                 // wordWrap:"break-word",
                 //  display:"flex",
                 //  justifyContent:"flex-start",

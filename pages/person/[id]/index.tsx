@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
 import { IEpisode, ICredits, IPerson } from '../../../helpers/types';
-import { Space, Container, Image, Text, Group, Divider, Grid,Stack } from '@mantine/core';
+import { Space, Container, Image, Text, Group, Divider, Grid, Stack } from '@mantine/core';
 import HeadPage from '../../../components/HeadPage';
 import ValueBadge from '../../../components/ValueBadge';
 import { addCredits, removeCredits } from '../../../redux/slices/creditsEpisodeSlice';
@@ -23,7 +23,13 @@ const index = ({ personProps, notFound }: X) => {
         biography,
         profile_path,
         known_for_department,
-        also_known_as
+        also_known_as,
+        popularity,
+        birthday,
+        deathday,
+        place_of_birth,
+        homepage,
+        imdb_id
     } = personProps
 
     if (notFound === true)
@@ -35,22 +41,37 @@ const index = ({ personProps, notFound }: X) => {
                     title={name}
                     description={biography}
                 />
-
-                <Text
-                    //  p="xl"
-                    align="justify"
-                    weight={700}
-                    color="white"
-                    style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
+                <Group position="apart" m="xl"
+                //maybe change mr and ml later 
                 >
-                    {name}
-                </Text>
-                <Text
-                    size="xl"
-                    color="#ADB5BD"
-                >
-                    {known_for_department}
-                </Text>
+                    <div>
+                        <Text
+                            //  p="xl"
+                            align="justify"
+                            weight={700}
+                            color="white"
+                            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
+                        >
+                            {name}
+                        </Text>
+                        <Text
+                            size="xl"
+                            color="#ADB5BD"
+                        >
+                            Known for : {known_for_department}
+                        </Text>
+                    </div>
+                    <div>
+                        <Text
+                            size="xl"
+                            color="#ADB5BD"
+                        // mb='md'
+                        >
+                            Popularity
+                        </Text>
+                        <ValueBadge x={popularity} />
+                    </div>
+                </Group>
                 <Grid
                     gutter="lg"
                     columns={12}
@@ -72,23 +93,40 @@ const index = ({ personProps, notFound }: X) => {
 
                         <Stack>
                             <MiddleTitle
-                                    title="Also Known As"
-                                    content={also_known_as.map((item, index) => {
-                                        if (index === also_known_as.length - 1)
-                                            return <React.Fragment key={item}>{item}</React.Fragment>
-                                        else
-                                            return <React.Fragment key={item}><>{item}</> <> , </></React.Fragment>
-                                    })}
+                                title="Also Known As"
+                                content={also_known_as.map((item, index) => {
+                                    if (index === also_known_as.length - 1)
+                                        return <React.Fragment key={item}>{item}</React.Fragment>
+                                    else
+                                        return <React.Fragment key={item}><>{item}</> <> , </></React.Fragment>
+                                })}
                             />
-                            
+
                             <Space h="md" />
                             <Divider />
-                            <Space h="md" />
 
+                            <MiddleTitle
+                                title="Born"
+                                content={`${birthday} in ${place_of_birth}`}
+                            />
+                            {deathday &&
+                                <MiddleTitle
+                                    title="Died"
+                                    content={deathday}
+                                />
+                            }
 
+                            <MiddleTitle 
+                            title="Websites" 
+                            content={[<a href={homepage as string} key={1} style={{ color: "#4DABF7" }}>Homepage </a>,
+                                "- ",
+                            <a href={`https://www.imdb.com/name/${imdb_id}`} key={2} style={{ color: "#4DABF7" }}>IMDB </a>
+                            ]} />
                         </Stack>
                     </Grid.Col>
                 </Grid>
+                <Divider />
+                <Space h="md" />
                 <Text align="justify"
                     weight={100}
                     color="white"
@@ -99,7 +137,10 @@ const index = ({ personProps, notFound }: X) => {
                     }}>
                     {biography}
                 </Text>
+                <Space h="md" />
+                <Divider />
 
+                <Space h={666} />
 
             </Container>
         )
