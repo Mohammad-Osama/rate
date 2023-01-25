@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
-import { IEpisode, ICredits, IPerson } from '../../../helpers/types';
+import { IEpisode, ICredits, IPerson, IPersonCredits } from '../../../helpers/types';
 import { Space, Container, Image, Text, Group, Divider, Grid, Stack } from '@mantine/core';
 import HeadPage from '../../../components/HeadPage';
 import ValueBadge from '../../../components/ValueBadge';
 import { addCredits, removeCredits } from '../../../redux/slices/creditsEpisodeSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
-import AccordionCredits from '../../../components/AccordionCredits';
+import AccordionCreditsPerson from '../../../components/AccordionCreditsPerson';
 import SideTitle from '../../../components/SideTitle';
 import CarouselPhotos from '../../../components/CarouselPhotos';
 import CarouselVideos from '../../../components/CarouselVideos';
@@ -16,8 +16,8 @@ import MiddleTitle from '../../../components/MiddleTitle';
 
 
 
-const index = ({ personProps, notFound }: X) => {
-    console.log(personProps)
+const index = ({ personProps, notFound, personCreditsProps }: X) => {
+    console.log(personCreditsProps)
     const {
         name,
         biography,
@@ -150,6 +150,17 @@ const index = ({ personProps, notFound }: X) => {
                     season_number=''
                     episode_number=''
                 />
+                <Space h="xl" />
+                <AccordionCreditsPerson
+                    type="Cast"
+                    data={personCreditsProps.cast}
+                />
+                <Space h="xl" />
+                <AccordionCreditsPerson
+                    type="Crew"
+                    data={personCreditsProps.crew}
+                />
+
                 <Space h={666} />
 
             </Container>
@@ -161,17 +172,20 @@ export default index
 
 interface X {
     personProps: IPerson;
+    personCreditsProps: IPersonCredits;
     notFound: boolean;
 }
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     const { id } = context.query
     try {
-        // api.themoviedb.org/3/person/{person_id}?api_key=<<api_key>>&language=en-US
         const response = await fetch(`${tmdb.urlPerson}${id}?api_key=${tmdb.key}&language=en-US`)
         const resData = await response.json()
+        const responseCredits = await fetch(`${tmdb.url}/person/${id}/combined_credits?api_key=${tmdb.key}&language=en-US`)
+        const dataCredits = await responseCredits.json()
         return {
             props: {
                 personProps: resData as IPerson,
+                personCreditsProps: dataCredits as IPersonCredits,
                 notFound: false
             },
         }
@@ -179,6 +193,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
         return {
             props: {
                 personProps: {} as IPerson,
+                personCreditsProps: {} as IPersonCredits,
                 notFound: false
             },
         }
