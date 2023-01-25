@@ -29,7 +29,8 @@ const index = ({ personProps, notFound }: X) => {
         deathday,
         place_of_birth,
         homepage,
-        imdb_id
+        imdb_id,
+        id
     } = personProps
 
     if (notFound === true)
@@ -116,12 +117,12 @@ const index = ({ personProps, notFound }: X) => {
                                 />
                             }
 
-                            <MiddleTitle 
-                            title="Websites" 
-                            content={[<a href={homepage as string} key={1} style={{ color: "#4DABF7" }}>Homepage </a>,
-                                "- ",
-                            <a href={`https://www.imdb.com/name/${imdb_id}`} key={2} style={{ color: "#4DABF7" }}>IMDB </a>
-                            ]} />
+                            <MiddleTitle
+                                title="Websites"
+                                content={[<a href={homepage as string} key={1} style={{ color: "#4DABF7" }}>Homepage </a>,
+                                    "- ",
+                                <a href={`https://www.imdb.com/name/${imdb_id}`} key={2} style={{ color: "#4DABF7" }}>IMDB </a>
+                                ]} />
                         </Stack>
                     </Grid.Col>
                 </Grid>
@@ -139,7 +140,16 @@ const index = ({ personProps, notFound }: X) => {
                 </Text>
                 <Space h="md" />
                 <Divider />
-
+                <Space h="xl" />
+                <SideTitle
+                    text="Photos"
+                />
+                <CarouselPhotos
+                    id={id}
+                    type="perosn"
+                    season_number=''
+                    episode_number=''
+                />
                 <Space h={666} />
 
             </Container>

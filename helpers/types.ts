@@ -264,6 +264,7 @@ export interface IImages {
     backdrops: IBackdropOrPoster[]
     posters: IBackdropOrPoster[]
     stills: IBackdropOrPoster[]
+    profiles: IBackdropOrPoster[]
 }
 
 export interface IVideo {

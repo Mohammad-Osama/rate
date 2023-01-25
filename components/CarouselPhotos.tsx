@@ -33,8 +33,13 @@ const CarouselPhotos = ({ id, type, episode_number, season_number }: X) => {
             const data = await response.json() //as IImages
             setImages(data)
         }
-        else {
+        else if (type === "episode") {
             const response = await fetch(`/api/episode/images?tvid=${id}&season_number=${season_number}&episode_number=${episode_number}`)
+            const data = await response.json() //as IImages
+            setImages(data)
+        }
+        else {
+            const response = await fetch(`/api/person/images?id=${id}`)
             const data = await response.json() //as IImages
             setImages(data)
         }
@@ -81,21 +86,37 @@ const CarouselPhotos = ({ id, type, episode_number, season_number }: X) => {
                         />
                     </Carousel.Slide>
 
-                : images?.stills?.length > 0
-                    ? images?.stills?.map((i) => {
-                        return <Carousel.Slide key={i.file_path}>
-                            <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
+                : type === "episode"
+                    ? images?.stills?.length > 0
+                        ? images?.stills?.map((i) => {
+                            return <Carousel.Slide key={i.file_path}>
+                                <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
+                                    fit="contain"
+                                    height="100%"
+                                />
+                            </Carousel.Slide>
+                        })
+                        : <Carousel.Slide >
+                            <Image src={`/images/no_media.jpg`}
                                 fit="contain"
-                                height="100%"
+                                height={400}
                             />
                         </Carousel.Slide>
-                    })
-                    : <Carousel.Slide >
-                        <Image src={`/images/no_media.jpg`}
-                            fit="contain"
-                            height={400}
-                        />
-                    </Carousel.Slide>
+                    : images?.profiles?.length > 0
+                        ? images?.profiles?.map((i) => {
+                            return <Carousel.Slide key={i.file_path}>
+                                <Image src={`${tmdb.imgUrl}${tmdb.imgSizeW1280}${i.file_path}`}
+                                    fit="contain"
+                                    height={600}
+                                />
+                            </Carousel.Slide>
+                        })
+                        : <Carousel.Slide >
+                            <Image src={`/images/no_media.jpg`}
+                                fit="contain"
+                                height={400}
+                            />
+                        </Carousel.Slide>
                 }
             </Carousel>
         </Container>
