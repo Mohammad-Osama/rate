@@ -403,7 +403,7 @@ export interface IPersonCreditsCastorCrew {
     name?: string;
     vote_average: number;
     vote_count: number;
-    character: string;
+    character?: string;
     credit_id: string;
     episode_count?: number;
     media_type: string;
