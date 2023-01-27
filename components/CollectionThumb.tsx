@@ -43,7 +43,10 @@ const CollectionThumb = ({ data }: X) => {
             as={`/collection/${data.id}`}
           >
             <Image
-              src={`${tmdb.imgUrl}${tmdb.imgSize}${data.poster_path}`}
+              src={data.poster_path
+                ?`${tmdb.imgUrl}${tmdb.imgSize}${data.poster_path}`
+                : "/images/no_media.jpg"
+            }
               fit="fill"
               width={250}
               height={350}
