@@ -13,25 +13,25 @@ import {
     Stack,
     Divider,
 } from '@mantine/core';
-import { ICast, ICastOrCrew, ICredits, ICrew, IPersonCreditsCastorCrew, IPersonCreditsCrew } from '../helpers/types';
+import { ICast, ICastOrCrew, ICredits, ICrew, IPersonCreditsCastorCrew, IPersonCreditsCrew, IPersonCreditsModified } from '../helpers/types';
 import * as tmdb from "./../helpers/tmdb"
+import ValueBadge from './ValueBadge';
 
 interface X {
     //  type: string
-    dataMedia: IPersonCreditsCastorCrew
+    dataMedia: IPersonCreditsModified
     // id: number
     // title: string
 }
 const MediaCreditsThumb = ({ dataMedia }: X) => {
     const {
         poster_path,
-        name,
         title,
-        character,
-        job,
+        role,
         release_date,
-        first_air_date,
-        media_type
+        media_type,
+        vote_average,
+        id
     } = dataMedia
 
 
@@ -63,10 +63,7 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                                 // width={100}
 
                                 fit="contain"
-                                alt={name
-                                    ? name
-                                    : title
-                                }
+                                alt={title}
                             />
                         </div>
                     </Grid.Col>
@@ -84,20 +81,17 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                                 color="white"
                             //  mt="xl"
                             >
-                                {name
-                                    ? name
-                                    : title
-                                }
+                                {title}
                             </Text>
                             <Text
                                 size="xl"
                                 color="#ADB5BD"
                             >
-                                {character
-                                    ? character
-                                    : job
-                                }
+                                {role}
                             </Text>
+                            <ValueBadge
+                                x={vote_average}
+                            />
 
                         </div>
 
@@ -138,7 +132,7 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                 </Grid.Col> */}
 
                 </Grid>
-                <div style={{ marginRight: "100px" , marginLeft:"10px" }}>
+                <div style={{ marginRight: "100px", marginLeft: "10px" }}>
                     <Text
                         size="xl"
                         color="#ADB5BD"
@@ -146,10 +140,7 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
 
                     // mb='md'
                     >
-                        {release_date
-                            ? release_date
-                            : first_air_date
-                        }
+                        {release_date}
                     </Text>
                     <Text
                         size="xl"

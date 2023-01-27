@@ -1,6 +1,6 @@
 import React from 'react'
-import {Space,Divider, Image,Accordion, createStyles, SimpleGrid, Group,Button, ActionIcon, AccordionControlProps, Box, Text, Stack } from '@mantine/core';
-import { ICast, ICastOrCrew, ICredits, ICrew, IPersonCreditsCastorCrew, IPersonCreditsCrew } from '../helpers/types';
+import { Space, Divider, Image, Accordion, createStyles, SimpleGrid, Group, Button, ActionIcon, AccordionControlProps, Box, Text, Stack } from '@mantine/core';
+import { ICast, ICastOrCrew, ICredits, ICrew, IPersonCreditsCastorCrew, IPersonCreditsCrew, IPersonCreditsModified } from '../helpers/types';
 import PersonThumb from './personThumb'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux';
@@ -48,7 +48,33 @@ interface X {
 }
 const AccordionCreditsPerson = ({ type, data }: X) => {
     const { classes } = useStyles();
-
+    const modified = data.map(x => (
+        {
+            id: x.id,
+            title:
+                (x.title
+                    ? x.title
+                    : x.name)
+            ,
+            poster_path: x.poster_path,
+            release_date:
+                (x.release_date
+                    ? x.release_date
+                    : x.first_air_date
+                        ? x.first_air_date
+                        : "2030-01-01"
+                ),
+            media_type: x.media_type,
+            vote_average: x.vote_average,
+            credit_id: x.credit_id,
+            role:
+                (x.character
+                    ? x.character
+                    : x.job
+                )
+        } as IPersonCreditsModified
+    ))
+    //  console.log(modified)
     /* function AccordionControl(props: AccordionControlProps) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: "#2C2E33" }}>
@@ -91,7 +117,6 @@ const AccordionCreditsPerson = ({ type, data }: X) => {
                 }, chevron: {
                     color: "white",
                 }
-
             }}
             style={{ borderColor: "" }}
             radius="xs"
@@ -103,12 +128,15 @@ const AccordionCreditsPerson = ({ type, data }: X) => {
                 <Accordion.Panel>
                     <Stack
                     >
-                        {data.map((d) => {
-                            return <MediaCreditsThumb
-                                                key={d.credit_id}
-                                                dataMedia={d}
-                            />
-                        })
+                        {modified.sort((a, b) =>
+                            new Date(b.release_date as string).valueOf() - new Date(a.release_date as string).valueOf()
+                        )
+                            .map((d) => {
+                                return <MediaCreditsThumb
+                                    key={d.credit_id}
+                                    dataMedia={d}
+                                />
+                            })
                         }
                     </Stack>
                 </Accordion.Panel>
