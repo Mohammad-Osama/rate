@@ -1,12 +1,6 @@
-import React from 'react'
-import { Space, Divider, Image, Accordion, createStyles, SimpleGrid, Group, Button, ActionIcon, AccordionControlProps, Box, Text, Stack } from '@mantine/core';
-import { ICast, ICastOrCrew, ICredits, ICrew, IPersonCreditsCastorCrew, IPersonCreditsCrew, IPersonCreditsModified } from '../helpers/types';
-import PersonThumb from './personThumb'
-import Link from 'next/link'
-import { useSelector, useDispatch } from 'react-redux';
-import { creditsState } from '../redux/slices/creditsEpisodeSlice';
+import { Accordion, createStyles, Stack } from '@mantine/core';
+import { IPersonCreditsCastorCrew, IPersonCreditsModified } from '../helpers/types';
 import MediaCreditsThumb from './MediaCreditsThumb';
-import * as tmdb from "./../helpers/tmdb"
 
 
 const useStyles = createStyles((theme) => ({
@@ -43,8 +37,6 @@ const useStyles = createStyles((theme) => ({
 interface X {
     type: string
     data: IPersonCreditsCastorCrew[]
-    // id: number
-    // title: string
 }
 const AccordionCreditsPerson = ({ type, data }: X) => {
     const { classes } = useStyles();
@@ -74,29 +66,7 @@ const AccordionCreditsPerson = ({ type, data }: X) => {
                 )
         } as IPersonCreditsModified
     ))
-    //  console.log(modified)
-    /* function AccordionControl(props: AccordionControlProps) {
-        return (
-            <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: "#2C2E33" }}>
-                <Accordion.Control {...props} mih="100%" />
-                <Link href={{
-                    pathname: "/credits",
-                    query: {
-                        id: id,
-                    },
-                }}
-                    as={`/credits?title=${title}&type=${type}`}
-                    style={{ width: "50%" }}
-                >
-                    <Button bg="#373A40"
-                        fz="md"
-                        w="100%">
-                        See all {type}
-                    </Button>
-                </Link>
-            </Box>
-        );
-    } */
+
     return (
         <Accordion
             defaultValue={type}
@@ -146,54 +116,3 @@ const AccordionCreditsPerson = ({ type, data }: X) => {
 }
 
 export default AccordionCreditsPerson
-{/* <React.Fragment>
-                            <SimpleGrid cols={2} spacing="lg" h={300}
-                            breakpoints={[
-                                { maxWidth: 1024, cols: 2, spacing: 'md' },
-                                { maxWidth: 768, cols: 1, spacing: 'sm' },
-                                { maxWidth: 500, cols: 1, spacing: 'sm' },
-                            ]}
-                        //   style={{backgroundColor:"#212529"}}
-                        >
-                            <Group position="apart">
-                                <div>
-                                    <Image
-                                        src={d.poster_path
-                                            ? `${tmdb.imgUrl}${tmdb.imgSize}${d.poster_path}`
-                                            : "/images/no_media.jpg"
-                                        }
-                                        height={200}
-                                        width={100}
-                
-                                        fit="contain"
-                                        alt={d.name
-                                            ?d.name
-                                            : d.title
-                                        }
-                                    />
-                                    <Text
-                                        size="xl"
-                                        color="#ADB5BD"
-                                    >
-                                        {d.character
-                                            ? d.character
-                                            : d.job
-                                        }
-                                    </Text>
-                                </div>
-                                <Text
-                                    size="xl"
-                                    color="#ADB5BD"
-                                // mb='md'
-                                >
-                                   {d.release_date
-                                   ?d.release_date
-                                   :d.first_air_date
-                                   }
-                                </Text>
-                
-                            </Group>
-                        </SimpleGrid>
-                        <Space h='xl'/>
-                        <Divider/>
-                        </React.Fragment> */}
