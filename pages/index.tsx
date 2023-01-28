@@ -2,13 +2,13 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
-import { Group, Container, SimpleGrid,useMantineTheme, createStyles} from '@mantine/core';
+import { Group, Container, SimpleGrid, Pagination, createStyles } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
 import MediaThumb from '../components/MediaThumb';
 import HomeFilter from '../components/HomeFilter';
 import HeadPage from '../components/HeadPage';
-import { Pagination } from '@mantine/core';
 import Loading from '../components/Loading';
+import PaginatioN from '../components/PaginatioN';
 
 
 
@@ -43,6 +43,7 @@ export default function Home() {
   const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("popular")
 
   const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1);
 
   async function getMovies(type: string) {
     const movies = await axios.get(`/api/movies?type=${type}`)
@@ -97,14 +98,15 @@ export default function Home() {
 
     getGenres()
     console.log(list)
+    console.log(page)
     return () => {
 
     }
-  }, [moviesTypes, mediaType, tvTypes, loading])
+  }, [moviesTypes, mediaType, tvTypes, loading , page])
 
   if (loading)
     return (
-      <Loading/>
+      <Loading />
     )
   else
     return (
@@ -127,12 +129,11 @@ export default function Home() {
             setTvTypes={setTvTypes}
           />
           <Group position="center" m="xl">
-            {list !== []
-              ? null
-              : <Pagination total={500} radius="xs" withEdges />
 
-            }
-
+           <PaginatioN
+            page={page}
+            setPage={setPage}
+           />
           </Group>
 
           <SimpleGrid cols={4} spacing="lg"
