@@ -69,7 +69,7 @@ const AccordionCreditsPerson = ({ type, data }: X) => {
 
     return (
         <Accordion
-            defaultValue={type}
+            defaultValue="Cast"
             chevronPosition="left"
             variant="separated"
             styles={{
