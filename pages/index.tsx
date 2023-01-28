@@ -9,6 +9,8 @@ import HomeFilter from '../components/HomeFilter';
 import HeadPage from '../components/HeadPage';
 import Loading from '../components/Loading';
 import PaginatioN from '../components/PaginatioN';
+import PaginationButtons from '../components/PaginationButtons';
+import { useMediaQuery } from '@mantine/hooks';
 
 
 
@@ -85,6 +87,7 @@ export default function Home() {
     return names
   }
 
+  const smallScreen = useMediaQuery('(max-width: 500px)');
 
 
   useEffect(() => {
@@ -102,7 +105,7 @@ export default function Home() {
     return () => {
 
     }
-  }, [moviesTypes, mediaType, tvTypes, loading , page])
+  }, [moviesTypes, mediaType, tvTypes, loading])
 
   if (loading)
     return (
@@ -129,11 +132,18 @@ export default function Home() {
             setTvTypes={setTvTypes}
           />
           <Group position="center" m="xl">
+            {smallScreen
+              ? <PaginationButtons
+                page={page}
+                setPage={setPage}
+              />
+              : <PaginatioN
+                page={page}
+                setPage={setPage}
+              />
+            }
 
-           <PaginatioN
-            page={page}
-            setPage={setPage}
-           />
+
           </Group>
 
           <SimpleGrid cols={4} spacing="lg"
