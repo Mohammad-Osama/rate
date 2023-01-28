@@ -1,13 +1,14 @@
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
-import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Button, Image } from '@mantine/core';
+import { Group, Container, SimpleGrid,useMantineTheme, createStyles} from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
 import MediaThumb from '../components/MediaThumb';
 import HomeFilter from '../components/HomeFilter';
 import HeadPage from '../components/HeadPage';
+import { Pagination } from '@mantine/core';
+import Loading from '../components/Loading';
 
 
 
@@ -17,6 +18,7 @@ const useStyles = createStyles((theme) => ({
     // backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.cyan[1],
     color: theme.colors.dark[0],
     backgroundColor: theme.colors.dark[4],
+
   },
 
 }));
@@ -40,15 +42,18 @@ export default function Home() {
   const [moviesTypes, setMoviestypes]: [string, (x: string) => void] = useState("popular")
   const [tvTypes, setTvTypes]: [string, (x: string) => void] = useState("popular")
 
+  const [loading, setLoading] = useState(true)
 
   async function getMovies(type: string) {
     const movies = await axios.get(`/api/movies?type=${type}`)
     setList(movies.data.results as IMovieOrTv[])
+    setLoading(false)
   }
 
   async function getTvs(type: string) {
     const tvs = await axios.get(`/api/tv?type=${type}`)
     setList(tvs.data.results as IMovieOrTv[])
+    setLoading(false)
   }
 
   async function getGenres() {
@@ -91,47 +96,65 @@ export default function Home() {
 
 
     getGenres()
+    console.log(list)
     return () => {
 
     }
-  }, [moviesTypes, mediaType, tvTypes])
-  return (
-    <div className={styles.container}>
-      <HeadPage
-        title="Rate My Media"
-        description="Rate a movie or a tv show"
-      />
-      <Container
-        size="xl"
-        my="md"
-        pb="xl"
-        className={classes.container}
-      >
-        <HomeFilter mediaType={mediaType}
-          setMediaType={setMediaType}
-          moviesTypes={moviesTypes}
-          setMoviestypes={setMoviestypes}
-          tvTypes={tvTypes}
-          setTvTypes={setTvTypes}
+  }, [moviesTypes, mediaType, tvTypes, loading])
+
+  if (loading)
+    return (
+      <Loading/>
+    )
+  else
+    return (
+      <div className={styles.container}>
+        <HeadPage
+          title="Rate My Media"
+          description="Rate a movie or a tv show"
         />
+        <Container
+          size="xl"
+          my="md"
+          pb="xl"
+          className={classes.container}
+        >
+          <HomeFilter mediaType={mediaType}
+            setMediaType={setMediaType}
+            moviesTypes={moviesTypes}
+            setMoviestypes={setMoviestypes}
+            tvTypes={tvTypes}
+            setTvTypes={setTvTypes}
+          />
+          <Group position="center" m="xl">
+            {list !== []
+              ? null
+              : <Pagination total={500} radius="xs" withEdges />
 
-        <SimpleGrid cols={4} spacing="lg"
-          breakpoints={[
-            { maxWidth: 1024, cols: 3, spacing: 'md' },
-            { maxWidth: 768, cols: 2, spacing: 'sm' },
-            { maxWidth: 500, cols: 1, spacing: 'sm' },
-          ]} >
-          {list?.map((x) => {
+            }
 
-            return <MediaThumb media={x}
-              genre={findGenre(x)}
-              key={x.id}
-              mediaType={mediaType}
-            />
-          })}
-        </SimpleGrid>
-      </Container>
+          </Group>
 
-    </div>
-  )
+          <SimpleGrid cols={4} spacing="lg"
+            breakpoints={[
+              { maxWidth: 1024, cols: 3, spacing: 'md' },
+              { maxWidth: 768, cols: 2, spacing: 'sm' },
+              { maxWidth: 500, cols: 1, spacing: 'sm' },
+            ]} >
+            {list?.map((x) => {
+
+              return <MediaThumb media={x}
+                genre={findGenre(x)}
+                key={x.id}
+                mediaType={mediaType}
+              />
+            })}
+          </SimpleGrid>
+          <Group position="center" m="xl">
+            <Pagination total={500} radius="xs" withEdges />
+          </Group>
+        </Container>
+
+      </div>
+    )
 }
