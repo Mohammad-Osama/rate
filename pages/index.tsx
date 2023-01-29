@@ -2,8 +2,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
-import { Group, Container, SimpleGrid, Pagination, createStyles } from '@mantine/core';
-import * as tmdb from "./../helpers/tmdb"
+import { Group, Container, SimpleGrid, createStyles } from '@mantine/core';
 import MediaThumb from '../components/MediaThumb';
 import HomeFilter from '../components/HomeFilter';
 import HeadPage from '../components/HeadPage';
@@ -11,6 +10,8 @@ import Loading from '../components/Loading';
 import PaginatioN from '../components/PaginatioN';
 import PaginationButtons from '../components/PaginationButtons';
 import { useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
+import Error from '../components/Error';
 
 
 
@@ -91,6 +92,7 @@ export default function Home() {
 
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     if (mediaType === "movie") {
       getMovies(moviesTypes, page)
     }
@@ -101,16 +103,32 @@ export default function Home() {
 
     getGenres()
     console.log(list)
-    console.log(page)
     return () => {
-   //  setList(emptyList)
+
     }
+
   }, [moviesTypes, mediaType, tvTypes, loading, page])
 
   if (loading)
     return (
       <Loading />
     )
+  /* else if (list.length === 0)
+    return (
+      <Link style={{
+        textDecoration: 'none',
+        color: 'black',
+      }}
+        href="/" >
+        <div
+        //  className={classes.text}
+
+        >
+        hhhhhhhhhhhhhhhh
+        </div>
+
+      </Link>
+    ) */
   else
     return (
       <div className={styles.container}>
@@ -132,8 +150,13 @@ export default function Home() {
             setTvTypes={setTvTypes}
             setPage={setPage}
           />
-          <Group position="center" m="xl">
-            {/*  {smallScreen
+          {list.length===0 && 
+
+              <Error/>
+          }
+          {list.length > 0 &&
+            <Group position="center" m="xl">
+              {/*  {smallScreen
               ? <PaginationButtons
                 page={page}
                 setPage={setPage}
@@ -144,15 +167,17 @@ export default function Home() {
               />
             } */}
 
-            <PaginationButtons
-              page={page}
-              setPage={setPage}
-            />
-            <PaginatioN
-              page={page}
-              setPage={setPage}
-            />
-          </Group>
+              <PaginationButtons
+                page={page}
+                setPage={setPage}
+              />
+              <PaginatioN
+                page={page}
+                setPage={setPage}
+              />
+            </Group>
+          }
+
 
           <SimpleGrid cols={4} spacing="lg"
             breakpoints={[
@@ -160,7 +185,18 @@ export default function Home() {
               { maxWidth: 768, cols: 2, spacing: 'sm' },
               { maxWidth: 500, cols: 1, spacing: 'sm' },
             ]} >
-            {list?.map((x) => {
+            {list.length > 0 &&
+               list.map((x) => {
+
+                return <MediaThumb media={x}
+                  genre={findGenre(x)}
+                  key={x.id}
+                  mediaType={mediaType}
+                />
+              })
+
+            }
+            {list.map((x) => {
 
               return <MediaThumb media={x}
                 genre={findGenre(x)}
@@ -169,9 +205,14 @@ export default function Home() {
               />
             })}
           </SimpleGrid>
-          <Group position="center" m="xl">
-            <Pagination total={500} radius="xs" withEdges />
-          </Group>
+          {list.length > 0 &&
+            <Group position="center" m="xl">
+              <PaginatioN
+                page={page}
+                setPage={setPage}
+              />
+            </Group>
+          }
         </Container>
 
       </div>
