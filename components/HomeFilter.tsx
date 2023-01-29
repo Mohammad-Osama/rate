@@ -29,6 +29,7 @@ const useStyles = createStyles((theme, _params) => ({
 }));
 
 const useStyles2 = createStyles((theme, _params) => ({
+    
     root: {
         backgroundColor: theme.colors.dark[6],
         boxShadow: theme.shadows.md,
@@ -60,7 +61,6 @@ interface Props {
     tvTypes: string;
     setTvTypes: (x: string) => void;
     setPage: Dispatch<SetStateAction<number>>;
-
 }
 
 
@@ -156,11 +156,11 @@ const HomeFilter = ({ mediaType,
                         : "horizontal"
                 }
                 value={mediaType}
-                onChange={(v) => {
+                onChange={(v) => { //better than a ternary operator ?
                     setMediaType(v as string)
                     setPage(1)
-
-
+                    setMoviestypes('popular')
+                    setTvTypes('popular')
                 }}
                 data={[
                     { value: 'movie', label: 'Movies' },
