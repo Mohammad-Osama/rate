@@ -47,14 +47,14 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1);
 
-  async function getMovies(type: string) {
-    const movies = await axios.get(`/api/movies?type=${type}`)
+  async function getMovies(type: string, page: number) {
+    const movies = await axios.get(`/api/movies?type=${type}&page=${page}`)
     setList(movies.data.results as IMovieOrTv[])
     setLoading(false)
   }
 
-  async function getTvs(type: string) {
-    const tvs = await axios.get(`/api/tv?type=${type}`)
+  async function getTvs(type: string, page: number) {
+    const tvs = await axios.get(`/api/tv?type=${type}&page=${page}`)
     setList(tvs.data.results as IMovieOrTv[])
     setLoading(false)
   }
@@ -92,10 +92,10 @@ export default function Home() {
 
   useEffect(() => {
     if (mediaType === "movie") {
-      getMovies(moviesTypes)
+      getMovies(moviesTypes, page)
     }
     else {
-      getTvs(tvTypes)
+      getTvs(tvTypes, page)
     }
 
 
@@ -103,9 +103,9 @@ export default function Home() {
     console.log(list)
     console.log(page)
     return () => {
-
+   //  setList(emptyList)
     }
-  }, [moviesTypes, mediaType, tvTypes, loading])
+  }, [moviesTypes, mediaType, tvTypes, loading, page])
 
   if (loading)
     return (
@@ -130,6 +130,7 @@ export default function Home() {
             setMoviestypes={setMoviestypes}
             tvTypes={tvTypes}
             setTvTypes={setTvTypes}
+            setPage={setPage}
           />
           <Group position="center" m="xl">
             {/*  {smallScreen
