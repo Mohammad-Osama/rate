@@ -132,7 +132,7 @@ export default function Home() {
             setTvTypes={setTvTypes}
           />
           <Group position="center" m="xl">
-            {smallScreen
+            {/*  {smallScreen
               ? <PaginationButtons
                 page={page}
                 setPage={setPage}
@@ -141,9 +141,16 @@ export default function Home() {
                 page={page}
                 setPage={setPage}
               />
-            }
+            } */}
 
-
+            <PaginationButtons
+              page={page}
+              setPage={setPage}
+            />
+            <PaginatioN
+              page={page}
+              setPage={setPage}
+            />
           </Group>
 
           <SimpleGrid cols={4} spacing="lg"
