@@ -10,7 +10,6 @@ import Loading from '../components/Loading';
 import PaginatioN from '../components/PaginatioN';
 import PaginationButtons from '../components/PaginationButtons';
 import { useMediaQuery } from '@mantine/hooks';
-import Link from 'next/link';
 import Error from '../components/Error';
 
 
@@ -75,7 +74,6 @@ export default function Home() {
   }
 
 
-
   const findGenre = (x: IMovieOrTv) => {
     let names: IGenre[] = []
     x.genre_ids?.forEach((movieGenre: number) => {
@@ -100,9 +98,7 @@ export default function Home() {
       getTvs(tvTypes, page)
     }
 
-
     getGenres()
-    console.log(list)
     return () => {
 
     }
@@ -113,22 +109,6 @@ export default function Home() {
     return (
       <Loading />
     )
-  /* else if (list.length === 0)
-    return (
-      <Link style={{
-        textDecoration: 'none',
-        color: 'black',
-      }}
-        href="/" >
-        <div
-        //  className={classes.text}
-
-        >
-        hhhhhhhhhhhhhhhh
-        </div>
-
-      </Link>
-    ) */
   else
     return (
       <div className={styles.container}>
@@ -150,35 +130,25 @@ export default function Home() {
             setTvTypes={setTvTypes}
             setPage={setPage}
           />
-          {list.length===0 && 
 
-              <Error/>
+          {list.length === 0 &&
+            <Error />
           }
+
           {list.length > 0 &&
             <Group position="center" m="xl">
-              {/*  {smallScreen
-              ? <PaginationButtons
-                page={page}
-                setPage={setPage}
-              />
-              : <PaginatioN
-                page={page}
-                setPage={setPage}
-              />
-            } */}
-
-              <PaginationButtons
-                page={page}
-                setPage={setPage}
-              />
-              <PaginatioN
-                page={page}
-                setPage={setPage}
-              />
+              {smallScreen
+                ? <PaginationButtons
+                  page={page}
+                  setPage={setPage}
+                />
+                : <PaginatioN
+                  page={page}
+                  setPage={setPage}
+                />
+              }
             </Group>
           }
-
-
           <SimpleGrid cols={4} spacing="lg"
             breakpoints={[
               { maxWidth: 1024, cols: 3, spacing: 'md' },
@@ -186,7 +156,7 @@ export default function Home() {
               { maxWidth: 500, cols: 1, spacing: 'sm' },
             ]} >
             {list.length > 0 &&
-               list.map((x) => {
+              list.map((x) => {
 
                 return <MediaThumb media={x}
                   genre={findGenre(x)}
@@ -194,27 +164,24 @@ export default function Home() {
                   mediaType={mediaType}
                 />
               })
-
             }
-            {list.map((x) => {
-
-              return <MediaThumb media={x}
-                genre={findGenre(x)}
-                key={x.id}
-                mediaType={mediaType}
-              />
-            })}
           </SimpleGrid>
+
           {list.length > 0 &&
             <Group position="center" m="xl">
-              <PaginatioN
-                page={page}
-                setPage={setPage}
-              />
+              {smallScreen
+                ? <PaginationButtons
+                  page={page}
+                  setPage={setPage}
+                />
+                : <PaginatioN
+                  page={page}
+                  setPage={setPage}
+                />
+              }
             </Group>
           }
         </Container>
-
       </div>
     )
 }

@@ -1,4 +1,4 @@
-import { createStyles, Group, Container, Title, Text, Button, Stack } from '@mantine/core';
+import { createStyles,Title, Text, Button, Stack } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -47,9 +47,9 @@ const Error = () => {
                 color="white"
                 align="center"
             >
-                Page you are trying to open does not exist. You may have mistyped the address.
+                Page you are trying to open does not exist.
                 <br />
-                Refresh the page or choose a different catagory .
+                Refresh the page or choose a different category .
             </Text>
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
