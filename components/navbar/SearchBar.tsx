@@ -11,6 +11,7 @@ import {
     Menu,
 } from '@mantine/core';
 import { ISearchMulti } from '../../helpers/types';
+import * as tmdb from "./../../helpers/tmdb"
 
 
 const useStyles = createStyles((theme) => ({
@@ -93,23 +94,52 @@ const SearchBar = () => {
             }
         }
     }
+    type IResult = {
+        value: string;
+        id: number;
+        image: string | null | undefined;
+        type: string;
+    }
+    const SearchedData = () => {
+
+        let results: IResult[] = []
+
+        list?.forEach((x) => {
+            results.push({
+                value: (x.name
+                    ? x.name as string
+                    : x.title as string
+                ),
+                id: x.id,
+                image: (x.poster_path
+                    ? x.poster_path
+                    : x.profile_path
+
+                ),
+                type: x.media_type
+            })
+        })
+        return results
+
+    }
 
     useEffect(() => {
-       /*  if (query.current !== null) {
-            if (query.current.value === ""
-                || query.current.value === undefined
-                || query.current.value === null)
-                setList([])
-            else
-                multiSearch(query.current.value , "multi" ,1)
-        }
-        console.log(list)
-        return () => {
-            setList([])
-        } */
+        /*  if (query.current !== null) {
+             if (query.current.value === ""
+                 || query.current.value === undefined
+                 || query.current.value === null)
+                 setList([])
+             else
+                 multiSearch(query.current.value , "multi" ,1)
+         }
+         console.log(list)
+         return () => {
+             setList([])
+         } */
     }, [])
     return (
-        <Autocomplete style={{ minWidth: "40%" }}
+        <Autocomplete 
+            style={{ minWidth: "40%" }}
             transition="pop-top-left"
             transitionDuration={80}
             transitionTimingFunction="ease"
@@ -117,30 +147,31 @@ const SearchBar = () => {
             limit={10}
             className={classes.search}
             placeholder="Search"
-            data={[]}
+            data={SearchedData()}
             ref={query}
-            itemComponent={forwardRef(({ value, id, image, price, ...others }, query) => {
+            itemComponent={forwardRef(({ value, id, image, type, ...others }, query) => {
                 return (
                     <div {...others} ref={query}>
-
                         <Group noWrap>
-                            <Avatar src={image} />
-
+                            <Avatar 
+                                src={image
+                                ? `${tmdb.imgUrl}${tmdb.imgSize}${image}`
+                                : '/images/no_media.jpg'
+                            } />
                             <div>
                                 <Text>{value}</Text>
                                 <Text size="xs" color="dimmed">
-                                    {price} $
+                                    {type}
                                 </Text>
                             </div>
                         </Group>
-
                     </div>
                 )
             })}
             onChange={() => {
-               if (query.current !== null) {
-                    multiSearch(query.current.value , "multi" ,1)
-               }
+                if (query.current !== null) {
+                    multiSearch(query.current.value, "multi", 1)
+                }
             }}
         />
     )
