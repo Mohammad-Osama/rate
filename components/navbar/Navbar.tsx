@@ -19,6 +19,7 @@ import UserDisplay from './UserDisplay';
 import { useSelector ,useDispatch} from 'react-redux';
 import { creditsState } from '../../redux/slices/creditsEpisodeSlice';
 import { authState } from '../../redux/slices/authSlice';
+import SearchBar from './SearchBar';
 
 
 const useStyles = createStyles((theme) => ({
@@ -116,6 +117,7 @@ useEffect(() => {
                     </Link>
 
                 </div>
+                <SearchBar/>
                 <UserDisplay/>
             </Container>
         </Header>
