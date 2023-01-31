@@ -22,13 +22,14 @@ const PaginatioN = ({ page, setPage }: X) => {
                     backgroundColor: theme.colors.dark[6],
                     boxShadow: theme.shadows.md,
                     border: `1px solid ${theme.colors.dark[4]
-                    }`,
-                    color:"white",
+                        }`,
+                    color: "white",
                     ':hover': {
                         backgroundImage: theme.fn.gradient({ from: theme.colors.dark[1], to: theme.colors.dark[6] }),
                     },
                 },
-            })}
+            })
+            }
         />
     )
 }

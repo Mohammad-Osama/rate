@@ -1,22 +1,17 @@
 import React, { forwardRef, useRef, useState, useEffect } from 'react'
 import {
     createStyles,
-    Header,
-    ActionIcon,
     Group,
-    Burger,
-    Container,
     Text,
     Autocomplete, Avatar,
-    Menu,
 } from '@mantine/core';
 import { ISearchMulti } from '../../helpers/types';
 import * as tmdb from "./../../helpers/tmdb"
-
+import * as colors from "./../../helpers/colors"
 
 const useStyles = createStyles((theme) => ({
     search: {
-        border: 'none',
+        border: 'none',  // ??
     },
     inner: {
         height: 56,
@@ -94,12 +89,14 @@ const SearchBar = () => {
             }
         }
     }
+
     type IResult = {
         value: string;
         id: number;
         image: string | null | undefined;
         type: string;
     }
+
     const SearchedData = () => {
 
         let results: IResult[] = []
@@ -120,9 +117,7 @@ const SearchBar = () => {
             })
         })
         return results
-
     }
-
     useEffect(() => {
         /*  if (query.current !== null) {
              if (query.current.value === ""
@@ -138,7 +133,7 @@ const SearchBar = () => {
          } */
     }, [])
     return (
-        <Autocomplete 
+        <Autocomplete
             style={{ minWidth: "40%" }}
             transition="pop-top-left"
             transitionDuration={80}
@@ -149,18 +144,53 @@ const SearchBar = () => {
             placeholder="Search"
             data={SearchedData()}
             ref={query}
+            styles={(theme) => ({ // move to a usestyles
+                input: {
+                    backgroundColor: `${colors.dark4}`,
+                    border: `1px solid ${colors.dark4}`,
+                    color: "white",
+                    height: "40px"
+                },
+                itemsWrapper: {
+                    backgroundColor: `${colors.dark3}`,
+                    border: `1px solid ${colors.dark4}`,
+                },
+                item: {
+                    ':hover': {
+                        backgroundImage: theme.fn.gradient({ from: `${colors.cyan9}`, to: `${colors.teal9}` }),
+                        fontSize: "17px"
+                    },
+                },
+            })
+            }
             itemComponent={forwardRef(({ value, id, image, type, ...others }, query) => {
                 return (
-                    <div {...others} ref={query}>
-                        <Group noWrap>
-                            <Avatar 
+                    <div
+                        {...others}
+                        ref={query}
+                        // to fix hover 
+                        onMouseEnter={undefined}
+                        onMouseLeave={undefined}
+                    >
+                        <Group
+                            noWrap
+                        >
+                            <Avatar
+                                size="lg"
                                 src={image
-                                ? `${tmdb.imgUrl}${tmdb.imgSize}${image}`
-                                : '/images/no_media.jpg'
-                            } />
+                                    ? `${tmdb.imgUrl}${tmdb.imgSize}${image}`
+                                    : '/images/no_media.jpg'
+                                } />
                             <div>
-                                <Text>{value}</Text>
-                                <Text size="xs" color="dimmed">
+                                <Text
+                                    color="white"
+                                    weight={500}
+                                >
+                                    {value}
+                                </Text>
+                                <Text
+                                    color={`${colors.dark0}`}
+                                >
                                     {type}
                                 </Text>
                             </div>
