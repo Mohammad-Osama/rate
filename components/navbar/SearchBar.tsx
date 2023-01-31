@@ -8,6 +8,11 @@ import {
 import { ISearchMulti } from '../../helpers/types';
 import * as tmdb from "./../../helpers/tmdb"
 import * as colors from "./../../helpers/colors"
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { authState } from '../../redux/slices/authSlice';
+import Link from 'next/link'
+
 
 const useStyles = createStyles((theme) => ({
     search: {
@@ -74,13 +79,13 @@ const SearchBar = () => {
     const emptyList: ISearchMulti[] = []
 
     const [list, setList]: [ISearchMulti[], (x: ISearchMulti[]) => void] = useState(emptyList)
-    
-    function letterCounter (x:string) {
+
+    function letterCounter(x: string) {
         return x.replace(/[^a-zA-Z]/g, '').length;
-      }
-      
+    }
+
     const multiSearch = async (q: string, type: string, page: number) => {
-        if (q === " " || q === undefined || q === null || letterCounter(q)<2 ) {
+        if (q === " " || q === undefined || q === null || letterCounter(q) < 2) {
             setList([])
         }
         else {
@@ -122,20 +127,10 @@ const SearchBar = () => {
         })
         return results
     }
-    useEffect(() => {
-        /*  if (query.current !== null) {
-             if (query.current.value === ""
-                 || query.current.value === undefined
-                 || query.current.value === null)
-                 setList([])
-             else
-                 multiSearch(query.current.value , "multi" ,1)
-         }
-         console.log(list)
-         return () => {
-             setList([])
-         } */
-    }, [])
+    const router = useRouter()
+    const userData = useSelector(authState)
+    const userId = userData.id
+
     return (
         <Autocomplete
             style={{ minWidth: "40%" }}
@@ -207,6 +202,16 @@ const SearchBar = () => {
                     multiSearch(query.current.value, "multi", 1)
                 }
             }}
+            onItemSubmit={(item) => {
+                const { type, id } = item
+                if (type === 'person') {
+                    router.push(`/person/${id}`)
+                }
+                else {
+                    router.push(`/media/${type}/${id}?type=${type}&user=${userId}`)
+                }
+            }
+            }
         />
     )
 }

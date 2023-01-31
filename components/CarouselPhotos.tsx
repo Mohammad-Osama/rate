@@ -47,7 +47,8 @@ const CarouselPhotos = ({ id, type, episode_number, season_number }: X) => {
     }
     useEffect(() => {
         getImages(id, type)
-    }, [])
+    }, [id])
+
     return (
         <Container >
 
