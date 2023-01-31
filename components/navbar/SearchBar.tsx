@@ -74,9 +74,13 @@ const SearchBar = () => {
     const emptyList: ISearchMulti[] = []
 
     const [list, setList]: [ISearchMulti[], (x: ISearchMulti[]) => void] = useState(emptyList)
-
+    
+    function letterCounter (x:string) {
+        return x.replace(/[^a-zA-Z]/g, '').length;
+      }
+      
     const multiSearch = async (q: string, type: string, page: number) => {
-        if (q === " " || q === undefined || q === null) {
+        if (q === " " || q === undefined || q === null || letterCounter(q)<2 ) {
             setList([])
         }
         else {
