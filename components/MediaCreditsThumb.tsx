@@ -26,8 +26,8 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
         id
     } = dataMedia
 
-    const userData= useSelector(authState)
-    const userId=userData.id
+    const userData = useSelector(authState)
+    const userId = userData.id
 
     return (
         <>
@@ -91,7 +91,7 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                             />
                         </div>
                     </Grid.Col>
-
+                    
                 </Grid>
                 <div style={{ marginRight: "100px", marginLeft: "10px" }}>
                     <Text
@@ -100,7 +100,10 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                     // align="center"
                     // mb='md'
                     >
-                        {release_date}
+                        {release_date === "2050-01-01"
+                            ? "TDB"
+                            : release_date
+                        }
                     </Text>
                     <Text
                         size="xl"
@@ -110,13 +113,10 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                     >
                         {media_type}
                     </Text>
-
                 </div>
-
             </Group>
             <Divider />
         </>
-
     )
 }
 

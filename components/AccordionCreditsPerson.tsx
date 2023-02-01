@@ -54,7 +54,7 @@ const AccordionCreditsPerson = ({ type, data }: X) => {
                     ? x.release_date
                     : x.first_air_date
                         ? x.first_air_date
-                        : "2030-01-01"
+                        : "2050-01-01"
                 ),
             media_type: x.media_type,
             vote_average: x.vote_average,
