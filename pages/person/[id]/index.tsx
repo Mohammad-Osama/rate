@@ -28,6 +28,21 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
         id
     } = personProps
 
+    const born =()=>{
+        if (birthday===null && place_of_birth===null)
+        return ""
+
+        else if (birthday!==null && place_of_birth===null)
+        return `${birthday}`
+
+        else if (birthday===null && place_of_birth!==null)
+        return ` in ${place_of_birth}`
+
+        else if (birthday!==null && place_of_birth!==null)
+        return `${birthday} in ${place_of_birth}`
+    }
+
+    
     if (notFound === true)
         return (<div>Error Page</div>)
     else
@@ -103,7 +118,7 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
 
                             <MiddleTitle
                                 title="Born"
-                                content={`${birthday} in ${place_of_birth}`}
+                                content={born()}
                             />
                             {deathday &&
                                 <MiddleTitle
