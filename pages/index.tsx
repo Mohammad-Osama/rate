@@ -98,7 +98,7 @@ export default function Home() {
       getTvs(tvTypes, page)
     }
 
-    getGenres()
+    getGenres()  //move to redux??
     return () => {
 
     }

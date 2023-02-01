@@ -23,7 +23,7 @@ import { useState, useEffect } from 'react';
 import mongoose from "mongoose"
 
 import { authState } from '../../../../redux/slices/authSlice';
-import { useSelector , useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
 import AccordionPeople from '../../../../components/AccordionPeople';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
@@ -43,7 +43,7 @@ import { AppDispatch } from '../../../../redux/store';
 
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
-  //  console.log("tvInfoProps", tvInfoProps)
+    //  console.log("tvInfoProps", tvInfoProps)
 
     //console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
@@ -106,7 +106,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
         }
     }, [])
 
-    
+
     if (notFound === true)
         return (<div>Error Page</div>)
     else
@@ -257,9 +257,35 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     content={
                         created_by.map((item, index) => {
                             if (index === created_by.length - 1) // person page to be done later  , edit href
-                                return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
+                                return <Link
+                                    href={{
+                                        pathname: "/person/[id]",
+                                        query: {
+                                            id: item.id
+                                        },
+                                    }}
+                                    as={`/person/${item.id}`}
+                                    key={index}
+                                    style={{ color: "#4DABF7" }}
+                                >
+                                    {item.name}
+                                </Link>
                             else
-                                return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
+                                return <React.Fragment key={index}>
+                                    <Link
+                                        href={{
+                                            pathname: "/person/[id]",
+                                            query: {
+                                                id: item.id
+                                            },
+                                        }}
+                                        as={`/person/${item.id}`}
+                                        style={{ color: "#4DABF7" }}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                    <> , </>
+                                </React.Fragment>
                         })
                     } />
                 <Space h="md" />
@@ -293,7 +319,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 <Space h="md" />
                 <Divider />
                 <Space h="md" />
-    
+
                 <AccordionCredits
                     type="Cast"
                     data={tvInfoCreditsProps.cast}
@@ -303,7 +329,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                 />
 
                 <Space h="xl" />
-                
+
                 <AccordionPeople
                     type="Crew"
                     data={tvInfoCreditsProps.crew}

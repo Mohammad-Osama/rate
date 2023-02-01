@@ -42,7 +42,7 @@ import AccordionCredits from '../../../../components/AccordionCredits';
 
 
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
-  //  console.log(movieInfoCreditsProps)
+    //  console.log(movieInfoCreditsProps)
     //   console.log("movie", movieRateInfoProps)
     //  console.log("user", movieRateInfoUserProps)
     // console.log("movie from tmdb", movieInfoProps)
@@ -89,7 +89,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         );
     }
     useEffect(() => {
-       dispatch(addCredits(movieInfoCreditsProps))
+        dispatch(addCredits(movieInfoCreditsProps))
         if (movieRateInfoUserProps === null) {
             setIsRatedUser(false)
         }
@@ -97,7 +97,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
             setIsRatedUser(true)
         }
         return () => {
-           // dispatch(removeCredits())
+            // dispatch(removeCredits())
         }
     }, [])
 
@@ -319,10 +319,36 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             }
                             content={
                                 movieInfoCreditsProps.crew.filter(c => c.job === "Writer").map((item, index) => {
-                                    if (index === writers.length - 1) // person page to be done later  , edit href
-                                        return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
+                                    if (index === writers.length - 1)
+                                        return <Link
+                                            href={{
+                                                pathname: "/person/[id]",
+                                                query: {
+                                                    id: item.id
+                                                },
+                                            }}
+                                            as={`/person/${item.id}`}
+                                            key={index}
+                                            style={{ color: "#4DABF7" }}
+                                        >
+                                            {item.name}
+                                        </Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}>
+                                            <Link
+                                                href={{
+                                                    pathname: "/person/[id]",
+                                                    query: {
+                                                        id: item.id
+                                                    },
+                                                }}
+                                                as={`/person/${item.id}`}
+                                                style={{ color: "#4DABF7" }}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                            <> , </>
+                                        </React.Fragment>
                                 })
                             } />
                         <MiddleTitle
@@ -332,10 +358,36 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                             }
                             content={
                                 movieInfoCreditsProps.crew.filter(c => c.job === "Director").map((item, index) => {
-                                    if (index === directors.length - 1) // person page to be done later  , edit href
-                                        return <Link href={`/${item.id}`} key={index} style={{ color: "#4DABF7" }}>{item.name}</Link>
+                                    if (index === directors.length - 1)
+                                        return <Link
+                                            href={{
+                                                pathname: "/person/[id]",
+                                                query: {
+                                                    id: item.id
+                                                },
+                                            }}
+                                            as={`/person/${item.id}`}
+                                            key={index}
+                                            style={{ color: "#4DABF7" }}
+                                        >
+                                            {item.name}
+                                        </Link>
                                     else
-                                        return <React.Fragment key={index}><Link href={`/${item.id}`} style={{ color: "#4DABF7" }}>{item.name}</Link> <> , </></React.Fragment>
+                                        return <React.Fragment key={index}>
+                                            <Link
+                                                href={{
+                                                    pathname :"/person/[id]",
+                                                    query: {
+                                                        id: item.id
+                                                      },
+                                        }}
+                                                as={`/person/${item.id}`}
+                                                style={{ color: "#4DABF7" }}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                            <> , </>
+                                        </React.Fragment>
                                 })
                             } />
                         <MiddleTitle title="Websites" content={[<a href={movieInfoProps.homepage as string} key={1} style={{ color: "#4DABF7" }}>Homepage </a>,
@@ -346,13 +398,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 </SimpleGrid>
 
                 <Space h="md" />
-                {/* <AccordionPeople
-                    type="Cast"
-                    data={movieInfoCreditsProps.cast}
-                    id={movieInfoCreditsProps.id}
-                    title={title}
-                    media_type={media_type}
-                /> */}
+
                 <AccordionCredits
                     type="Cast"
                     data={movieInfoCreditsProps.cast}
@@ -362,13 +408,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
                 />
                 <Space h="xl" />
-                {/* <AccordionPeople
-                    type="Crew"
-                    data={movieInfoCreditsProps.crew}
-                    id={movieInfoCreditsProps.id}
-                    title={title}
-                    media_type={media_type}
-                /> */}
+
                 <AccordionCredits
                     type="Crew"
                     data={movieInfoCreditsProps.crew}
