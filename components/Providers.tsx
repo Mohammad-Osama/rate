@@ -9,7 +9,6 @@ import {
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
 import { IAllProviders, IProvidersList } from '../helpers/types';
-import Link from 'next/link';
 
 
 interface X {
@@ -266,7 +265,7 @@ const Providers = ({ id, mediaType }: X) => {
                     style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "23px" }}
                 // mb="lg"
                 >
-                    Visit <a href={state.link} style={{ color: "#4DABF7" }} >TMDB</a> for more details
+                    Visit <a href={state.link} style={{ color: "#4DABF7" }} >TMDB</a> for more information
                 </Text>
             </Container>
         )

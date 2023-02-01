@@ -8,8 +8,6 @@ interface X {
     dataPerson: ICastOrCrew
 }
 const PersonThumb = ({ dataPerson }: X) => {
-    /*  const userData= useSelector(authState)
-     const userId=userData.id */
 
     const { id, name, profile_path, character, job } = dataPerson
     return (

@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
-import { IEpisode, ICredits, IPerson, IPersonCredits } from '../../../helpers/types';
+import { IPerson, IPersonCredits } from '../../../helpers/types';
 import { Space, Container, Image, Text, Group, Divider, Grid, Stack } from '@mantine/core';
 import HeadPage from '../../../components/HeadPage';
 import ValueBadge from '../../../components/ValueBadge';
-import { addCredits, removeCredits } from '../../../redux/slices/creditsEpisodeSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../redux/store';
 import AccordionCreditsPerson from '../../../components/AccordionCreditsPerson';
 import SideTitle from '../../../components/SideTitle';
 import CarouselPhotos from '../../../components/CarouselPhotos';
-import CarouselVideos from '../../../components/CarouselVideos';
 import MiddleTitle from '../../../components/MiddleTitle';
 
 
 
 const index = ({ personProps, notFound, personCreditsProps }: X) => {
-    console.log(personCreditsProps)
     const {
         name,
         biography,

@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState, useEffect } from 'react'
+import React, { forwardRef, useRef, useState } from 'react'
 import {
     createStyles,
     Group,
@@ -11,7 +11,6 @@ import * as colors from "./../../helpers/colors"
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { authState } from '../../redux/slices/authSlice';
-import Link from 'next/link'
 
 
 const useStyles = createStyles((theme) => ({
