@@ -16,15 +16,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
 import UserDisplay from './UserDisplay';
-import { useSelector ,useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { creditsState } from '../../redux/slices/creditsEpisodeSlice';
 import { authState } from '../../redux/slices/authSlice';
 import SearchBar from './SearchBar';
+import BurgerMenu from './BurgerMenu';
 
 
 const useStyles = createStyles((theme) => ({
     container: {
-        color: theme.colors.red[0],
+        // color: theme.colors.red[0],
         backgroundColor: theme.colors.dark[7],
         borderColor: theme.colors.dark[3],
     },
@@ -34,7 +35,7 @@ const useStyles = createStyles((theme) => ({
     inner: {
         height: 56,
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
     },
 
@@ -79,10 +80,14 @@ const useStyles = createStyles((theme) => ({
         color: "white",
         //  backgroundColor:"red",
         //   fontSize: theme.fontSizes.sm,
+       // fontFamily:"cursive",
         fontWeight: 700,
-        fontSize:22 ,
+        fontSize: 22,
         '&:hover': {
             backgroundColor: theme.colors.dark[6],
+        },
+        [theme.fn.smallerThan('sm')]: {
+            display: 'none',
         },
     },
 }));
@@ -91,34 +96,49 @@ const useStyles = createStyles((theme) => ({
 
 export function Navbar() {
     const { classes } = useStyles();
-    const {id} = useSelector(creditsState)
- //   const {id} = useSelector(authState)
+    const { id } = useSelector(creditsState)
+    //   const {id} = useSelector(authState)
 
-useEffect(() => {
-    
-}, [id])
+    useEffect(() => {
+
+    }, [id])
     return (
         <Header height={60} mb={12} className={classes.container} >
             <Container size="xl" className={classes.inner}>
                 <div >
-                    
+
                     <Link style={{
                         textDecoration: 'none',
                         color: 'black',
                     }}
                         href="/" >
-                        <div 
-                            className={classes.text}
-
-                        >
-                            Home  {id}
+                        <div className={classes.text}>
+                            Home
                         </div>
-                        
                     </Link>
 
                 </div>
-                <SearchBar/>
-                <UserDisplay/>
+                <SearchBar />
+                <Link style={{
+                        textDecoration: 'none',
+                        color: 'black',
+                    }}
+                        href="/search" >
+                        <div className={classes.text}>
+                            Search
+                        </div>
+                    </Link>
+                    <Link style={{
+                        textDecoration: 'none',
+                        color: 'black',
+                    }}
+                        href="/disover" >
+                        <div className={classes.text}>
+                            Discover
+                        </div>
+                    </Link>
+                <UserDisplay />
+                <BurgerMenu />
             </Container>
         </Header>
     );

@@ -132,7 +132,7 @@ const SearchBar = () => {
 
     return (
         <Autocomplete
-            style={{ minWidth: "40%" }}
+            style={{ minWidth: "30%" }}
             transition="pop-top-left"
             transitionDuration={80}
             transitionTimingFunction="ease"

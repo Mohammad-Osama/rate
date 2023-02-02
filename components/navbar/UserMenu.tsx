@@ -45,9 +45,9 @@ const useStyles = createStyles((theme) => ({
             backgroundColor: `${theme.colors.dark[3]}`,
         },
 
-        [theme.fn.smallerThan('xs')]: {
+       /*  [theme.fn.smallerThan('xs')]: {
             display: 'none',
-        },
+        }, */
     },
 
     /* burger: {
@@ -61,7 +61,7 @@ const useStyles = createStyles((theme) => ({
         backgroundColor: theme.colors.cyan[9],
     },
     dropdown: {
-        backgroundColor: `${theme.colors.dark[5] }!important`,
+        backgroundColor: `${theme.colors.dark[5] }`,
     },
     item: {
         color: "white",
