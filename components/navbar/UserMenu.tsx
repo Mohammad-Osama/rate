@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import {
     createStyles,
-    Container,
-    Avatar,
     UnstyledButton,
     Group,
     Text,
     Menu,
-    Tabs,
-    Burger,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
@@ -16,8 +12,8 @@ import {
     Settings,
     ChevronDown,
 } from 'tabler-icons-react';
-import { authState, logout } from '../../redux/slices/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { AppDispatch } from '../../redux/store';
 
@@ -44,57 +40,28 @@ const useStyles = createStyles((theme) => ({
         '&:hover': {
             backgroundColor: `${theme.colors.dark[3]}`,
         },
-
-       /*  [theme.fn.smallerThan('xs')]: {
-            display: 'none',
-        }, */
+        height: "80%"
     },
-
-    /* burger: {
-        [theme.fn.largerThan('xs')]: {
-            display: 'none',
-        },
-    }, */
 
     userActive: {
         color: "white",
         backgroundColor: theme.colors.cyan[9],
     },
     dropdown: {
-        backgroundColor: `${theme.colors.dark[5] }`,
+        backgroundColor: `${theme.colors.dark[5]}`,
     },
     item: {
         color: "white",
         '&:hover': {
-            backgroundImage:` ${theme.fn.gradient({ from: `${theme.colors.cyan[9]}`, to: `${theme.colors.teal[9]}` }) } !important`,
+            backgroundImage: ` ${theme.fn.gradient({ from: `${theme.colors.cyan[9]}`, to: `${theme.colors.teal[9]}` })} !important`,
             fontSize: "17px"
         },
-    }
-
-    /* tabs: {
+    },
+    userInfo: {
         [theme.fn.smallerThan('sm')]: {
             display: 'none',
         },
     },
-
-    tabsList: {
-        borderBottom: '0 !important',
-    },
-
-    tab: {
-        fontWeight: 500,
-        height: 38,
-        backgroundColor: 'transparent',
-
-        '&:hover': {
-            backgroundColor: theme.colors.grape[4],
-        },
-
-        '&[data-active]': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-            borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[2],
-        },
-    }, */
 }));
 
 interface X {
@@ -110,7 +77,7 @@ const UserMenu = ({ first_name, last_name }: X) => {
     const router = useRouter()
     return (
         <Menu
-            width={260}
+            // width={260}
             position="bottom-end"
             transition="pop-top-right"
             onClose={() => setUserMenuOpened(false)}
@@ -124,10 +91,17 @@ const UserMenu = ({ first_name, last_name }: X) => {
                 >
                     <Group spacing={7}>
                         <UserCircle size={24} />
-                        <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
+                        <Text
+                            className={classes.userInfo}
+                            weight={500}
+                            size="sm"
+                            sx={{ lineHeight: 1 }}
+                            mr={3}
+
+                        >
                             {first_name} {last_name}
                         </Text>
-                        <ChevronDown size={12} />
+                        {/* <ChevronDown size={12} /> */}
                     </Group>
                 </UnstyledButton>
             </Menu.Target>
@@ -137,8 +111,8 @@ const UserMenu = ({ first_name, last_name }: X) => {
                     icon={<Settings size={18} />}
 
                 /* component={NextLink} href={'/dashboard'} */
-                >                
-                        Account
+                >
+                    Account
                 </Menu.Item>
                 <Menu.Item
                     icon={<Logout size={18} />}

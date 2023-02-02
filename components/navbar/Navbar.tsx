@@ -21,6 +21,7 @@ import { creditsState } from '../../redux/slices/creditsEpisodeSlice';
 import { authState } from '../../redux/slices/authSlice';
 import SearchBar from './SearchBar';
 import BurgerMenu from './BurgerMenu';
+import HomeIcon from './HomeIcon';
 
 
 const useStyles = createStyles((theme) => ({
@@ -105,19 +106,7 @@ export function Navbar() {
     return (
         <Header height={60} mb={12} className={classes.container} >
             <Container size="xl" className={classes.inner}>
-                <div >
-
-                    <Link style={{
-                        textDecoration: 'none',
-                        color: 'black',
-                    }}
-                        href="/" >
-                        <div className={classes.text}>
-                            Home
-                        </div>
-                    </Link>
-
-                </div>
+                <HomeIcon/>
                 <SearchBar />
                 <Link style={{
                         textDecoration: 'none',

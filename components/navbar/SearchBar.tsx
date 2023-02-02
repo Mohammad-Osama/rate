@@ -16,60 +16,33 @@ import { authState } from '../../redux/slices/authSlice';
 const useStyles = createStyles((theme) => ({
     search: {
         border: 'none',  // ??
-    },
-    inner: {
-        height: 56,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
+        width: "40%",
+      [theme.fn.smallerThan('xs')]: {
 
-    links: {
-        [theme.fn.smallerThan('sm')]: {
-            display: 'none',
+        },
+    },
+    input: {
+        backgroundColor: `${colors.dark4}`,
+        border: `1px solid ${colors.dark4}`,
+        color: "white",
+        height: "40px",
+        
+        [theme.fn.smallerThan('xs')]: {
+         //   width: "100px",
+        },
+    },
+    itemsWrapper: {
+        backgroundColor: `${colors.dark3}`,
+        border: `1px solid ${colors.dark4}`,
+    },
+    item: {
+        ':hover': {
+            backgroundImage: theme.fn.gradient({ from: `${colors.cyan9}`, to: `${colors.teal9}` }),
+            fontSize: "17px"
         },
     },
 
-    burger: {
-        [theme.fn.largerThan('sm')]: {
-            display: 'none',
-        },
-    },
 
-    link: {
-        display: 'block',
-        cursor: "pointer",
-        lineHeight: 1,
-        padding: '8px 12px',
-        borderRadius: theme.radius.sm,
-        textDecoration: 'none',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-        fontSize: theme.fontSizes.sm,
-        fontWeight: 500,
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-    },
-
-    linkLabel: {
-        marginRight: 5,
-
-    },
-    text: {
-        display: 'block',
-        cursor: "pointer",
-        padding: '8px 12px',
-        borderRadius: theme.radius.sm,
-        textDecoration: 'none',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-        //   fontSize: theme.fontSizes.sm,
-        fontWeight: 700,
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-    },
 }));
 const SearchBar = () => {
 
@@ -132,22 +105,23 @@ const SearchBar = () => {
 
     return (
         <Autocomplete
-            style={{ minWidth: "30%" }}
+            // style={{ minWidth: "30%" }}
             transition="pop-top-left"
             transitionDuration={80}
             transitionTimingFunction="ease"
             radius="lg"
             limit={10}
             className={classes.search}
+            classNames={classes}
             placeholder="Search"
             data={SearchedData()}
             ref={query}
-            styles={(theme) => ({ // move to a usestyles
+            /* styles={(theme) => ({ // move to a usestyles
                 input: {
                     backgroundColor: `${colors.dark4}`,
                     border: `1px solid ${colors.dark4}`,
                     color: "white",
-                    height: "40px"
+                    height: "155px"
                 },
                 itemsWrapper: {
                     backgroundColor: `${colors.dark3}`,
@@ -160,7 +134,7 @@ const SearchBar = () => {
                     },
                 },
             })
-            }
+            } */
             itemComponent={forwardRef(({ value, id, image, type, ...others }, query) => {
                 return (
                     <div
