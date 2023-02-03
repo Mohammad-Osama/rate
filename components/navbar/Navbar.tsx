@@ -121,7 +121,7 @@ export function Navbar() {
                         textDecoration: 'none',
                         color: 'black',
                     }}
-                        href="/disover" >
+                        href="/discover" >
                         <div className={classes.text}>
                             Discover
                         </div>

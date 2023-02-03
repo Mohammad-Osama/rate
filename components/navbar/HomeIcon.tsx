@@ -41,9 +41,8 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 const HomeIcon = () => {
-    console.log(window.location.pathname === "/")
+    
     const { classes } = useStyles();
-
     const router = useRouter()
 
     return (
@@ -58,9 +57,7 @@ const HomeIcon = () => {
                 onClick={() => window.location.pathname === "/"
                     ? window.location.reload()
                     : router.push('/')
-
                 }
-
             >
                 RATE
             </div>
