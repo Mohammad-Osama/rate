@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 import * as colors from '../../helpers/colors'
+import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
     text: {
@@ -21,8 +22,8 @@ const useStyles = createStyles((theme) => ({
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
         color: "black",
-       backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
-     //  backgroundColor:`${colors.nightBlue}`,
+        backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
+        //  backgroundColor:`${colors.nightBlue}`,
         WebkitBorderRadius: "10px 10px",
         //    border:"2px solid black" ,
         //  WebkitTextStroke:"1px black" ,
@@ -40,22 +41,30 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 const HomeIcon = () => {
+    console.log(window.location.pathname === "/")
     const { classes } = useStyles();
 
-
+    const router = useRouter()
 
     return (
         <div >
 
-            <Link style={{
+            {/*  <Link style={{
                 textDecoration: 'none',
                 color: 'black',
             }}
-                href="/" >
-                <div className={classes.text}>
-                    RATE
-                </div>
-            </Link>
+                href="/" > */}
+            <div className={classes.text}
+                onClick={() => window.location.pathname === "/"
+                    ? window.location.reload()
+                    : router.push('/')
+
+                }
+
+            >
+                RATE
+            </div>
+            {/*  </Link> */}
 
         </div>
     )

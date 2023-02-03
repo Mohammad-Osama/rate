@@ -1,4 +1,5 @@
 import { createStyles,Title, Text, Button, Stack } from '@mantine/core';
+import * as colors from '../helpers/colors'
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -21,7 +22,7 @@ const useStyles = createStyles((theme) => ({
         border: `1px solid ${theme.colors.dark[4]
             }`,
         ':hover': {
-            backgroundImage: theme.fn.gradient({ from: 'teal', to: 'cyan' }),
+            backgroundImage: theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
         },
     }
 
