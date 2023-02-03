@@ -1,5 +1,6 @@
 import { Pagination } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
+import * as colors from '../helpers/colors'
 
 interface X {
     page: number;
@@ -17,7 +18,7 @@ const PaginatioN = ({ page, setPage }: X) => {
             styles={(theme) => ({
                 item: {
                     '&[data-active]': {
-                        backgroundImage: theme.fn.gradient({ from: 'teal', to: 'cyan' }),
+                        backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
                     },
                     backgroundColor: theme.colors.dark[6],
                     boxShadow: theme.shadows.md,

@@ -16,6 +16,7 @@ import { logout } from '../../redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { AppDispatch } from '../../redux/store';
+import * as colors from "./../../helpers/colors"
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -45,7 +46,7 @@ const useStyles = createStyles((theme) => ({
 
     userActive: {
         color: "white",
-        backgroundColor: theme.colors.cyan[9],
+        backgroundImage:theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
     },
     dropdown: {
         backgroundColor: `${theme.colors.dark[5]}`,
@@ -53,7 +54,7 @@ const useStyles = createStyles((theme) => ({
     item: {
         color: "white",
         '&:hover': {
-            backgroundImage: ` ${theme.fn.gradient({ from: `${theme.colors.cyan[9]}`, to: `${theme.colors.teal[9]}` })} !important`,
+            backgroundImage: ` ${theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` })} !important`,
             fontSize: "17px"
         },
     },

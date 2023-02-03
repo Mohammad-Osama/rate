@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
     },
     item: {
         ':hover': {
-            backgroundImage: theme.fn.gradient({ from: `${colors.cyan9}`, to: `${colors.teal9}` }),
+            backgroundImage: theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
             fontSize: "17px"
         },
     },

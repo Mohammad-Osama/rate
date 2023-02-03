@@ -11,27 +11,31 @@ import {
     Menu,
 } from '@mantine/core';
 import Link from 'next/link';
-
+import * as colors from '../../helpers/colors'
 
 const useStyles = createStyles((theme) => ({
     text: {
         display: 'block',
-        cursor: "pointer",
+        cursor: 'pointer',
         padding: '8px 12px',
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
-        color: "white",
-        //  backgroundColor:"red",
+        color: "black",
+       backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
+     //  backgroundColor:`${colors.nightBlue}`,
+        WebkitBorderRadius: "10px 10px",
+        //    border:"2px solid black" ,
+        //  WebkitTextStroke:"1px black" ,
         //   fontSize: theme.fontSizes.sm,
         // fontFamily:"cursive",
         fontWeight: 700,
         fontSize: 22,
         '&:hover': {
-            backgroundColor: theme.colors.dark[6],
+            backgroundColor: theme.colors.cyan[6],
         },
         [theme.fn.smallerThan('sm')]: {
-           /*  fontWeight: 500,
-            fontSize: 16, */
+            /*  fontWeight: 500,
+             fontSize: 16, */
         },
     },
 }));
@@ -49,7 +53,7 @@ const HomeIcon = () => {
             }}
                 href="/" >
                 <div className={classes.text}>
-                    Rate
+                    RATE
                 </div>
             </Link>
 

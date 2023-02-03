@@ -1,6 +1,7 @@
 import { SegmentedControl, Group, createStyles } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
+import * as colors from '../helpers/colors'
 
 
 const useStyles = createStyles((theme, _params) => ({
@@ -13,7 +14,7 @@ const useStyles = createStyles((theme, _params) => ({
     },
 
     active: {
-        backgroundImage: theme.fn.gradient({ from: 'blue', to: 'orange' }),
+        backgroundImage: theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
     },
 
     control: {
@@ -38,7 +39,7 @@ const useStyles2 = createStyles((theme, _params) => ({
     },
 
     active: {
-        backgroundImage: theme.fn.gradient({ from: 'blue', to: 'red' }),
+        backgroundImage: theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
     },
 
     control: {

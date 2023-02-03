@@ -11,3 +11,12 @@ export const cyan9="#0B7285"
 
 //teal
 export const teal9="#087F5B"
+
+
+//sand tan
+export const sandTan="#e1b382"
+export const sandTanShadow="#c89666"
+
+// night blue
+export const nightBlue="#2d545e"
+export const nightBlueShadow="#12343b"
