@@ -1,4 +1,5 @@
 import { createStyles } from '@mantine/core';
+import Footer from './Footer';
 import { Navbar } from './navbar/Navbar';
 
 const useStyles = createStyles(() => ({
@@ -25,7 +26,7 @@ const Layout = ({ children }: LayoutProps, ) => {
             <div className={classes.container}>
               <Navbar/>
                 <main>{children}</main>
-               
+               <Footer/>
             </div>
         )
 }
