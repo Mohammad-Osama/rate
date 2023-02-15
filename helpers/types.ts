@@ -482,9 +482,19 @@ export interface ISearchMulti {
     known_for_department?: string;
     name?: string;
     profile_path?: string | null;
-    
+
     //tv
     first_air_date?: string;
     origin_country?: string[];
     original_name?: string;
 }
+
+export type IMediaType =
+    "movie" |
+    "tv" |
+    "person" |
+    "all";
+
+export type ITimeWindnow =
+    "day" |
+    "week";

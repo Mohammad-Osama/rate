@@ -1,3 +1,5 @@
+import { useRef } from "react"
+
 export const url = "https://api.themoviedb.org/3/"
 export const urlMovie = "https://api.themoviedb.org/3/movie/"
 export const urlTv = "https://api.themoviedb.org/3/tv/"

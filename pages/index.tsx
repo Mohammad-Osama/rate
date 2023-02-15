@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
 import { Group, Container, SimpleGrid, createStyles } from '@mantine/core';
@@ -11,7 +11,7 @@ import PaginatioN from '../components/PaginatioN';
 import PaginationButtons from '../components/PaginationButtons';
 import { useMediaQuery } from '@mantine/hooks';
 import Error from '../components/Error';
-
+import HeaderHome from '../components/HeaderHome';
 
 
 const useStyles = createStyles((theme) => ({
@@ -20,11 +20,12 @@ const useStyles = createStyles((theme) => ({
     // backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.cyan[1],
     color: theme.colors.dark[0],
     backgroundColor: theme.colors.dark[4],
+    //  display:"grid",
+    // alignItems:"flex-start"
 
   },
 
 }));
-
 
 
 export default function Home() {
@@ -88,8 +89,18 @@ export default function Home() {
 
   const smallScreen = useMediaQuery('(max-width: 500px)');
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const executeScroll = () => {
+    if (ref.current !== null) {
+      ref.current.scrollIntoView({behavior:"smooth"})
+    }
+  }
+
+
 
   useEffect(() => {
+   // executeScroll()
     window.scrollTo({ top: 0, behavior: 'smooth' })
     if (mediaType === "movie") {
       getMovies(moviesTypes, page)
@@ -112,6 +123,7 @@ export default function Home() {
   else
     return (
       <div className={styles.container}>
+
         <HeadPage
           title="Rate My Media"
           description="Rate a movie or a tv show"
@@ -121,6 +133,8 @@ export default function Home() {
           my="md"
           pb="xl"
           className={classes.container}
+          id="home-container"
+          ref={ref}
         >
           <HomeFilter mediaType={mediaType}
             setMediaType={setMediaType}

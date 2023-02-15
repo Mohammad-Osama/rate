@@ -161,11 +161,7 @@ const useStyles = createStyles((theme) => ({
         },
     },
     linkedIcon: {
-     // animation: ' glow 1s infinite alternate',
-     //   WebkitAnimationDuration:"1s",
-     //  WebkitAnimationIterationCount:1,
         WebkitBoxShadow:`0 0 18px ${colors.sandTanShadow}` ,
-
         '&:hover': {
             backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.sandTan}` }),
         },
@@ -205,7 +201,7 @@ const Footer = () => {
 
 
     return (
-        <footer className={classes.footer}>
+        <div className={classes.footer}>
             <Container className={classes.inner}>
                 <div className={classes.logo}>
                     <HomeIcon />
@@ -235,7 +231,7 @@ const Footer = () => {
                     </ActionIcon>
                 </Group>
             </Container>
-        </footer>
+        </div>
     )
 }
 

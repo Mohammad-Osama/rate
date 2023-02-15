@@ -5,6 +5,7 @@
 
 html {
   background-color: #373A40;
+  scroll-behavior: smooth;
 }
 body {
   padding: 0;

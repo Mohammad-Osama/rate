@@ -1,15 +1,5 @@
 import React from 'react'
-import {
-    createStyles,
-    Header,
-    ActionIcon,
-    Group,
-    Burger,
-    Container,
-    Text,
-    Autocomplete, Avatar,
-    Menu,
-} from '@mantine/core';
+import { createStyles} from '@mantine/core';
 import Link from 'next/link';
 import * as colors from '../../helpers/colors'
 import { useRouter } from 'next/router';
@@ -31,9 +21,9 @@ const useStyles = createStyles((theme) => ({
         // fontFamily:"cursive",
         fontWeight: 700,
         fontSize: 22,
-        '&:hover': {
+        /* '&:hover': {
             backgroundColor: theme.colors.cyan[6],
-        },
+        }, */
         [theme.fn.smallerThan('sm')]: {
             /*  fontWeight: 500,
              fontSize: 16, */
@@ -41,7 +31,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 const HomeIcon = () => {
-    
+
     const { classes } = useStyles();
     const router = useRouter()
 
