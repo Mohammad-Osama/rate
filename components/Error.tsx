@@ -48,7 +48,7 @@ const Error = () => {
                 color="white"
                 align="center"
             >
-                Page you are trying to open does not exist.
+                The page you are trying to open does not exist.
                 <br />
                 Refresh the page or choose a different category .
             </Text>

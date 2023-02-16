@@ -1,5 +1,5 @@
 import { createStyles, Text, Container, ActionIcon, Group } from '@mantine/core';
-import { BrandTwitter, BrandYoutube, BrandInstagram, BrandLinkedin } from 'tabler-icons-react';
+import { BrandTwitter, BrandYoutube, BrandInstagram, BrandLinkedin ,BrandFacebook} from 'tabler-icons-react';
 import HomeIcon from './navbar/HomeIcon';
 import * as colors from "../helpers/colors"
 
@@ -60,11 +60,11 @@ const data = [
                 "link": "#"
             },
             {
-                "label": "Email newsletter",
+                "label": "Follow on Facebook",
                 "link": "#"
             },
             {
-                "label": "GitHub discussions",
+                "label": "Email newsletter",
                 "link": "#"
             }
         ]
@@ -80,8 +80,8 @@ const useStyles = createStyles((theme) => ({
     },
 
     logo: {
-        maxWidth: 200,
-
+        // maxWidth: 200,
+        marginBottom: "10px",
         [theme.fn.smallerThan('sm')]: {
             display: 'flex',
             flexDirection: 'column',
@@ -112,9 +112,9 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         flexWrap: 'wrap',
 
-        [theme.fn.smallerThan('sm')]: {
-            display: 'none',
-        },
+        /*  [theme.fn.smallerThan('sm')]: {
+             display: 'none',
+         }, */
     },
 
     wrapper: {
@@ -124,7 +124,7 @@ const useStyles = createStyles((theme) => ({
     link: {
         display: 'block',
         color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
-        fontSize: theme.fontSizes.sm,
+        fontSize: theme.fontSizes.md,
         paddingTop: 3,
         paddingBottom: 3,
 
@@ -134,7 +134,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     title: {
-        fontSize: theme.fontSizes.lg,
+        fontSize: theme.fontSizes.xl,
         fontWeight: 700,
         fontFamily: `Greycliff CF, ${theme.fontFamily}`,
         marginBottom: theme.spacing.xs / 2,
@@ -159,11 +159,18 @@ const useStyles = createStyles((theme) => ({
         [theme.fn.smallerThan('sm')]: {
             marginTop: theme.spacing.xs,
         },
+        
     },
     linkedIcon: {
-        WebkitBoxShadow:`0 0 18px ${colors.sandTanShadow}` ,
+        WebkitBoxShadow: `0 0 18px ${colors.sandTanShadow}`,
         '&:hover': {
             backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.sandTan}` }),
+        },
+    },
+    icons: {
+     //   WebkitBoxShadow: `0 0 18px ${colors.sandTanShadow}`,
+        '&:hover': {
+            backgroundColor: theme.colors.dark[4],
         },
     },
 }));
@@ -204,9 +211,18 @@ const Footer = () => {
         <div className={classes.footer}>
             <Container className={classes.inner}>
                 <div className={classes.logo}>
-                    <HomeIcon />
-                    <Text size="xs" color="dimmed" className={classes.description}>
-                        Rate your favourite movie or show !
+                    <HomeIcon
+                        width="200px"
+                    />
+                    <Text size="md" color="dimmed" className={classes.description}>
+                        Rate Your Favourite Movie or Show !
+                    </Text>
+                    <Text size="md" color="dimmed" className={classes.description}>
+                        All Media Data Provided by <a href="https://www.themoviedb.org/"
+                                                        style={{
+                                                            color:"lightblue"
+                                                        }}
+                        >TMDB</a> Free Api
                     </Text>
                 </div>
                 <div className={classes.groups}>{groups}</div>
@@ -220,14 +236,14 @@ const Footer = () => {
                     <ActionIcon size="lg" className={classes.linkedIcon} >
                         <BrandLinkedin size={40} strokeWidth={1.5} />
                     </ActionIcon>
-                    <ActionIcon size="lg">
+                    <ActionIcon size="lg" className={classes.icons}>
                         <BrandTwitter size={40} strokeWidth={1.5} />
                     </ActionIcon>
-                    <ActionIcon size="lg">
+                    <ActionIcon size="lg"className={classes.icons} >
                         <BrandYoutube size={40} strokeWidth={1.5} />
                     </ActionIcon>
-                    <ActionIcon size="lg" >
-                        <BrandInstagram size={40} strokeWidth={1.5} />
+                    <ActionIcon size="lg" className={classes.icons}>
+                        <BrandFacebook size={40} strokeWidth={1.5} />
                     </ActionIcon>
                 </Group>
             </Container>

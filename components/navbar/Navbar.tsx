@@ -106,7 +106,9 @@ export function Navbar() {
     return (
         <Header height={60} mb={12} className={classes.container} >
             <Container size="xl" className={classes.inner}>
-                <HomeIcon/>
+                <HomeIcon
+                    width=""
+                />
                 <SearchBar />
                 <Link style={{
                         textDecoration: 'none',

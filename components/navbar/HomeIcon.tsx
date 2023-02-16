@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStyles} from '@mantine/core';
+import { createStyles } from '@mantine/core';
 import Link from 'next/link';
 import * as colors from '../../helpers/colors'
 import { useRouter } from 'next/router';
@@ -30,13 +30,20 @@ const useStyles = createStyles((theme) => ({
         },
     },
 }));
-const HomeIcon = () => {
+interface X {
+    width: string // | null ;
+}
+const HomeIcon = ({ width }: X) => {
 
     const { classes } = useStyles();
     const router = useRouter()
 
     return (
-        <div >
+        <div
+            style={{
+                width: `${width}`
+            }}
+        >
 
             {/*  <Link style={{
                 textDecoration: 'none',

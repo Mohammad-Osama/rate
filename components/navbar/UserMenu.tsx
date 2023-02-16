@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
 
     user: {
         color: "white",
-        backgroundColor: `${theme.colors.dark[5]}`,
+    //    backgroundColor: `${theme.colors.dark[5]}`,
         padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
         borderRadius: theme.radius.sm,
         transition: 'background-color 100ms ease',
