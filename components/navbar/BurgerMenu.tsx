@@ -9,8 +9,11 @@ import {
     Text,
     Autocomplete, Avatar,
     Menu,
+    UnstyledButton
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import Link from 'next/link';
+import * as colors from "./../../helpers/colors"
 
 
 
@@ -32,7 +35,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     burger: {
-        [theme.fn.largerThan('sm')]: { 
+        [theme.fn.largerThan('sm')]: {
             display: 'none',
         },
     },
@@ -71,49 +74,87 @@ const useStyles = createStyles((theme) => ({
             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
         },
     },
+
+    user: {
+        color: "white",
+        backgroundColor: `${theme.colors.dark[5]}`,
+        //    padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+        //  borderRadius: theme.radius.sm,
+        transition: 'background-color 100ms ease',
+
+        '&:hover': {
+            backgroundColor: `${theme.colors.dark[3]}`,
+        },
+        height: "80%",
+        [theme.fn.largerThan('sm')]: {
+            display: 'none',
+        },
+    },
+    userActive: {
+        color: "white",
+        backgroundImage: theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
+    },
+    item: {
+        color: "white",
+        '&:hover': {
+            backgroundImage: ` ${theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` })} !important`,
+            fontSize: "17px"
+        },
+    },
+    dropdown: {
+        backgroundColor: `${theme.colors.dark[5]}`,
+    },
 }));
+
 
 
 
 const BurgerMenu = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
-    const { classes } = useStyles();
+    const { classes, theme, cx } = useStyles();
+
     return (
         <Menu
+            classNames={classes}
             width={200}
             position="bottom-end"
             transition="pop-top-right"
-
             onClose={() => setUserMenuOpened(false)}
-            onOpen={() => setUserMenuOpened(true)}
-        /* control={
-          
-        } */
+            onOpen={() => setUserMenuOpened(true)} 
         >
             <Menu.Target>
                 <Burger
                     opened={opened}
                     onClick={toggle}
-                    className={classes.burger}
-                    size="sm"
+                    className={cx(classes.user, { [classes.userActive]: userMenuOpened })} size="sm"
                 />
-
             </Menu.Target>
+
             <Menu.Dropdown>
 
-            <Menu.Item >
-               Search
-            </Menu.Item>
-                <Menu.Item
+                <Link style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                }}
+                    href="/search" >
+                    <Menu.Item >
+                        Search
+                    </Menu.Item>
+                </Link>
 
-                >
-                  Discover
-                   {/*  <MenuInNav classes={classes} /> */}
-                </Menu.Item>
-               
+                <Link style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                }}
+                    href="/discover" >
+                    <Menu.Item >
+                        Discover
+                        {/*  <MenuInNav classes={classes} /> */}
+                    </Menu.Item>
+                </Link>
+
             </Menu.Dropdown>
-
         </Menu>
     )
 }

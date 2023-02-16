@@ -78,7 +78,7 @@ const UserMenu = ({ first_name, last_name }: X) => {
     const router = useRouter()
     return (
         <Menu
-            // width={260}
+             width={200}
             position="bottom-end"
             transition="pop-top-right"
             onClose={() => setUserMenuOpened(false)}
