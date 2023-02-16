@@ -1,4 +1,4 @@
-import { Title, Text, Container, Button, Overlay, createStyles } from '@mantine/core';
+import { Title, Text, Container, Button, Tooltip, Overlay, createStyles } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import { IMediaType, ISearchMulti, ITimeWindnow } from '../helpers/types';
 import * as tmdb from "../helpers/tmdb"
@@ -18,7 +18,7 @@ const useStyles = createStyles((theme, imagePath: string) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-   // height: '700px',
+    // height: '700px',
     backgroundAttachment: "fixed",
 
 
@@ -28,7 +28,7 @@ const useStyles = createStyles((theme, imagePath: string) => ({
       paddingBottom: 50,
 
     },
-   
+
 
   },
 
@@ -118,7 +118,7 @@ const useStylesHidden = createStyles((theme, stylesData: D) => ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: "fixed",
-    
+
     marginTop: "-15px",
     '@media (max-width: 520px)': {
       paddingTop: 80,
@@ -200,28 +200,34 @@ const HeaderHome = ({ mediaType, time_window, beginNow }: X) => {
           ? classesHidden.wrapper
           : classes.wrapper
       }>
-         <Overlay color="#000" opacity={0.65} zIndex={1} />
+        <Overlay color="#000" opacity={0.65} zIndex={1} />
 
         <div className={classes.inner}>
-         
-
+          
           <Container
             h={200}
           >
-       
+
           </Container>
 
           <div className={classes.controls}>
             <Title className={classes.title}>
               Rate Your Favourite Movie or Show {' '}
-              <Text
-                component="span"
-                inherit
-                className={classes.highlight}
-                onClick={handleClick}
+              <Tooltip.Floating  
+                label="Click To Hide"
+                sx={(theme) => ({
+                backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
+                })}
               >
-                Begin Now !
-              </Text>
+                <Text
+                  component="span"
+                  inherit
+                  className={classes.highlight}
+                  onClick={handleClick}
+                >
+                  Begin Now !
+                </Text>
+              </Tooltip.Floating>
             </Title>
           </div>
         </div>
