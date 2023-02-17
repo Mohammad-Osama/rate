@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 export interface ITv {
   title: string;
   tmdb_id: number;
+  poster_path:string;
+  tmdb_rating:number;
   //   rating_total :number;
   rating_count: number;
   acting: number;
@@ -17,6 +19,8 @@ export interface ITv {
 const TvSchema = new mongoose.Schema<ITv>({
   title: { type: String, required: [true, "Please add a title"] },
   tmdb_id: { type: Number, required: [true, "Please add tmdb_id"] },
+  poster_path: { type: String },
+  tmdb_rating: { type: Number, },
   //  rating_total: { type: Number, required: [true, "Please add rating_total"]  },
   rating_count: { type: Number, required: [true, "Please add rating_count"] },
   acting: { type: Number, required: [true, "Please add acting"], min: 1, max: 10 },

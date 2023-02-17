@@ -174,8 +174,11 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                         <RadarChart
                             rateInfo={tvRateInfoProps}
                         />
-                        <AddRate tmdb_id={id}
+                        <AddRate
+                            tmdb_id={id}
                             title={name}
+                            poster_path={poster_path as string}
+                            tmdb_rating={vote_average}
                             media_type={media_type}
                             user={user}
                             isRatedUser={isRatedUser}
@@ -448,6 +451,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 tvRateInfo = {
                     title: tvInfo.name,
                     tmdb_id: tvInfo.id,
+                    poster_path: (
+                        tvInfo.poster_path !== null
+                            ? tvInfo.poster_path
+                            : ""
+                    ),
+                    tmdb_rating: tvInfo.vote_average,
                     media_type: type,
                     rating_count: 0,
                     acting: 0,

@@ -7,7 +7,6 @@ import { authJwt } from "../../../../../middlewareFunctions/authMiddleware"
 
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
     await clientPromise()
-    console.log(req.body)
     const authStatus = await authJwt(req,res)
     if (authStatus==="authorized"){
     const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id }) 

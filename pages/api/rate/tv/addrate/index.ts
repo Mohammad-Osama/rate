@@ -44,6 +44,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                   const newRate: IRate = await Rate.create({
                      title: req.body.title,
                      tmdb_id: req.body.tmdb_id,
+                     poster_path : req.body.poster_path ,
+                     tmdb_rating : req.body.tmdb_rating ,
                      user:req.body.user ,
                      media_type: req.body.media_type,
                      acting: req.body.acting,
@@ -66,6 +68,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
          const newMovie: ITv = await Tv.create({
              title: req.body.title,
              tmdb_id: req.body.tmdb_id,
+             poster_path : req.body.poster_path ,
+             tmdb_rating : req.body.tmdb_rating ,
              rating_count: 1,
              acting: req.body.acting,
              story: req.body.story,
@@ -79,6 +83,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
          const newRate: IRate = await Rate.create({
              title: req.body.title,
              tmdb_id: req.body.tmdb_id,
+             poster_path : req.body.poster_path ,
+             tmdb_rating : req.body.tmdb_rating ,
              user:req.body.user ,
              media_type: req.body.media_type,
              acting: req.body.acting,

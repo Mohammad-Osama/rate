@@ -166,6 +166,7 @@ export interface ITv {
 
 
 // no need for media_type ??
+// this type for both movie and tv ?!
 export interface IMovieRate {
     title: string;
     tmdb_id: number;
