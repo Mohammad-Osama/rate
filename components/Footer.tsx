@@ -81,7 +81,9 @@ const useStyles = createStyles((theme) => ({
 
     logo: {
         // maxWidth: 200,
-        marginBottom: "10px",
+      //  marginBottom: "10px",
+      //  marginRight:"30px",
+      margin:"20px" ,
         [theme.fn.smallerThan('sm')]: {
             display: 'flex',
             flexDirection: 'column',

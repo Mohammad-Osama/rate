@@ -187,7 +187,7 @@ const HeaderHome = ({ mediaType, time_window, beginNow }: X) => {
   async function getTrending(mediaType: string, time_window: string) {
     try {
       const response = await fetch(`/api/trending?mediaType=${mediaType}&time_window=${time_window}`)
-      const data = await response.json() //as IImages
+      const data = await response.json() 
       setTrending(data.results[0])
       setImagePath(data.results[0].backdrop_path as string)
       setLoading(false)

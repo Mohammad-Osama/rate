@@ -181,7 +181,7 @@ export interface IMovieRate {
     media_type: string
 }
 
-
+// add created at and updated at ??
 export interface IRate {
     title: string;
     tmdb_id: number;
@@ -498,3 +498,20 @@ export type IMediaType =
 export type ITimeWindnow =
     "day" |
     "week";
+
+
+export interface IUser {
+    id: string
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+    birthday: string;
+    phone: string;
+    status: string;
+    city: string;
+    country: string;
+    address: string;
+    createdAt: string;
+    updatedAt: string;
+}

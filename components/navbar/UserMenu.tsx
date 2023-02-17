@@ -17,6 +17,8 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { AppDispatch } from '../../redux/store';
 import * as colors from "./../../helpers/colors"
+import Link from 'next/link';
+
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -33,7 +35,7 @@ const useStyles = createStyles((theme) => ({
 
     user: {
         color: "white",
-    //    backgroundColor: `${theme.colors.dark[5]}`,
+        //    backgroundColor: `${theme.colors.dark[5]}`,
         padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
         borderRadius: theme.radius.sm,
         transition: 'background-color 100ms ease',
@@ -46,7 +48,7 @@ const useStyles = createStyles((theme) => ({
 
     userActive: {
         color: "white",
-        backgroundImage:theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
+        backgroundImage: theme.fn.gradient({ from: `${colors.nightBlue}`, to: `${colors.sandTan}` }),
     },
     dropdown: {
         backgroundColor: `${theme.colors.dark[5]}`,
@@ -68,8 +70,9 @@ const useStyles = createStyles((theme) => ({
 interface X {
     first_name: string;
     last_name: string;
+    id: string;
 }
-const UserMenu = ({ first_name, last_name }: X) => {
+const UserMenu = ({ first_name, last_name, id }: X) => {
 
     const { classes, theme, cx } = useStyles();
     const [opened, { toggle }] = useDisclosure(false);
@@ -78,7 +81,7 @@ const UserMenu = ({ first_name, last_name }: X) => {
     const router = useRouter()
     return (
         <Menu
-             width={200}
+            width={200}
             position="bottom-end"
             transition="pop-top-right"
             onClose={() => setUserMenuOpened(false)}
@@ -108,13 +111,26 @@ const UserMenu = ({ first_name, last_name }: X) => {
             </Menu.Target>
             <Menu.Dropdown
             >
-                <Menu.Item
-                    icon={<Settings size={18} />}
-
-                /* component={NextLink} href={'/dashboard'} */
+                <Link style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                }}
+                    href={{
+                        pathname: "/profile/[id]",
+                        query: {
+                            id: id
+                        },
+                    }}
+                    as={`/user/profile/${id}`}
                 >
-                    Account
-                </Menu.Item>
+                    <Menu.Item
+                        icon={<Settings size={18} />}
+
+                    /* component={NextLink} href={'/dashboard'} */
+                    >
+                        My Profile
+                    </Menu.Item>
+                </Link>
                 <Menu.Item
                     icon={<Logout size={18} />}
                     onClick={() => {
