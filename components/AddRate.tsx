@@ -11,6 +11,8 @@ import { IRate } from '../helpers/types';
 interface X {
     tmdb_id: number
     title: string
+    poster_path:string 
+    tmdb_rating:number
     media_type: string
     user: string | null
     isRatedUser:boolean | undefined
@@ -25,7 +27,7 @@ interface IModalType {
     ConfirmFunc: () => void ;
     CancelFunc:  () => void ;
 }
-const AddRate = ({ tmdb_id, title, media_type, user , movieRateInfoUserProps,isRatedUser }: X) => {
+const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , movieRateInfoUserProps,isRatedUser }: X) => {
 
     const [actingValue, setActingValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.acting);
     const [storyValue, setStoryValue] = useState(movieRateInfoUserProps===null ? 5 : movieRateInfoUserProps.story);
@@ -50,6 +52,8 @@ const AddRate = ({ tmdb_id, title, media_type, user , movieRateInfoUserProps,isR
             sound_effects: soundEffectsValue,
             tmdb_id: tmdb_id,
             title: title,
+            poster_path:poster_path,
+            tmdb_rating:tmdb_rating,
             media_type: media_type,
             user: user
 
@@ -70,7 +74,7 @@ const AddRate = ({ tmdb_id, title, media_type, user , movieRateInfoUserProps,isR
 
     const handleSubmit = () => {
         const values = form.values;
-     //  console.log("submit for values", values)
+      console.log("submit for values", values)
      const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
 		const config = {
 			headers: { Authorization: `Bearer ` + token }

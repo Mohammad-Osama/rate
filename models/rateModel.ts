@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 export interface IRate {
   title: string;
   tmdb_id: number;
+  poster_path:string;
+  tmdb_rating:number;
   //   rating_total :number;
   media_type: string;
   user: mongoose.Types.ObjectId;
@@ -19,6 +21,8 @@ export interface IRate {
 const RateSchema = new mongoose.Schema<IRate>({
   title: { type: String, required: [true, "Please add a title"] },
   tmdb_id: { type: Number, required: [true, "Please add tmdb_id"] },
+  poster_path: { type: String },
+  tmdb_rating: { type: Number, },
   //  rating_total: { type: Number, required: [true, "Please add rating_total"]  },
   media_type: {
     type: String, required: [true, "Please add a type"],

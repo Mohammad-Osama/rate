@@ -7,6 +7,7 @@ import { authJwt } from "../../../../../middlewareFunctions/authMiddleware"
 
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
     await clientPromise()
+    console.log(req.body)
     const authStatus = await authJwt(req,res)
     if (authStatus==="authorized"){
     const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id }) 
@@ -36,6 +37,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                              "visual_effects" : req.body.visual_effects ,
                              "sound_effects" : req.body.sound_effects ,
                              "directing" : req.body.directing ,
+                            
                            } 
                    } ,
                     { returnDocument: "after" }
@@ -44,6 +46,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                   const newRate: IRate = await Rate.create({
                      title: req.body.title,
                      tmdb_id: req.body.tmdb_id,
+                     poster_path : req.body.poster_path ,
+                     tmdb_rating : req.body.tmdb_rating ,
                      user:req.body.user ,
                      media_type: req.body.media_type,
                      acting: req.body.acting,
@@ -66,6 +70,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
          const newMovie: IMovie = await Movie.create({
              title: req.body.title,
              tmdb_id: req.body.tmdb_id,
+             poster_path : req.body.poster_path ,
+             tmdb_rating : req.body.tmdb_rating ,
              rating_count: 1,
              acting: req.body.acting,
              story: req.body.story,
@@ -79,6 +85,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
          const newRate: IRate = await Rate.create({
              title: req.body.title,
              tmdb_id: req.body.tmdb_id,
+             poster_path : req.body.poster_path ,
+             tmdb_rating : req.body.tmdb_rating ,
              user:req.body.user ,
              media_type: req.body.media_type,
              acting: req.body.acting,

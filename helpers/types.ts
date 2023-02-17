@@ -165,10 +165,13 @@ export interface ITv {
 }
 
 
-
+// no need for media_type ??
 export interface IMovieRate {
     title: string;
     tmdb_id: number;
+    poster_path:string;
+    tmdb_rating:number;
+
     rating_count: number;
     acting: number;
     story: number;

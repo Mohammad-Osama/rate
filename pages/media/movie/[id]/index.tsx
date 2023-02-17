@@ -53,14 +53,15 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
     const user = userInfo.id
     const dispatch = useDispatch<AppDispatch>()
     //  console.log(movieInfoProps)
-    const { id,
+    const {
+        id,
         poster_path,
         title,
         release_date,
         original_language,
         runtime,
         vote_average,
-        vote_count
+        vote_count,
     } = movieInfoProps
     // const medtype = media_type
     //  const mainArea :any = React.useMemo( () => <AddRate/>, [] );
@@ -204,8 +205,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         <RadarChart
                             rateInfo={movieRateInfoProps}
                         />
-                        <AddRate tmdb_id={id}
+                        <AddRate
+                            tmdb_id={id}
                             title={title}
+                            poster_path={poster_path as string}
+                            tmdb_rating={vote_average}
                             media_type={media_type}
                             user={user}
                             isRatedUser={isRatedUser}
@@ -376,11 +380,11 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                         return <React.Fragment key={index}>
                                             <Link
                                                 href={{
-                                                    pathname :"/person/[id]",
+                                                    pathname: "/person/[id]",
                                                     query: {
                                                         id: item.id
-                                                      },
-                                        }}
+                                                    },
+                                                }}
                                                 as={`/person/${item.id}`}
                                                 style={{ color: "#4DABF7" }}
                                             >
@@ -499,6 +503,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
             const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
             const data = await response.json()
             movieInfo = data
+           
             const responseCredits = await fetch(`${tmdb.urlMovie}${id}/credits?api_key=${tmdb.key}&language=en-US`)
             const dataCredits = await responseCredits.json()
             movieCredits = dataCredits
@@ -510,6 +515,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 movieRateInfo = {
                     title: movieInfo.title,
                     tmdb_id: movieInfo.id,
+                    poster_path: (
+                        movieInfo.poster_path !== null
+                            ? movieInfo.poster_path
+                            : ""
+                    ),
+                    tmdb_rating: movieInfo.vote_average,
                     rating_count: 0,
                     acting: 0,
                     story: 0,
