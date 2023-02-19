@@ -24,7 +24,8 @@ import {
     Group,
     Space,
     Card,
-    Divider
+    Divider,
+    Avatar
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import SideTitle from './SideTitle';
@@ -68,7 +69,7 @@ const Playground = ({ ratesProps, userProps }: X) => {
     const theme = useMantineTheme();
     console.log("propppssss user", userProps)
     console.log("propppssss rates", ratesProps)
-    const smallScreen = useMediaQuery('(max-width: 500px)');
+    const smallScreen = useMediaQuery('(max-width: 768px)');
 
     const membershipDate = () => {
         const date = new Date(createdAt);
@@ -86,22 +87,30 @@ const Playground = ({ ratesProps, userProps }: X) => {
 
             <Grid
                 columns={12}
-                gutter="lg"
+              //  gutter="lg"
             >
                 <Grid.Col
-                    xs={5}
+                    sm={5}
                 >
                     <Center>
-                        <Image
+                        {/* <Image
                             width={220}
                             height={220}
                             fit="cover"
                             src="/images/no_person.jpg"
+                        /> */}
+                        <Avatar
+                            size={150}
+                            src={null}   
+                            variant="filled"
+                           // color="grey"
                         />
+
+                      
                     </Center>
                 </Grid.Col>
                 <Grid.Col
-                    xs={7}
+                    sm={7}
                 >
                     <Text
                         //   size="lg"
@@ -126,7 +135,7 @@ const Playground = ({ ratesProps, userProps }: X) => {
                         size="xl"
                         color="#ADB5BD"
                     >
-                        Member since : {membershipDate()}
+                        Member since  {membershipDate()}
                     </Text>
                 </Grid.Col>
 
