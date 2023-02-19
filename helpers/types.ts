@@ -189,6 +189,8 @@ export interface IMovieRate {
 export interface IRate {
     title: string;
     tmdb_id: number;
+    poster_path:string;
+    tmdb_rating:number;
     user: string;
     media_type: string,
     acting: number;
