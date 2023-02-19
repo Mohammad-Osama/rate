@@ -82,9 +82,11 @@ interface X {
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id } = context.query
-    console.log(context.query)
     try {
         const ratesData = await RateModel.find({ user: id })
+            .limit(12)
+            .sort({ updatedAt: -1 })
+
         const rates = JSON.parse(JSON.stringify(ratesData))
 
         const userData = await UserModel.findById(id)
@@ -95,7 +97,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
                 "-password",
             ])
         const user = JSON.parse(JSON.stringify(userData))
-        console.log(user)
 
         return {
             props: {

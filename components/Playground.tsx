@@ -30,6 +30,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import SideTitle from './SideTitle';
 import { IRate, IUser } from '../helpers/types';
+import CarouselRates from './CarouselRates';
 
 
 
@@ -67,7 +68,7 @@ const Playground = ({ ratesProps, userProps }: X) => {
     } = userProps
 
     const theme = useMantineTheme();
-    console.log("propppssss user", userProps)
+   // console.log("propppssss user", userProps)
     console.log("propppssss rates", ratesProps)
     const smallScreen = useMediaQuery('(max-width: 768px)');
 
@@ -144,8 +145,9 @@ const Playground = ({ ratesProps, userProps }: X) => {
             <SideTitle
                 text="My Ratings"
             />
-
-
+                <CarouselRates
+                        rates={ratesProps}
+                />
         </Container>
     )
 }
