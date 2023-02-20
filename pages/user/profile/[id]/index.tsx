@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
     AppShell,
     Navbar,
@@ -29,10 +28,16 @@ import {
 import Playground from '../../../../components/Playground';
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import clientPromise from '../../../../lib/db';
-import { Rate as RateModel } from '../../../../models/rateModel';
+import { Rate, Rate as RateModel } from '../../../../models/rateModel';
 import { User as UserModel } from '../../../../models/userModel';
 import { IRate, IUser } from '../../../../helpers/types';
-
+import { authState } from '../../../../redux/slices/authSlice';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Error from '../../../../components/Error';
+import NotFound from '../../../../components/NotFound';
+import axios from "axios"
+import Loading from '../../../../components/Loading';
 
 
 const useStyles = createStyles((theme) => ({
@@ -60,59 +65,70 @@ const useStyles = createStyles((theme) => ({
 
 
 
-const index = ({ ratesProps, userProps }: X) => {
+const index = () => {
     const theme = useMantineTheme();
+    const userData = useSelector(authState)
+    const userId = userData.id
+    const router = useRouter()
+    const [ok, setOk] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    return (
-        <Playground
-            ratesProps={ratesProps}
-            userProps={userProps}
-        />
-    )
+    const emptyUserInfo = {} as IUser
+    const [userInfo, setUserInfo] = useState(emptyUserInfo)
+
+    const emptyUserRates: IRate[] = []
+    const [userRates, setUserRates] = useState(emptyUserRates)
+
+    const [userRatesNumber, setUserRatesNumber] = useState<number>()
+
+    async function getUserData() {
+        const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
+        const config = {
+            headers: { Authorization: `Bearer ` + token }
+
+        };
+        console.log(token)
+        axios.get(`/api/users/profile?id=${userId}`,
+            config)
+            .then((response) => {
+                console.log("resssssssssssss", response)
+                setLoading(false)
+                setOk(true)
+                setUserInfo(response.data.user)
+                setUserRates(response.data.rates)
+                setUserRatesNumber(response.data.number)
+
+            })
+            .catch(function (error) {
+                console.log("errrrrrr", error)
+                setOk(false)
+                setLoading(false)
+            })
+    }
+    useEffect(() => {
+        getUserData()
+        //  !userId && router.push("/")
+        return () => {
+
+        }
+    }, [])
+
+    if (loading)
+        return (
+            <Loading />
+        )
+    else if (ok)
+        return (
+            <Playground
+                ratesProps={userRates}
+                userProps={userInfo}
+            />
+        )
+    else
+        return (
+            <NotFound />
+        )
 }
 
 export default index
-
-
-interface X {
-    ratesProps: IRate[];
-    userProps: IUser,
-    notFound: boolean
-}
-export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
-    await clientPromise()
-    const { id } = context.query
-    try {
-        const ratesData = await RateModel.find({ user: id })
-            .limit(12)
-            .sort({ updatedAt: -1 })
-
-        const rates = JSON.parse(JSON.stringify(ratesData))
-
-        const userData = await UserModel.findById(id)
-            .select([
-                //  '-createdAt',
-                //  '-updatedAt',
-                '-__v',
-                "-password",
-            ])
-        const user = JSON.parse(JSON.stringify(userData))
-
-        return {
-            props: {
-                ratesProps: rates as IRate[],
-                userProps: user as IUser,
-                notFound: false
-            },
-        }
-    } catch (error) {
-        return {
-            props: {
-                ratesProps: [] as IRate[],
-                userProps: {} as IUser,
-                notFound: true
-            },
-        }
-    }
-}
 

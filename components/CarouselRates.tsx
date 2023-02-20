@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from 'react'
 import { Carousel } from '@mantine/carousel';
 import {
     Container,
     Image,
-    SimpleGrid,
-    Text,
     Stack,
-    Badge,
-    Overlay
 } from '@mantine/core';
-import * as tmdb from "../helpers/tmdb"
-import { IGenre, IMovieOrTv } from '../helpers/types';
-import axios from 'axios';
-import Link from 'next/link'
-import { authState } from '../redux/slices/authSlice';
-import { useSelector } from 'react-redux';
-import { IRate, IUser } from '../helpers/types';
+
+import { IRate } from '../helpers/types';
 import RatingOneItem from './RateOneItem';
+
 interface X {
     rates: IRate[]
 }
 
 const CarouselRates = ({ rates }: X) => {
-    const userData = useSelector(authState)
-    const userId = userData.id
-
-    const [show, setShow] = useState(false)
+    
 
     return (
         <Container >
