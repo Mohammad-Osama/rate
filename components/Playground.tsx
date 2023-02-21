@@ -133,12 +133,12 @@ const Playground = ({ ratesProps, userProps, userRatesNumber }: X) => {
 
             <Link
                 href={{
-                    pathname: "/search",
+                    pathname: "/user/rates",
                     /* query: {
                         id: item.id
                     }, */
                 }}
-                as={`/search`}
+                as={`/user/rates`}
             >
                 <span
                     className={classes.textLink}
