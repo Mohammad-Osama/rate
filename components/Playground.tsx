@@ -31,44 +31,36 @@ import { useMediaQuery } from '@mantine/hooks';
 import SideTitle from './SideTitle';
 import { IRate, IUser } from '../helpers/types';
 import CarouselRates from './CarouselRates';
-
+import Link from 'next/link';
+import * as colors from '../helpers/colors'
 
 
 const useStyles = createStyles((theme) => ({
-    link: {
-        width: 50,
-        height: 50,
-        borderRadius: theme.radius.md,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-
+    textLink: {
+        fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+        fontSize: "22px",
+        display: "inline-block",
+        marginTop: "30px",
+        color: `${colors.sandTan}`,
         '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[0],
+            textDecoration: "underline"
         },
-    },
-
-    active: {
-        '&, &:hover': {
-            backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
-            color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
-        },
-    },
+    }
 }));
 
 interface X {
     ratesProps: IRate[];
-    userProps: IUser
+    userProps: IUser;
+    userRatesNumber: number | undefined;
 }
-const Playground = ({ ratesProps, userProps }: X) => {
-
+const Playground = ({ ratesProps, userProps, userRatesNumber }: X) => {
+    const { classes } = useStyles()
     const {
         createdAt
     } = userProps
 
     const theme = useMantineTheme();
-   // console.log("propppssss user", userProps)
+    // console.log("propppssss user", userProps)
     console.log("propppssss rates", ratesProps)
     const smallScreen = useMediaQuery('(max-width: 768px)');
 
@@ -88,33 +80,23 @@ const Playground = ({ ratesProps, userProps }: X) => {
 
             <Grid
                 columns={12}
-              //  gutter="lg"
+            //  gutter="lg"
             >
                 <Grid.Col
                     sm={5}
                 >
                     <Center>
-                        {/* <Image
-                            width={220}
-                            height={220}
-                            fit="cover"
-                            src="/images/no_person.jpg"
-                        /> */}
                         <Avatar
                             size={150}
-                            src={null}   
+                            src={null}
                             variant="filled"
-                           // color="grey"
                         />
-
-                      
                     </Center>
                 </Grid.Col>
                 <Grid.Col
                     sm={7}
                 >
                     <Text
-                        //   size="lg"
                         align={
                             smallScreen
                                 ? "center"
@@ -145,10 +127,28 @@ const Playground = ({ ratesProps, userProps }: X) => {
             <SideTitle
                 text="My Ratings"
             />
-                <CarouselRates
-                        rates={ratesProps}
-                />
-        </Container>
+            <CarouselRates
+                rates={ratesProps}
+            />
+
+            <Link
+                href={{
+                    pathname: "/search",
+                    /* query: {
+                        id: item.id
+                    }, */
+                }}
+                as={`/search`}
+            >
+                <span
+                    className={classes.textLink}
+                >
+                    See all {userRatesNumber} ratings
+                </span>
+            </Link>
+        </Container >
+
+
     )
 }
 

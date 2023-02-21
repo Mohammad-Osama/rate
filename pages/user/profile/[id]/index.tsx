@@ -122,6 +122,7 @@ const index = () => {
             <Playground
                 ratesProps={userRates}
                 userProps={userInfo}
+                userRatesNumber={userRatesNumber}
             />
         )
     else
