@@ -74,7 +74,6 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
 
     const handleSubmit = () => {
         const values = form.values;
-      console.log("submit for values", values)
      const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
 		const config = {
 			headers: { Authorization: `Bearer ` + token }
@@ -83,7 +82,6 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
             values,
             config)
             .then((response) => {
-             //   console.log("resssssssssssss", response)
                 openConfirmModal({
                    title: ' Rate succesfully added  !',
                     centered: true,
@@ -139,7 +137,6 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
 
     const handleEdit = () => {
         const values = form.values;
-     //  console.log("edit form values--->>", values)
       /*  const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
 		const config = {
 			headers: { Authorization: `Bearer ` + token }
@@ -149,7 +146,6 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
           //  config
             )
             .then((response) => {
-             //   console.log("resssssssssssss", response)
                 openConfirmModal({
                    title: ' Rate Succesfully Edited  !',
                     centered: true,
@@ -205,7 +201,6 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
 
    // const modals = useModals();
     const confirmAddModal = () => {
-//console.log(form.values)
         openConfirmModal({
             title: modalType?.title,
             centered: true,
@@ -242,7 +237,7 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
                 key !== 'title' &&
                 key !== 'media_type'
             )) {
-            console.log(`${key}: ${value}`);
+          //  console.log(`${key}: ${value}`);
         }
     }
     useEffect(() => {

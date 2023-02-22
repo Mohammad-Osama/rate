@@ -1,41 +1,10 @@
 import React from 'react'
-import { Accordion, createStyles, SimpleGrid, Button, ActionIcon, AccordionControlProps, Box, Text } from '@mantine/core';
-import { ICast, ICastOrCrew, ICredits, ICrew } from '../helpers/types';
+import { Accordion, SimpleGrid, Button, AccordionControlProps, Box, Text } from '@mantine/core';
+import {  ICastOrCrew } from '../helpers/types';
 import PersonThumb from './personThumb'
 import Link from 'next/link'
-import { useSelector, useDispatch } from 'react-redux';
-import { creditsState } from '../redux/slices/creditsEpisodeSlice';
 
 
-const useStyles = createStyles((theme) => ({
-    root: {
-        backgroundColor: "red",
-        borderRadius: theme.radius.sm,
-    },
-
-    item: {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        border: '1px solid transparent',
-        position: 'relative',
-        zIndex: 0,
-        transition: 'transform 150ms ease',
-
-        '&[data-active]': {
-            transform: 'scale(1.03)',
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-            boxShadow: theme.shadows.md,
-            borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2],
-            borderRadius: theme.radius.md,
-            zIndex: 1,
-        },
-    },
-
-    chevron: {
-        '&[data-rotate]': {
-            transform: 'rotate(-90deg)',
-        },
-    },
-}));
 
 
 interface X {
@@ -46,7 +15,7 @@ interface X {
     media_type: string
 }
 const AccordionCredits = ({ type, id, data, title, media_type }: X) => {
-    const { classes } = useStyles();
+ 
 
     function AccordionControl(props: AccordionControlProps) {
         return (
@@ -97,8 +66,6 @@ const AccordionCredits = ({ type, id, data, title, media_type }: X) => {
             }}
             style={{ borderColor: "red" }}
             radius="xs"
-        //  classNames={classes}
-        //   className={classes.root}
         >
             <Accordion.Item value={type}>
                 <AccordionControl>{type}</AccordionControl>
@@ -109,7 +76,6 @@ const AccordionCredits = ({ type, id, data, title, media_type }: X) => {
                             { maxWidth: 768, cols: 3, spacing: 'sm' },
                             { maxWidth: 500, cols: 3, spacing: 'sm' },
                         ]}
-                    //   style={{backgroundColor:"#212529"}}
                     >
                         {data?.slice(0, 12).map((d) => {
                             return <PersonThumb dataPerson={d} key={d.credit_id} />

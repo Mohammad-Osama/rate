@@ -1,9 +1,9 @@
 import { Badge } from '@mantine/core';
 
-interface X{
-    x:number
+interface X {
+    x: number
 }
-const ValueBadge = ({x}:X) => {
+const ValueBadge = ({ x }: X) => {
     return (
         <Badge //color="green"
             size="xl"

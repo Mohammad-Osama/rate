@@ -43,9 +43,7 @@ import { AppDispatch } from '../../../../redux/store';
 
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
-    //  console.log("tvInfoProps", tvInfoProps)
 
-    //console.log("tvRateInfoUserPropsssuuuuuuuuuu" , tvRateInfoUserProps)
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
 
     const userInfo = useSelector(authState)
@@ -184,11 +182,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                             isRatedUser={isRatedUser}
                             movieRateInfoUserProps={tvRateInfoUserProps}
                         />
-                        {/*  { isRatedUser===true
-                              ?<Text>voted</Text>
-                              :<Text>didnt vote</Text>
-
-                            } */}
+                    
                         {tvRateInfoUserProps !== null &&
                             <div>
                                 <Text ml="40%" mt="xl"
@@ -205,7 +199,9 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                                                 key !== 'tmdb_id' &&
                                                 key !== 'title' &&
                                                 key !== 'media_type' &&
-                                                key !== 'user'
+                                                key !== 'user'&&
+                                                key !== 'tmdb_rating' &&
+                                                key !== 'poster_path'
                                             )
                                             .map(([key, value]) => {
                                                 return <Grid.Col span={6} key={key}>
@@ -407,11 +403,6 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     id={id}
                     mediaType="tv"
                 />
-
-
-
-
-                <Space h={666} />
             </Container>
         )
 }

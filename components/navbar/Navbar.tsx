@@ -1,24 +1,10 @@
-import React, { forwardRef } from 'react'
 import {
     createStyles,
     Header,
-    ActionIcon,
-    Group,
-    Burger,
     Container,
-    Text,
-    Autocomplete, Avatar,
-    Menu,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState, useEffect, useRef } from 'react';
 import UserDisplay from './UserDisplay';
-import { useSelector, useDispatch } from 'react-redux';
-import { creditsState } from '../../redux/slices/creditsEpisodeSlice';
-import { authState } from '../../redux/slices/authSlice';
 import SearchBar from './SearchBar';
 import BurgerMenu from './BurgerMenu';
 import HomeIcon from './HomeIcon';
@@ -79,9 +65,6 @@ const useStyles = createStyles((theme) => ({
         borderRadius: theme.radius.sm,
         textDecoration: 'none',
         color: "white",
-        //  backgroundColor:"red",
-        //   fontSize: theme.fontSizes.sm,
-       // fontFamily:"cursive",
         fontWeight: 700,
         fontSize: 22,
         '&:hover': {
@@ -97,12 +80,7 @@ const useStyles = createStyles((theme) => ({
 
 export function Navbar() {
     const { classes } = useStyles();
-    const { id } = useSelector(creditsState)
-    //   const {id} = useSelector(authState)
 
-    useEffect(() => {
-
-    }, [id])
     return (
         <Header height={60} mb={12} className={classes.container} >
             <Container size="xl" className={classes.inner}>
@@ -111,23 +89,23 @@ export function Navbar() {
                 />
                 <SearchBar />
                 <Link style={{
-                        textDecoration: 'none',
-                        color: 'black',
-                    }}
-                        href="/search" >
-                        <div className={classes.text}>
-                            Search
-                        </div>
-                    </Link>
-                    <Link style={{
-                        textDecoration: 'none',
-                        color: 'black',
-                    }}
-                        href="/discover" >
-                        <div className={classes.text}>
-                            Discover
-                        </div>
-                    </Link>
+                    textDecoration: 'none',
+                    color: 'black',
+                }}
+                    href="/search" >
+                    <div className={classes.text}>
+                        Search
+                    </div>
+                </Link>
+                <Link style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                }}
+                    href="/discover" >
+                    <div className={classes.text}>
+                        Discover
+                    </div>
+                </Link>
                 <UserDisplay />
                 <BurgerMenu />
             </Container>

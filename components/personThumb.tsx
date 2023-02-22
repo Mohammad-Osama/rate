@@ -11,31 +11,34 @@ const PersonThumb = ({ dataPerson }: X) => {
 
     const { id, name, profile_path, character, job } = dataPerson
     return (
-        <Stack align="center"
+        <Stack
+            align="center"
             justify="flex-start"
             spacing="xs" sx={() => ({
                 backgroundColor: '#212529',
-            })}>
-
-            <Link   href={{
-                        pathname :"/person/[id]",
-                        query: {
-                            id: id
-                          },
-            }}
-                    as={`/person/${id}`}
+            })}
+        >
+            <Link
+                href={{
+                    pathname: "/person/[id]",
+                    query: {
+                        id: id
+                    },
+                }}
+                as={`/person/${id}`}
             >
-            <Image
-                src={profile_path
-                    ? `${tmdb.imgUrl}${tmdb.imgSize}${profile_path}`
-                    : "/images/no_person.jpg"
-                }
-                fit="contain"
-                alt={name}
+                <Image
+                    src={profile_path
+                        ? `${tmdb.imgUrl}${tmdb.imgSize}${profile_path}`
+                        : "/images/no_person.jpg"
+                    }
+                    fit="contain"
+                    alt={name}
 
-            />
-              </Link>
-            <Text color="white"
+                />
+            </Link>
+            <Text
+                color="white"
                 align="center"
                 size="xl"
                 weight={500}
@@ -44,7 +47,8 @@ const PersonThumb = ({ dataPerson }: X) => {
                 {name
                 }
             </Text>
-            <Text color="white"
+            <Text
+                color="white"
                 align="center"
                 size="lg"
                 weight={400}

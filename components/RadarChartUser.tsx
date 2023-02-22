@@ -55,7 +55,7 @@ const RadarChartUser = ({ rateInfo }: X) => {
                     sound_effects],
                 backgroundColor: '#39d353', // label box  background
                 borderColor: '#39d353', // lines 
-                borderWidth: 5,
+                borderWidth: 2,
                 fill: false,
                 fillColor: "red",
                 pointBorderColor: '#fff',
@@ -86,9 +86,9 @@ const RadarChartUser = ({ rateInfo }: X) => {
                         //   suggestedMin,
                         ticks: {
                             display: false,
-                            stepSize: 1
+                            stepSize: 1,
                             //  textStrokeColor: 'rgb(54, 162, 235)',
-                            //   color: 'white',
+                            //  color: 'white',
                             //  backdropColor: 'red'
                         },
                         angleLines: {

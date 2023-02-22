@@ -11,7 +11,6 @@ const useStyles = createStyles((theme) => ({
         fontSize: 34,
         marginBottom: theme.spacing.md,
         fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-        // backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
         [theme.fn.smallerThan('sm')]: {
             fontSize: 32,
         },

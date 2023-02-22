@@ -1,9 +1,7 @@
 import { createStyles, Text, Container, ActionIcon, Group } from '@mantine/core';
-import { BrandTwitter, BrandYoutube, BrandInstagram, BrandLinkedin ,BrandFacebook} from 'tabler-icons-react';
+import { BrandTwitter, BrandYoutube, BrandLinkedin ,BrandFacebook} from 'tabler-icons-react';
 import HomeIcon from './navbar/HomeIcon';
 import * as colors from "../helpers/colors"
-
-
 
 const data = [
     {
@@ -80,9 +78,6 @@ const useStyles = createStyles((theme) => ({
     },
 
     logo: {
-        // maxWidth: 200,
-      //  marginBottom: "10px",
-      //  marginRight:"30px",
       margin:"20px" ,
         [theme.fn.smallerThan('sm')]: {
             display: 'flex',
@@ -113,10 +108,6 @@ const useStyles = createStyles((theme) => ({
     groups: {
         display: 'flex',
         flexWrap: 'wrap',
-
-        /*  [theme.fn.smallerThan('sm')]: {
-             display: 'none',
-         }, */
     },
 
     wrapper: {
@@ -170,19 +161,13 @@ const useStyles = createStyles((theme) => ({
         },
     },
     icons: {
-     //   WebkitBoxShadow: `0 0 18px ${colors.sandTanShadow}`,
         '&:hover': {
             backgroundColor: theme.colors.dark[4],
         },
     },
 }));
 
-interface FooterLinksProps {
-    data: {
-        title: string;
-        links: { label: string; link: string }[];
-    }[];
-}
+
 
 const Footer = () => {
     const { classes } = useStyles();
@@ -224,7 +209,7 @@ const Footer = () => {
                                                         style={{
                                                             color:"lightblue"
                                                         }}
-                        >TMDB</a> Free Api
+                        >TMDB</a> Api
                     </Text>
                 </div>
                 <div className={classes.groups}>{groups}</div>

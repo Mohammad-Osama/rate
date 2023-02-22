@@ -35,8 +35,6 @@ const CarouselSeasons = ({ seasons, id, title }: X) => {
     return (
         <Container>
             <Carousel
-                //slideSize="170%"
-                //  height={900}
                 slideGap="sm"
                 controlsOffset="xs"
                 controlSize={40}
@@ -72,7 +70,6 @@ const CarouselSeasons = ({ seasons, id, title }: X) => {
                                         : `/images/no_media.jpg`
                                     }
                                     fit="contain"
-                                //  height="100%"
                                 />
                             </Link>
                         </Carousel.Slide>

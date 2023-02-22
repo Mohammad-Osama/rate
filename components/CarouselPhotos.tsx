@@ -52,8 +52,7 @@ const CarouselPhotos = ({ id, type, episode_number, season_number }: X) => {
     return (
         <Container >
 
-            <Carousel //slideSize="170%"
-                //   height={500}
+            <Carousel
                 slideGap="sm"
                 controlsOffset="xs"
                 controlSize={40}

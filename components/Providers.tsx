@@ -56,17 +56,13 @@ const Providers = ({ id, mediaType }: X) => {
         return (
             <Container>
                 <Group
-                    //   position="center"
                     mb="xl"
-                //mr="xl" 
-                //  ml="xl" 
                 >
                     <Text
                         align="justify"
                         weight={300}
                         color="white"
                         style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
-                    // mb="lg"
                     >
                         Powered By <a href={"https://www.justwatch.com/"} style={{ color: "yellow" }}>JustWatch</a>
                     </Text>
@@ -83,23 +79,18 @@ const Providers = ({ id, mediaType }: X) => {
                     Not available in your country
                 </Text>
             </Container>
-
         )
     else
         return (
             <Container>
                 <Group
-                    //   position="center"
-                    mb="xl"
-                //mr="xl" 
-                //  ml="xl" 
+                    mb="xl"  
                 >
                     <Text
                         align="justify"
                         weight={300}
                         color="white"
                         style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "20px" }}
-                    // mb="lg"
                     >
                         Powered By <a href={"https://www.justwatch.com/"} style={{ color: "yellow" }}>JustWatch</a>
                     </Text>
@@ -125,15 +116,12 @@ const Providers = ({ id, mediaType }: X) => {
                                 align="center"
                                 key={s.provider_id}
                             >
-
                                 <Image
                                     src={`${tmdb.imgUrl}${tmdb.imgOriginal}${s.logo_path}`}
-                                    //   style={{marginLeft:"20px"}}
                                     width={100}
                                     height={100}
                                     fit="contain"
                                 />
-
                                 <Text
                                     align="justify"
                                     weight={300}
@@ -153,7 +141,6 @@ const Providers = ({ id, mediaType }: X) => {
                             Not available
                         </Text>
                     }
-
                 </Group>
                 <Divider variant="solid" mt="lg" mb="lg" />
                 <Text
@@ -176,15 +163,12 @@ const Providers = ({ id, mediaType }: X) => {
                                 align="center"
                                 key={s.provider_id}
                             >
-
                                 <Image
                                     src={`${tmdb.imgUrl}w92${s.logo_path}`}
-                                    //   style={{marginLeft:"20px"}}
                                     width={100}
                                     height={100}
                                     fit="contain"
                                 />
-
                                 <Text
                                     align="justify"
                                     weight={300}
@@ -227,15 +211,12 @@ const Providers = ({ id, mediaType }: X) => {
                                 align="center"
                                 key={s.provider_id}
                             >
-
                                 <Image
                                     src={`${tmdb.imgUrl}w92${s.logo_path}`}
-                                    //   style={{marginLeft:"20px"}}
                                     width={100}
                                     height={100}
                                     fit="contain"
                                 />
-
                                 <Text
                                     align="justify"
                                     weight={300}
@@ -263,7 +244,6 @@ const Providers = ({ id, mediaType }: X) => {
                     weight={300}
                     color="white"
                     style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "23px" }}
-                // mb="lg"
                 >
                     Visit <a href={state.link} style={{ color: "#4DABF7" }} >TMDB</a> for more information
                 </Text>

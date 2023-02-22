@@ -10,7 +10,6 @@ import { useDisclosure } from '@mantine/hooks';
 import {
     Logout, UserCircle,
     Settings,
-    ChevronDown,
 } from 'tabler-icons-react';
 import { logout } from '../../redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
@@ -35,13 +34,12 @@ const useStyles = createStyles((theme) => ({
 
     user: {
         color: "white",
-        //    backgroundColor: `${theme.colors.dark[5]}`,
         padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
         borderRadius: theme.radius.sm,
         transition: 'background-color 100ms ease',
 
         '&:hover': {
-            backgroundColor: `${theme.colors.dark[3]}`,
+            backgroundColor: `${theme.colors.dark[6]}`,
         },
         height: "80%"
     },
@@ -103,9 +101,8 @@ const UserMenu = ({ first_name, last_name, id }: X) => {
                             mr={3}
 
                         >
-                            {first_name} {last_name}
+                            {first_name}
                         </Text>
-                        {/* <ChevronDown size={12} /> */}
                     </Group>
                 </UnstyledButton>
             </Menu.Target>
@@ -125,8 +122,6 @@ const UserMenu = ({ first_name, last_name, id }: X) => {
                 >
                     <Menu.Item
                         icon={<Settings size={18} />}
-
-                    /* component={NextLink} href={'/dashboard'} */
                     >
                         My Profile
                     </Menu.Item>

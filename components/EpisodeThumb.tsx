@@ -1,6 +1,6 @@
 import React from 'react'
-import { IEpisode} from '../helpers/types'
-import { Image, Text, Badge, Button, Group, Stack, SimpleGrid, Grid, Divider, Space } from '@mantine/core';
+import { IEpisode } from '../helpers/types'
+import { Image, Text, Badge, Group, Grid, Divider, Space } from '@mantine/core';
 import * as tmdb from "./../helpers/tmdb"
 import Link from 'next/link'
 
@@ -26,7 +26,7 @@ const EpisodeThumb = ({ episodeData, title }: X) => {
 
     function ValueBadge(x: number) {
         return (
-            <Badge //color="green"
+            <Badge
                 size="xl"
                 variant="filled"
                 styles={{
@@ -45,7 +45,6 @@ const EpisodeThumb = ({ episodeData, title }: X) => {
             <Grid
                 gutter="lg"
                 columns={12}
-            //   style={{backgroundColor:"#212529"}}
             >
                 <Grid.Col sm={4} >
                     <Link
@@ -59,8 +58,6 @@ const EpisodeThumb = ({ episodeData, title }: X) => {
                                 ? `${tmdb.imgUrl}${tmdb.imgSize}${still_path}`
                                 : '/images/no_media.jpg'
                             }
-                            // height="600px"
-                            // width="30%"
                             fit="contain"
                             alt={name}
                         />
@@ -69,7 +66,6 @@ const EpisodeThumb = ({ episodeData, title }: X) => {
                 <Grid.Col sm={8}>
                     <Group
                         position="apart"
-                    //  m="xl"
                     >
                         <div>
                             <Link
@@ -79,7 +75,6 @@ const EpisodeThumb = ({ episodeData, title }: X) => {
                                 as={`/media/tv/episode?id=${show_id}&title=${title}&season_number=${season_number}&episode_number=${episode_number}`}
                             >
                                 <Text
-                                    //  p="xl"
                                     align="justify"
                                     weight={700}
                                     color="white"

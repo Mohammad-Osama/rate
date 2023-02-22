@@ -1,23 +1,4 @@
-import React from 'react'
-import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
-import * as tmdb from "../helpers/tmdb"
-import { ICredits, IMovie, IMovieRate, IRate } from '../helpers/types';
-import { IRate as IRateModelType, Rate as RateModel } from "../models/rateModel"
-import * as colors from '../helpers/colors'
-import {
-    Container,
-    SimpleGrid,
-    Grid,
-    Image,
-    Badge,
-    Button,
-    Group,
-    Text,
-    Space,
-    Card,
-    Stack,
-    Divider,
-} from '@mantine/core';
+import { IMovieRate } from '../helpers/types';
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -28,27 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
-import clientPromise from '../lib/db';
-import AddRate from "../components/AddRate"
-import { useState, useEffect } from 'react';
-import mongoose from "mongoose"
 
-import { authState } from '../redux/slices/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { AppDispatch } from '../redux/store';
-import { Movie } from '../models/movieModel';
-import Link from 'next/link';
-import AccordionPeople from '../components/AccordionPeople';
-import CarouselPhotos from '../components/CarouselPhotos';
-import CarouselVideos from '../components/CarouselVideos';
-import SideTitle from '../components/SideTitle';
-import MiddleTitle from '../components/MiddleTitle';
-import CarouselMedia from '../components/CarouselMedia';
-import Providers from '../components/Providers';
-import CollectionThumb from '../components/CollectionThumb';
-import MovieDetails from '../components/MovieDetails';
-import HeadPage from '../components/HeadPage';
 
 ChartJS.register(
     RadialLinearScale,
@@ -145,7 +106,6 @@ const RadarChart = ({ rateInfo }: X) => {
                 }
             }}
             data={data}
-
         //  style={{ minHeight: "100%", minWidth: "100%" }}
         />
     )

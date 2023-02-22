@@ -37,8 +37,6 @@ function slideNumber() {
     return (
         <Container >
             <Carousel
-                //slideSize="170%"
-                //  height={900}
                 slideGap="sm"
                 controlsOffset="xs"
                 controlSize={40}

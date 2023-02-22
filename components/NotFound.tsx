@@ -1,6 +1,5 @@
 import { createStyles,Title, Text, Button, Stack } from '@mantine/core';
 import * as colors from '../helpers/colors'
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
@@ -33,7 +32,6 @@ const useStyles = createStyles((theme) => ({
 const NotFound = () => {
 
     const { classes } = useStyles();
-    const router = useRouter()
 
     return (
         <Stack
@@ -60,7 +58,6 @@ const NotFound = () => {
                 <Button
                     size="md"
                     className={classes.button}
-                   // onClick={() => router.push("/")}
                 >
                     Home Page
                 </Button>

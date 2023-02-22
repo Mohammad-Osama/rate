@@ -36,8 +36,6 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
             >
                 <Grid
                     columns={12}
-                // gutter="lg"
-                //   style={{backgroundColor:"#212529"}}
                 >
                     <Grid.Col
                         span={3}
@@ -76,7 +74,6 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                             <Text
                                 size="xl"
                                 color="white"
-                            //  mt="xl"
                             >
                                 {title}
                             </Text>
@@ -97,8 +94,6 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                     <Text
                         size="xl"
                         color="#ADB5BD"
-                    // align="center"
-                    // mb='md'
                     >
                         {release_date === "2050-01-01"
                             ? "TDB"
@@ -108,8 +103,6 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                     <Text
                         size="xl"
                         color="#ADB5BD"
-                    // align="center"
-                    // mb='md'
                     >
                         {media_type}
                     </Text>

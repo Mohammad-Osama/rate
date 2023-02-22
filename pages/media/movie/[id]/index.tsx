@@ -42,17 +42,12 @@ import AccordionCredits from '../../../../components/AccordionCredits';
 
 
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
-    //  console.log(movieInfoCreditsProps)
-    //   console.log("movie", movieRateInfoProps)
-    //  console.log("user", movieRateInfoUserProps)
-    // console.log("movie from tmdb", movieInfoProps)
+
     const [isRatedUser, setIsRatedUser] = useState<boolean>();
-    //  console.log("ratingStatus paretn", isRatedUser)
     const { acting, story, dialogue, directing, cinematography, visual_effects, sound_effects, rating_count } = movieRateInfoProps
     const userInfo = useSelector(authState)
     const user = userInfo.id
     const dispatch = useDispatch<AppDispatch>()
-    //  console.log(movieInfoProps)
     const {
         id,
         poster_path,
@@ -63,8 +58,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         vote_average,
         vote_count,
     } = movieInfoProps
-    // const medtype = media_type
-    //  const mainArea :any = React.useMemo( () => <AddRate/>, [] );
+  
     const actingData = Math.round((acting / rating_count) * 10) / 10
     const storyData = Math.round((story / rating_count) * 10) / 10
     const dialogueData = Math.round((dialogue / rating_count) * 10) / 10
@@ -102,27 +96,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         }
     }, [])
 
-    /* useEffect(() => {
-        dispatch(addCredits(movieInfoCreditsProps))
-        return () => {
-            dispatch(removeCredits())
-        }
-    }, []) */
-
-    //  const findDirector = () => {
-    //  let final
-
-    // console.log(found.length)
-    //  if (found.length > 0)
-    //   { // try it at the text 
-    /*        found.map((item,index)=>{
-             if (index===found.length-1)
-             return (item)
-             else 
-             return( item +",")
-           })
-       } 
-  } */
+   
 
     //findDirector()
     const writers = movieInfoCreditsProps.crew.filter(m =>
@@ -232,7 +206,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                                 key !== 'tmdb_id' &&
                                                 key !== 'title' &&
                                                 key !== 'media_type' &&
-                                                key !== 'user'
+                                                key !== 'user'&&
+                                                key !== 'tmdb_rating' &&
+                                                key !== 'poster_path'
                                             )
                                             .map(([key, value]) => {
                                                 return <Grid.Col span={6} key={key}>
@@ -475,7 +451,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <Space h="xl" />
                 <SideTitle text="Belongs To Collection" />
                 <CollectionThumb data={movieInfoProps.belongs_to_collection} />
-                <Space h={666} />
+               
             </Container>
         )
 }

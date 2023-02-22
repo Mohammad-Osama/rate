@@ -1,15 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import {
     createStyles,
-    Header,
-    ActionIcon,
-    Group,
     Burger,
-    Container,
-    Text,
-    Autocomplete, Avatar,
     Menu,
-    UnstyledButton
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
@@ -18,62 +11,7 @@ import * as colors from "./../../helpers/colors"
 
 
 const useStyles = createStyles((theme) => ({
-    search: {
-        border: 'none',
-    },
-    inner: {
-        height: 56,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
 
-    links: {
-        [theme.fn.smallerThan('sm')]: {
-            display: 'none',
-        },
-    },
-
-    burger: {
-        [theme.fn.largerThan('sm')]: {
-            display: 'none',
-        },
-    },
-
-    link: {
-        display: 'block',
-        cursor: "pointer",
-        lineHeight: 1,
-        padding: '8px 12px',
-        borderRadius: theme.radius.sm,
-        textDecoration: 'none',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-        fontSize: theme.fontSizes.sm,
-        fontWeight: 500,
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-    },
-
-    linkLabel: {
-        marginRight: 5,
-
-    },
-    text: {
-        display: 'block',
-
-        padding: '8px 12px',
-        borderRadius: theme.radius.sm,
-        textDecoration: 'none',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-        //   fontSize: theme.fontSizes.sm,
-        fontWeight: 700,
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-    },
 
     user: {
         color: "white",
@@ -121,7 +59,7 @@ const BurgerMenu = () => {
             position="bottom-end"
             transition="pop-top-right"
             onClose={() => setUserMenuOpened(false)}
-            onOpen={() => setUserMenuOpened(true)} 
+            onOpen={() => setUserMenuOpened(true)}
         >
             <Menu.Target>
                 <Burger
@@ -133,24 +71,25 @@ const BurgerMenu = () => {
 
             <Menu.Dropdown>
 
-                <Link style={{
-                    textDecoration: 'none',
-                    color: 'black',
-                }}
+                <Link
+                    style={{
+                        textDecoration: 'none',
+                        color: 'black',
+                    }}
                     href="/search" >
                     <Menu.Item >
                         Search
                     </Menu.Item>
                 </Link>
 
-                <Link style={{
-                    textDecoration: 'none',
-                    color: 'black',
-                }}
+                <Link
+                    style={{
+                        textDecoration: 'none',
+                        color: 'black',
+                    }}
                     href="/discover" >
                     <Menu.Item >
                         Discover
-                        {/*  <MenuInNav classes={classes} /> */}
                     </Menu.Item>
                 </Link>
 

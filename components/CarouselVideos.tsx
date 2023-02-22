@@ -21,7 +21,7 @@ const CarouselVideos = ({ id, type,season_number,episode_number }: X) => {
         if (type === "movie") {
             try {
                 const response = await fetch(`/api/movies/videos?id=${id}`)
-                const data = await response.json() //as IImages
+                const data = await response.json() 
                 setVideos(data)
             } catch (error) {
                 alert(error)
@@ -46,7 +46,7 @@ const CarouselVideos = ({ id, type,season_number,episode_number }: X) => {
     return (
         <Container >
 
-            <Carousel //slideSize="170%"
+            <Carousel 
                 height={500}
                 slideGap="sm"
                 controlsOffset="xs"

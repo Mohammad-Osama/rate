@@ -116,25 +116,6 @@ const SearchBar = () => {
             placeholder="Search"
             data={SearchedData()}
             ref={query}
-            /* styles={(theme) => ({ // move to a usestyles
-                input: {
-                    backgroundColor: `${colors.dark4}`,
-                    border: `1px solid ${colors.dark4}`,
-                    color: "white",
-                    height: "155px"
-                },
-                itemsWrapper: {
-                    backgroundColor: `${colors.dark3}`,
-                    border: `1px solid ${colors.dark4}`,
-                },
-                item: {
-                    ':hover': {
-                        backgroundImage: theme.fn.gradient({ from: `${colors.cyan9}`, to: `${colors.teal9}` }),
-                        fontSize: "17px"
-                    },
-                },
-            })
-            } */
             itemComponent={forwardRef(({ value, id, image, type, ...others }, query) => {
                 return (
                     <div

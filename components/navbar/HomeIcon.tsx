@@ -1,6 +1,5 @@
 import React from 'react'
 import { createStyles } from '@mantine/core';
-import Link from 'next/link';
 import * as colors from '../../helpers/colors'
 import { useRouter } from 'next/router';
 
@@ -13,25 +12,15 @@ const useStyles = createStyles((theme) => ({
         textDecoration: 'none',
         color: "black",
         backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
-        //  backgroundColor:`${colors.nightBlue}`,
         WebkitBorderRadius: "10px 10px",
-        //    border:"2px solid black" ,
-        //  WebkitTextStroke:"1px black" ,
-        //   fontSize: theme.fontSizes.sm,
-        // fontFamily:"cursive",
         fontWeight: 700,
         fontSize: 22,
-        /* '&:hover': {
-            backgroundColor: theme.colors.cyan[6],
-        }, */
         [theme.fn.smallerThan('sm')]: {
-            /*  fontWeight: 500,
-             fontSize: 16, */
         },
     },
 }));
 interface X {
-    width: string // | null ;
+    width: string;
 }
 const HomeIcon = ({ width }: X) => {
 
@@ -44,13 +33,8 @@ const HomeIcon = ({ width }: X) => {
                 width: `${width}`
             }}
         >
-
-            {/*  <Link style={{
-                textDecoration: 'none',
-                color: 'black',
-            }}
-                href="/" > */}
-            <div className={classes.text}
+            <div
+                className={classes.text}
                 onClick={() => window.location.pathname === "/"
                     ? window.location.reload()
                     : router.push('/')
@@ -58,8 +42,6 @@ const HomeIcon = ({ width }: X) => {
             >
                 RATE
             </div>
-            {/*  </Link> */}
-
         </div>
     )
 }

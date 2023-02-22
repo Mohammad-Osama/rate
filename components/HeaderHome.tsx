@@ -1,4 +1,4 @@
-import { Title, Text, Container, Button, Tooltip, Overlay, createStyles } from '@mantine/core';
+import { Title, Text, Container, Tooltip, Overlay, createStyles } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import { IMediaType, ISearchMulti, ITimeWindnow } from '../helpers/types';
 import * as tmdb from "../helpers/tmdb"
@@ -111,14 +111,10 @@ const useStyles = createStyles((theme, imagePath: string) => ({
     position: 'relative',
     paddingTop: 180,
     paddingBottom: 130,
-  //  backgroundImage: `url(${tmdb.imgUrl}${tmdb.imgSizeW1280}${imagePath})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    // height: '700px',
     backgroundAttachment: "fixed",
-
-
     marginTop: "-15px",
     '@media (max-width: 520px)': {
       paddingTop: 80,
@@ -210,44 +206,6 @@ const HeaderHome = ({ mediaType, time_window, beginNow }: X) => {
 
   }, [mediaType, time_window])
 
-
-  /* if (!loading)
-    return (
-      <div className={classes.loading }>
-        <Overlay color="#000" opacity={0.65} zIndex={1} />
-
-        <div className={classes.inner}>
-
-          <Container
-            h={200}
-          >
-
-          </Container>
-
-          <div className={classes.controls}>
-            <Title className={classes.title}>
-              Rate Your Favourite Movie or Show {' '}
-              <Tooltip.Floating  
-                label="Click To Hide"
-                sx={(theme) => ({
-                backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.nightBlue}` }),
-                })}
-              >
-                <Text
-                  component="span"
-                  inherit
-                  className={classes.highlight}
-                  onClick={handleClick}
-                >
-                  Begin Now !
-                </Text>
-              </Tooltip.Floating>
-            </Title>
-          </div>
-        </div>
-      </div>
-    )
-  else */
     return (
       <div className={
         hidden

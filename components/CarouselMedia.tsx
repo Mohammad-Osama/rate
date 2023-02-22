@@ -7,7 +7,6 @@ import {
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
 import { IGenre, IMovieOrTv } from '../helpers/types';
-import axios from 'axios';
 import Link from 'next/link'
 import { authState } from '../redux/slices/authSlice';
 import { useSelector } from 'react-redux';
