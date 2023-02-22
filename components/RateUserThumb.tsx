@@ -4,9 +4,8 @@ import {
     Group,
     Text,
     Divider,
-    createStyles
 } from '@mantine/core';
-import { IPersonCreditsModified, IRate } from '../helpers/types';
+import { IRate } from '../helpers/types';
 import * as tmdb from "./../helpers/tmdb"
 import ValueBadge from './ValueBadge';
 import Link from 'next/link'
@@ -27,13 +26,6 @@ const RateUserThumb = ({ rate }: X) => {
         title,
         tmdb_id,
         tmdb_rating,
-        acting,
-        dialogue,
-        directing,
-        cinematography,
-        sound_effects,
-        visual_effects,
-        story
     } = rate
 
     const smallScreen = useMediaQuery('(max-width: 897px)');

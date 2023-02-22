@@ -1,75 +1,53 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
-    AppShell,
-    Navbar,
-    Header,
-    Footer,
-    Aside,
     Text,
-    MediaQuery,
-    Burger,
     useMantineTheme,
     Center,
-    Tooltip,
-    UnstyledButton,
-    Stack,
     createStyles,
     Container,
-    SimpleGrid,
     Grid,
-    Image,
-    Badge,
-    Button,
-    Group,
     Space,
-    Card,
-    Divider
+    Avatar
 } from '@mantine/core';
-import Playground from '../../../../components/Playground';
-import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
-import clientPromise from '../../../../lib/db';
-import { Rate, Rate as RateModel } from '../../../../models/rateModel';
-import { User as UserModel } from '../../../../models/userModel';
 import { IRate, IUser } from '../../../../helpers/types';
 import { authState } from '../../../../redux/slices/authSlice';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import Error from '../../../../components/Error';
 import NotFound from '../../../../components/NotFound';
 import axios from "axios"
 import Loading from '../../../../components/Loading';
+import SideTitle from '../../../../components/SideTitle';
+import CarouselRates from '../../../../components/CarouselRates';
+import Link from 'next/link';
+import * as colors from '../../../../helpers/colors'
+import { useMediaQuery } from '@mantine/hooks';
 
 
 const useStyles = createStyles((theme) => ({
-    link: {
-        width: 50,
-        height: 50,
-        borderRadius: theme.radius.md,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-
-        '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[0],
-        },
-    },
-
     active: {
         '&, &:hover': {
             backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
             color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
         },
     },
+    textLink: {
+        fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
+        fontSize: "22px",
+        display: "inline-block",
+        marginTop: "30px",
+        color: `${colors.sandTan}`,
+        '&:hover': {
+            textDecoration: "underline"
+        },
+    }
 }));
 
 
-
 const index = () => {
-    const theme = useMantineTheme();
+    const { classes } = useStyles()
+
     const userData = useSelector(authState)
     const userId = userData.id
-    const router = useRouter()
+
     const [ok, setOk] = useState(false)
     const [loading, setLoading] = useState(true)
 
@@ -81,17 +59,33 @@ const index = () => {
 
     const [userRatesNumber, setUserRatesNumber] = useState<number>()
 
+    const {
+        createdAt
+    } = userInfo
+
+
+    const smallScreen = useMediaQuery('(max-width: 768px)');
+
+    const membershipDate = () => {
+        const date = new Date(createdAt);
+        const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+        return date.toLocaleString("en-US", options as any)
+
+    }
     async function getUserData() {
         const token = localStorage.getItem("token")?.replace(/^"(.*)"$/, '$1')
         const config = {
             headers: { Authorization: `Bearer ` + token }
 
         };
-        console.log(token)
         axios.get(`/api/users/profile?id=${userId}`,
             config)
             .then((response) => {
-                console.log("resssssssssssss", response)
                 setLoading(false)
                 setOk(true)
                 setUserInfo(response.data.user)
@@ -100,7 +94,6 @@ const index = () => {
 
             })
             .catch(function (error) {
-                console.log("errrrrrr", error)
                 setOk(false)
                 setLoading(false)
             })
@@ -119,11 +112,75 @@ const index = () => {
         )
     else if (ok)
         return (
-            <Playground
-                ratesProps={userRates}
-                userProps={userInfo}
-                userRatesNumber={userRatesNumber}
-            />
+            <Container>
+                <Grid
+                    columns={12}
+                >
+                    <Grid.Col
+                        sm={5}
+                    >
+                        <Center>
+                            <Avatar
+                                size={150}
+                                src={null}
+                                variant="filled"
+                            />
+                        </Center>
+                    </Grid.Col>
+                    <Grid.Col
+                        sm={7}
+                    >
+                        <Text
+                            align={
+                                smallScreen
+                                    ? "center"
+                                    : "left"
+                            }
+                            weight={700}
+                            color="white"
+                            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: "30px", minWidth: "60px" }}
+                        >
+                             {userInfo.first_name} {userInfo.last_name} 
+                            
+                        </Text>
+                        <Text
+                            align={
+                                smallScreen
+                                    ? "center"
+                                    : "left"
+                            }
+                            size="xl"
+                            color="#ADB5BD"
+                        >
+                            Member since  {membershipDate()}
+                        </Text>
+                    </Grid.Col>
+
+                </Grid>
+                <Space h="xl" />
+                <SideTitle
+                    text="My Ratings"
+                />
+                <CarouselRates
+                    rates={userRates}
+                />
+
+                <Link
+                    href={{
+                        pathname: "/user/rates",
+                        /* query: {
+                            id: item.id
+                        }, */
+                    }}
+                    as={`/user/rates`}
+                >
+                    <span
+                        className={classes.textLink}
+                    >
+                        See all {userRatesNumber} ratings
+                    </span>
+                </Link>
+            </Container >
         )
     else
         return (

@@ -33,10 +33,9 @@ function slideNumber() {
     return 1
     else return  3
 }
-console.log(slideNumber() )
+
     return (
         <Container >
-
             <Carousel
                 //slideSize="170%"
                 //  height={900}
