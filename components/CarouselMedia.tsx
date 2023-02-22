@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Carousel } from '@mantine/carousel';
 import {
     Container,
     Image,
-    SimpleGrid,
-    Text,
     Stack,
-    Badge,
 } from '@mantine/core';
 import * as tmdb from "../helpers/tmdb"
 import { IGenre, IMovieOrTv } from '../helpers/types';
@@ -14,6 +11,7 @@ import axios from 'axios';
 import Link from 'next/link'
 import { authState } from '../redux/slices/authSlice';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface X {
     id: number
@@ -71,7 +69,7 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
     const userId = userData.id
 
 
-    async function getGenres() {
+    /* async function getGenres() {
         const genresMovies: any = await axios.get("/api/movies/genres")
         const genresTv: any = await axios.get("/api/tv/genres")
         const result = genresMovies.data.genres.concat(
@@ -94,8 +92,25 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
             })
         })
         return names
-    }
+    } */
 
+    const Screen768px = useMediaQuery('(max-width: 768px)');
+    const Screen500px = useMediaQuery('(max-width: 500px)');
+
+    function slideRatio() {
+        if (Screen768px&&!Screen500px)
+        return "50%"
+        else if (Screen500px &&Screen768px )
+        return "100%"
+        else return  "33.333333%"
+    }
+    function slideNumber() {
+        if (Screen768px&&!Screen500px)
+        return 2
+        else if (Screen500px &&Screen768px )
+        return 1
+        else return  3
+    }
     useEffect(() => {
         //   getGenres()
         getList(id, callType)
@@ -110,10 +125,10 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
                 slideGap="sm"
                 controlsOffset="xs"
                 controlSize={40}
-                // dragFree
+                dragFree
                 withIndicators
-                slideSize="33.333333%"
-                slidesToScroll={3}
+                slideSize={slideRatio()}
+                slidesToScroll={slideNumber()}
                 styles={{
                     indicator: {
                         width: 12,

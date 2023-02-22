@@ -61,7 +61,7 @@ const Playground = ({ ratesProps, userProps, userRatesNumber }: X) => {
 
     const theme = useMantineTheme();
     // console.log("propppssss user", userProps)
-    console.log("propppssss rates", ratesProps)
+ //   console.log("propppssss rates", ratesProps)
     const smallScreen = useMediaQuery('(max-width: 768px)');
 
     const membershipDate = () => {

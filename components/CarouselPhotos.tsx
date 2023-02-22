@@ -57,7 +57,7 @@ const CarouselPhotos = ({ id, type, episode_number, season_number }: X) => {
                 slideGap="sm"
                 controlsOffset="xs"
                 controlSize={40}
-                // dragFree
+                dragFree
                 withIndicators
                 styles={{
                     indicator: {
