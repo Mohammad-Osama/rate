@@ -10,7 +10,6 @@ import { NotificationsProvider } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
 
 
-
 let persistor = persistStore(store);
 
 export default function App({ Component, pageProps }: AppProps) {

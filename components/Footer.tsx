@@ -1,7 +1,9 @@
 import { createStyles, Text, Container, ActionIcon, Group } from '@mantine/core';
-import { BrandTwitter, BrandYoutube, BrandLinkedin ,BrandFacebook} from 'tabler-icons-react';
+import { BrandTwitter, BrandYoutube, BrandLinkedin, BrandFacebook } from 'tabler-icons-react';
 import HomeIcon from './navbar/HomeIcon';
 import * as colors from "../helpers/colors"
+import React, { useState } from 'react';
+import FeedBack from './FeedBack';
 
 const data = [
     {
@@ -50,7 +52,7 @@ const data = [
         "title": "Community",
         "links": [
             {
-                "label": "Join Discord",
+                "label": "Send Feedback",
                 "link": "#"
             },
             {
@@ -62,7 +64,7 @@ const data = [
                 "link": "#"
             },
             {
-                "label": "Email newsletter",
+                "label": "Join Discord",
                 "link": "#"
             }
         ]
@@ -78,7 +80,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     logo: {
-      margin:"20px" ,
+        margin: "20px",
         [theme.fn.smallerThan('sm')]: {
             display: 'flex',
             flexDirection: 'column',
@@ -125,6 +127,15 @@ const useStyles = createStyles((theme) => ({
             textDecoration: 'underline',
         },
     },
+    linkFeedback: {
+        background: `-webkit-linear-gradient(45deg, ${colors.sandTan} 30%,  lightblue 90%)`,
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent", 
+        '&:hover': {
+            //   backgroundImage: theme.fn.gradient({ from: `${colors.sandTan}`, to: `${colors.sandTan}` }),
+            cursor:"pointer"
+        },
+    },
 
     title: {
         fontSize: theme.fontSizes.xl,
@@ -152,8 +163,9 @@ const useStyles = createStyles((theme) => ({
         [theme.fn.smallerThan('sm')]: {
             marginTop: theme.spacing.xs,
         },
-        
+
     },
+
     linkedIcon: {
         WebkitBoxShadow: `0 0 18px ${colors.sandTanShadow}`,
         '&:hover': {
@@ -172,18 +184,32 @@ const useStyles = createStyles((theme) => ({
 const Footer = () => {
     const { classes } = useStyles();
 
+    const [opened, setOpened] = useState(false)
+
     const groups = data.map((group) => {
         const links = group.links.map((link, index) => (
             <Text<'a'>
                 key={index}
-                className={classes.link}
-                component="a"
+                className={link.label === "Send Feedback"
+                    ? classes.linkFeedback
+                    : classes.link
+                }
+                /* component={link.label === "Send Feedback"
+                ? undefined
+                : "a"
+            } */
+            
                 href={link.link}
-                onClick={(event) => event.preventDefault()}
+                onClick={() =>
+                    link.label === "Send Feedback"
+                        ? setOpened(true)
+                        : console.log("clicked")
+                }
             >
                 {link.label}
             </Text>
         ));
+
 
         return (
             <div className={classes.wrapper} key={group.title}>
@@ -206,9 +232,9 @@ const Footer = () => {
                     </Text>
                     <Text size="md" color="dimmed" className={classes.description}>
                         All Media Data Provided by <a href="https://www.themoviedb.org/"
-                                                        style={{
-                                                            color:"lightblue"
-                                                        }}
+                            style={{
+                                color: "lightblue"
+                            }}
                         >TMDB</a> Api
                     </Text>
                 </div>
@@ -220,13 +246,13 @@ const Footer = () => {
                 </Text>
 
                 <Group spacing={0} className={classes.social} position="right" noWrap>
-                    <ActionIcon size="lg" className={classes.linkedIcon} >
+                    <ActionIcon size="lg" className={classes.icons} >
                         <BrandLinkedin size={40} strokeWidth={1.5} />
                     </ActionIcon>
                     <ActionIcon size="lg" className={classes.icons}>
                         <BrandTwitter size={40} strokeWidth={1.5} />
                     </ActionIcon>
-                    <ActionIcon size="lg"className={classes.icons} >
+                    <ActionIcon size="lg" className={classes.icons} >
                         <BrandYoutube size={40} strokeWidth={1.5} />
                     </ActionIcon>
                     <ActionIcon size="lg" className={classes.icons}>
@@ -234,6 +260,14 @@ const Footer = () => {
                     </ActionIcon>
                 </Group>
             </Container>
+            <FeedBack
+                opened={opened}
+                setOpened={setOpened}
+            />
+
+            {/* <D /> */}
+          {/*   {D} */}
+
         </div>
     )
 }
