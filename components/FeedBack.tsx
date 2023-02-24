@@ -201,7 +201,7 @@ const FeedBack = ({ opened, setOpened }: X) => {
                     />
                     <Group position="center" mt="xl">
                         <Button type="submit" size="md">
-                            Send Feedback
+                            Send
                         </Button>
                     </Group>
                 </form>

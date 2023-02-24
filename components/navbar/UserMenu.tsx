@@ -108,7 +108,7 @@ const UserMenu = ({ first_name, last_name, id }: X) => {
             </Menu.Target>
             <Menu.Dropdown
             >
-                <Link style={{
+                {/* <Link style={{
                     textDecoration: 'none',
                     color: 'black',
                 }}
@@ -119,13 +119,17 @@ const UserMenu = ({ first_name, last_name, id }: X) => {
                         },
                     }}
                     as={`/user/profile/${id}`}
-                >
+                > */}
                     <Menu.Item
                         icon={<Settings size={18} />}
+                        onClick={()=>window.location.pathname === `/user/profile/${id}/`
+                            ? window.location.reload()
+                            :router.push(`/user/profile/${id}`)
+                         }
                     >
                         My Profile
                     </Menu.Item>
-                </Link>
+               {/*  </Link> */}
                 <Menu.Item
                     icon={<Logout size={18} />}
                     onClick={() => {

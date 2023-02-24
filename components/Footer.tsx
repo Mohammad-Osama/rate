@@ -264,10 +264,6 @@ const Footer = () => {
                 opened={opened}
                 setOpened={setOpened}
             />
-
-            {/* <D /> */}
-          {/*   {D} */}
-
         </div>
     )
 }
