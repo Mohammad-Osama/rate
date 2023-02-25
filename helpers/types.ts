@@ -200,7 +200,9 @@ export interface IRate {
     visual_effects: number;
     sound_effects: number;
     directing: number
-    _id: string
+    _id: string ;
+    createdAt:string;
+    updatedAt:string;
 }
 
 export interface ICast {

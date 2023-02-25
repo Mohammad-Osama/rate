@@ -203,7 +203,7 @@ const Footer = () => {
                 onClick={() =>
                     link.label === "Send Feedback"
                         ? setOpened(true)
-                        : console.log("clicked")
+                        : undefined
                 }
             >
                 {link.label}

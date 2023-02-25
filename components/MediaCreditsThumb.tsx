@@ -74,12 +74,14 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                             <Text
                                 size="xl"
                                 color="white"
+                                mb="md"
                             >
                                 {title}
                             </Text>
                             <Text
                                 size="xl"
                                 color="#ADB5BD"
+                                mb="md"
                             >
                                 {role}
                             </Text>
@@ -88,7 +90,7 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                             />
                         </div>
                     </Grid.Col>
-                    
+
                 </Grid>
                 <div style={{ marginRight: "100px", marginLeft: "10px" }}>
                     <Text
@@ -104,7 +106,10 @@ const MediaCreditsThumb = ({ dataMedia }: X) => {
                         size="xl"
                         color="#ADB5BD"
                     >
-                        {media_type}
+                        {media_type === "movie"
+                            ? "Movie"
+                            : "Show"
+                        }
                     </Text>
                 </div>
             </Group>

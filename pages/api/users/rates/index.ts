@@ -1,10 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { Movie, IMovie } from "../../../../models/movieModel"
 import clientPromise from "../../../../lib/db"
-import { IRate, Rate } from "../../../../models/rateModel"
-import mongoose from "mongoose"
+import {Rate } from "../../../../models/rateModel"
 import { authJwt } from "../../../../middlewareFunctions/authMiddleware"
-import { User } from "../../../../models/userModel"
 
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
   await clientPromise()
@@ -17,7 +14,6 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
       const ratesData = await Rate.find({ user: id })
         .sort({ updatedAt: -1 })
 
-      // const rates = JSON.parse(JSON.stringify(ratesData))
       res.status(200).json(ratesData)
     } catch (error) {
 
@@ -27,6 +23,4 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     else {
       res.status(400).json("not authorized")
     }
-    
-  
 }
