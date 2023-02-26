@@ -3,6 +3,7 @@ import Footer from './Footer';
 import HeaderHome from './HeaderHome';
 import { Navbar } from './navbar/Navbar';
 import { useRouter } from "next/router"
+import AffixApp from './AffixApp';
 
 const useStyles = createStyles(() => ({
     container: {
@@ -36,6 +37,7 @@ const Layout = ({ children }: LayoutProps,) => {
                 />
             }
             <main>{children}</main>
+            <AffixApp/>
             <Footer />
         </div>
     )
