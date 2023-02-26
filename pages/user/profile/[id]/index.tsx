@@ -163,8 +163,8 @@ const index = () => {
                 <CarouselRates
                     rates={userRates}
                 />
-
-                <Link
+                {userRates.length>0 && 
+                    <Link
                     href={{
                         pathname: "/user/rates",
                         /* query: {
@@ -176,9 +176,14 @@ const index = () => {
                     <span
                         className={classes.textLink}
                     >
-                        See all {userRatesNumber} ratings
+                        {userRates.length===1
+                            ?`See ${userRatesNumber} rate`
+                            :`See all ${userRatesNumber} ratings`
+                        }           
                     </span>
                 </Link>
+                }
+                
             </Container >
         )
     else

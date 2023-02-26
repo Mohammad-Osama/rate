@@ -13,7 +13,7 @@ export interface IUser {
     city: string;
     country: string;
     address: string;
-
+    biography: string;
 };
 
 
@@ -48,6 +48,7 @@ const UserSchema = new mongoose.Schema<IUser>({
         enum: ["user", "admin"],
         default: "user"
     },
+    biography: { type: String, default: " " },
     city: { type: String, default: " " },
     country: { type: String, default: " " },
     address: { type: String, default: " " },
