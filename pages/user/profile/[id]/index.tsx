@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import {
     Text,
-    useMantineTheme,
     Center,
     createStyles,
     Container,

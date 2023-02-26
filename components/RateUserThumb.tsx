@@ -28,8 +28,8 @@ const RateUserThumb = ({ rate }: X) => {
         tmdb_rating,
         createdAt,
         updatedAt,
-
     } = rate
+    
     const createdDate = new Date(createdAt);
     const updatedDate = new Date(updatedAt);
 

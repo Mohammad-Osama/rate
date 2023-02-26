@@ -171,8 +171,7 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
                     data={personCreditsProps.crew}
                 />
 
-                <Space h={666} />
-
+                
             </Container>
         )
 }

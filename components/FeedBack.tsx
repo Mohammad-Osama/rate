@@ -50,7 +50,7 @@ const useStyles = createStyles((theme) => ({
         },
     },
     description: {
-        color: "red",
+       // color: "red",
         backgroundColor: theme.colors.dark[3],
     },
 }));
