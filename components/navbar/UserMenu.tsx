@@ -96,8 +96,8 @@ const UserMenu = ({ first_name, last_name, id }: X) => {
                         <Text
                             className={classes.userInfo}
                             weight={500}
-                            size="sm"
-                            sx={{ lineHeight: 1 }}
+                            size="lg"
+                          //  sx={{ lineHeight: 4 }}
                             mr={3}
 
                         >
