@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { Movie, IMovie } from "../../../../../models/movieModel"
+import { Movie } from "../../../../../models/movieModel"
 import clientPromise from "../../../../../lib/db"
-import { IRate, Rate } from "../../../../../models/rateModel"
+import { Rate } from "../../../../../models/rateModel"
 import mongoose from "mongoose"
 
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
@@ -12,7 +12,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     const finalUserId = new ObjectId(userIdBody);
     // exisitg movie maybe not needed 
     const exisitingMovie = await Movie.findOne({ tmdb_id: req.body.tmdb_id })
-    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id , media_type:req.body.media_type})
+    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id, media_type: req.body.media_type })
 
     // remove exising user`s rate from the movie 
     const removedUserRateFromMovie = await Movie.findOneAndUpdate(
@@ -52,7 +52,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     //update user`s rating 
 
     const updatedRate = await Rate.findOneAndUpdate(
-      { user: finalUserId, tmdb_id: req.body.tmdb_id , media_type:req.body.media_type},
+      { user: finalUserId, tmdb_id: req.body.tmdb_id, media_type: req.body.media_type },
       {
         "acting": req.body.acting,
         "story": req.body.story,
@@ -64,11 +64,8 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
       },
       { returnDocument: "after" }
     )
-    res.status(200).json({updatedMovie , updatedRate})
+    res.status(200).json({ updatedMovie, updatedRate })
   } catch (error) {
     res.status(400).json(`Error==>${error}`);
   }
-
-
-
 }

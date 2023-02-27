@@ -1,12 +1,12 @@
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
-import {IProductionCompanyDetails } from '../../../helpers/types';
+import { IProductionCompanyDetails } from '../../../helpers/types';
 import { Space, Container, SimpleGrid, Card, Image, Text, Stack, HoverCard } from '@mantine/core';
 import * as colors from '../../../helpers/colors'
 import MiddleTitle from '../../../components/MiddleTitle';
 import Link from 'next/link';
 import HeadPage from '../../../components/HeadPage';
-
+import NotFound from '../../../components/NotFound';
 
 
 
@@ -15,15 +15,17 @@ const index = ({ companyProps, notFound }: X) => {
     const { name, description, headquarters, logo_path, origin_country, parent_company } = companyProps
 
     if (notFound === true)
-        return (<div>Error Page</div>)
+        return (
+            <NotFound />
+        )
     else
         return (
             <Container size="xl" my="md" pb="xl" >
                 <HeadPage
                     title={name}
-                    description={description!==''
-                        ?description
-                        :name
+                    description={description !== ''
+                        ? description
+                        : name
                     }
                 />
                 <Text
@@ -73,7 +75,7 @@ const index = ({ companyProps, notFound }: X) => {
                                             }}
                                             as={`/company/${parent_company.id}`}
                                             style={{ color: "#4DABF7" }}
-                                            >
+                                        >
                                             {parent_company.name}
                                         </Link>
                                     </HoverCard.Target>
@@ -112,8 +114,8 @@ const index = ({ companyProps, notFound }: X) => {
                                 backgroundColor: "#373A40"
                             }}>
                             {description
-                           ? description
-                           :""
+                                ? description
+                                : ""
                             }
                         </Text>
                     </Card.Section>

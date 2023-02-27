@@ -183,7 +183,6 @@ const index = () => {
                     </span>
                 </Link>
                 }
-                
             </Container >
         )
     else

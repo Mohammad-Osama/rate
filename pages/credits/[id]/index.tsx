@@ -2,9 +2,8 @@ import React from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
 import { ICastOrCrew } from '../../../helpers/types';
-import { Group, Container, SimpleGrid, Chip, useMantineTheme, createStyles, Button, Image, Text } from '@mantine/core';
+import { Group, Container, SimpleGrid, Button, Text } from '@mantine/core';
 import PersonThumb from '../../../components/personThumb';
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import HeadPage from '../../../components/HeadPage';
 

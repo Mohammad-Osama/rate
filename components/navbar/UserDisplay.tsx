@@ -1,4 +1,4 @@
-import { createStyles, Text } from '@mantine/core';
+import { createStyles } from '@mantine/core';
 import Link from 'next/link';
 import { authState } from '../../redux/slices/authSlice';
 import { useSelector } from 'react-redux';

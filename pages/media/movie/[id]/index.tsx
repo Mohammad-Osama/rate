@@ -39,7 +39,7 @@ import HeadPage from '../../../../components/HeadPage';
 import RadarChart from '../../../../components/RadarChart';
 import { addCredits } from '../../../../redux/slices/creditsEpisodeSlice';
 import AccordionCredits from '../../../../components/AccordionCredits';
-
+import NotFound from '../../../../components/NotFound';
 
 const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUserProps, notFound, movieInfoCreditsProps }: X) => {
 
@@ -58,7 +58,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         vote_average,
         vote_count,
     } = movieInfoProps
-  
+
     const actingData = Math.round((acting / rating_count) * 10) / 10
     const storyData = Math.round((story / rating_count) * 10) / 10
     const dialogueData = Math.round((dialogue / rating_count) * 10) / 10
@@ -69,7 +69,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
     function ValueBadge(x: number) {
         return (
-            <Badge //color="green"
+            <Badge
                 size="xl"
                 variant="filled"
                 styles={{
@@ -96,7 +96,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
         }
     }, [])
 
-   
+
 
     //findDirector()
     const writers = movieInfoCreditsProps.crew.filter(m =>
@@ -113,7 +113,9 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
 
 
     if (notFound === true)
-        return (<div>Error Page</div>)
+        return (
+            <NotFound />
+        )
     else
         return (
             <Container size="xl">
@@ -121,12 +123,12 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                     title={movieInfoProps.title}
                     description={movieInfoProps.overview as string}
                 />
-                <Group position="apart" m="xl"
-                //maybe change mr and ml later 
+                <Group
+                    position="apart"
+                    m="xl"
                 >
                     <div>
                         <Text
-                            //  p="xl"
                             align="justify"
                             weight={700}
                             color="white"
@@ -145,7 +147,6 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                         <Text
                             size="xl"
                             color="#ADB5BD"
-                        // mb='md'
                         >
                             TMDB Rating
                         </Text>
@@ -206,7 +207,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                                                 key !== 'tmdb_id' &&
                                                 key !== 'title' &&
                                                 key !== 'media_type' &&
-                                                key !== 'user'&&
+                                                key !== 'user' &&
                                                 key !== 'tmdb_rating' &&
                                                 key !== 'poster_path'
                                             )
@@ -451,7 +452,7 @@ const index = ({ movieInfoProps, media_type, movieRateInfoProps, movieRateInfoUs
                 <Space h="xl" />
                 <SideTitle text="Belongs To Collection" />
                 <CollectionThumb data={movieInfoProps.belongs_to_collection} />
-               
+
             </Container>
         )
 }
@@ -469,7 +470,6 @@ interface X {
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id, type, user } = context.query
-    //  console.log("uuuu", context.query)
     let movieInfo = {} as IMovie
     let movieRateInfo
     let movieRateInfoUser
@@ -479,7 +479,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
             const response = await fetch(`${tmdb.urlMovie}${id}?api_key=${tmdb.key}&language=en-US`)
             const data = await response.json()
             movieInfo = data
-           
+
             const responseCredits = await fetch(`${tmdb.urlMovie}${id}/credits?api_key=${tmdb.key}&language=en-US`)
             const dataCredits = await responseCredits.json()
             movieCredits = dataCredits

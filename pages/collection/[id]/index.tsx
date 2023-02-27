@@ -3,20 +3,18 @@ import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../helpers/tmdb"
 import { IGenre, ICollectionDetails, IMovieOrTv } from '../../../helpers/types';
 import { Space, Container, SimpleGrid, Card, Image, Text } from '@mantine/core';
-import { useRouter } from 'next/router'
 import * as colors from '../../../helpers/colors'
 import axios from 'axios';
 import MediaThumb from '../../../components/MediaThumb';
 import SideTitle from '../../../components/SideTitle';
 import HeadPage from '../../../components/HeadPage';
-
+import NotFound from '../../../components/NotFound';
 
 
 
 const index = ({ collectionProps, notFound }: X) => {
     const { name, overview, poster_path, parts } = collectionProps
     const mediaType = "movie"
-    const router = useRouter()
     const emptyGenres: IGenre[] = []
 
     const [genres, setGenres]: [IGenre[], (x: IGenre[]) => void] = useState(emptyGenres)
@@ -54,17 +52,18 @@ const index = ({ collectionProps, notFound }: X) => {
 
 
     if (notFound === true)
-        return (<div>Error Page</div>)
+        return (
+            <NotFound />
+        )
     else
         return (
             <Container size="xl" my="md" pb="xl" >
                 <HeadPage
-                            title={name}
-                            description={overview}
+                    title={name}
+                    description={overview}
 
                 />
                 <Text
-                    //  p="xl"
                     align="center"
                     weight={700}
                     color="white"
@@ -90,9 +89,8 @@ const index = ({ collectionProps, notFound }: X) => {
                         style={{ backgroundColor: colors.bodyBackground }}>
 
                         <Card.Section>
-                            <Text 
+                            <Text
                                 align="justify"
-                               // p="xl"
                                 weight={100}
                                 color="white"
                                 style={{
@@ -106,8 +104,8 @@ const index = ({ collectionProps, notFound }: X) => {
                     </Card>
                 </SimpleGrid>
                 <Space h="xl" />
-                <SideTitle text="Movies In This Collection"/>
-                <SimpleGrid cols={4} spacing="lg" 
+                <SideTitle text="Movies In This Collection" />
+                <SimpleGrid cols={4} spacing="lg"
                     breakpoints={[
                         { maxWidth: 1024, cols: 3, spacing: 'md' },
                         { maxWidth: 768, cols: 2, spacing: 'sm' },

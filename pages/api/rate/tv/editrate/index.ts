@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { Tv ,ITv} from "../../../../../models/tvModel"
+import { Tv } from "../../../../../models/tvModel"
 import clientPromise from "../../../../../lib/db"
-import { IRate, Rate } from "../../../../../models/rateModel"
+import { Rate } from "../../../../../models/rateModel"
 import mongoose from "mongoose"
 
 export default async function controller(req: NextApiRequest, res: NextApiResponse) {
@@ -12,11 +12,11 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     const finalUserId = new ObjectId(userIdBody);
     // exisitg tv maybe not needed 
     const exisitingTv = await Tv.findOne({ tmdb_id: req.body.tmdb_id })
-    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id  , media_type:req.body.media_type })
+    const existingRate = await Rate.findOne({ user: finalUserId, tmdb_id: req.body.tmdb_id, media_type: req.body.media_type })
 
     // remove exising user`s rate from the tv 
     const removedUserRateFromTv = await Tv.findOneAndUpdate(
-      { tmdb_id: req.body.tmdb_id  , media_type:req.body.media_type},
+      { tmdb_id: req.body.tmdb_id, media_type: req.body.media_type },
       {
         $inc: {
           "acting": -existingRate?.acting,
@@ -34,7 +34,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     //update that tv with the new user`s rating 
 
     const updatedTv = await Tv.findOneAndUpdate(
-      { tmdb_id: req.body.tmdb_id , media_type:req.body.media_type },
+      { tmdb_id: req.body.tmdb_id, media_type: req.body.media_type },
       {
         $inc: {
           "acting": req.body.acting,
@@ -52,7 +52,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     //update user`s rating 
 
     const updatedRate = await Rate.findOneAndUpdate(
-      { user: finalUserId, tmdb_id: req.body.tmdb_id, media_type:req.body.media_type },
+      { user: finalUserId, tmdb_id: req.body.tmdb_id, media_type: req.body.media_type },
       {
         "acting": req.body.acting,
         "story": req.body.story,
@@ -64,7 +64,7 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
       },
       { returnDocument: "after" }
     )
-    res.status(200).json({updatedTv , updatedRate})
+    res.status(200).json({ updatedTv, updatedRate })
   } catch (error) {
     res.status(400).json(`Error==>${error}`);
   }

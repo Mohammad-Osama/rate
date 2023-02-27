@@ -40,9 +40,7 @@ const MovieDetails = ({
     const profitFinal = Math.round(profit * 100) / 100
 
     return (
-        <Container
-        //style={{ border: "solid" }} 
-        >
+        <Container>
             <Space h="lg" />
             <MiddleTitle
                 title="Status"

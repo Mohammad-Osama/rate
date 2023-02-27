@@ -35,6 +35,4 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
     } catch (error) {
         res.status(400).json(`Error==>${error}`);
     }
-    
-  
 }

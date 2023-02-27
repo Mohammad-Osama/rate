@@ -92,7 +92,7 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
                         </Text>
         
                     ), */
-                    labels: { confirm: " Go back ", cancel: "" },
+                    labels: { confirm: "Click to refresh", cancel: "" },
                     confirmProps: { color: 'blue' ,fullWidth:true},
                     cancelProps:{hidden:true},
                     styles: {
@@ -156,7 +156,7 @@ const AddRate = ({ tmdb_id, title,poster_path,tmdb_rating, media_type, user , mo
                         </Text>
         
                     ), */
-                    labels: { confirm: " Go back ", cancel: "" },
+                    labels: { confirm: "Click to refresh", cancel: "" },
                     confirmProps: { color: 'blue' ,fullWidth:true},
                     cancelProps:{hidden:true},
                     styles: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next';
 import * as tmdb from "../../../../helpers/tmdb"
 import { IEpisode, ICredits } from '../../../../helpers/types';
@@ -12,7 +12,7 @@ import AccordionCredits from '../../../../components/AccordionCredits';
 import SideTitle from '../../../../components/SideTitle';
 import CarouselPhotos from '../../../../components/CarouselPhotos';
 import CarouselVideos from '../../../../components/CarouselVideos';
-
+import NotFound from '../../../../components/NotFound';
 
 const index = ({ episodeProps, title, notFound, episodeCreditProps, tvId }: X) => {
     const {
@@ -26,7 +26,6 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps, tvId }: X) =
         vote_average,
         vote_count
     } = episodeProps
-    console.log(episodeProps)
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
@@ -38,7 +37,9 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps, tvId }: X) =
 
 
     if (notFound === true)
-        return (<div>Error Page</div>)
+        return (
+            <NotFound />
+        )
     else
         return (
             <Container size="xl">
@@ -68,11 +69,9 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps, tvId }: X) =
                         <div>
                             <Group
                                 position="apart"
-                            //  m="xl"
                             >
                                 <div>
                                     <Text
-                                        //  p="xl"
                                         align="justify"
                                         weight={700}
                                         color="white"
@@ -91,7 +90,6 @@ const index = ({ episodeProps, title, notFound, episodeCreditProps, tvId }: X) =
                                     <Text
                                         size="xl"
                                         color="#ADB5BD"
-                                    // mb='md'
                                     >
                                         TMDB Rating
                                     </Text>

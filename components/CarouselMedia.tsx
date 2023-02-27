@@ -19,11 +19,8 @@ interface X {
 }
 const CarouselMedia = ({ id, callType, mediaType }: X) => {
     const emptyList: IMovieOrTv[] = []
-    const emptyGenres: IGenre[] = []
 
     const [list, setList]: [IMovieOrTv[], (x: IMovieOrTv[]) => void] = useState(emptyList)
-    const [genres, setGenres]: [IGenre[], (x: IGenre[]) => void] = useState(emptyGenres)
-
 
     async function getList(id: number, callType: string) {
         if (callType === "movie similar") {
@@ -67,32 +64,6 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
     const userData = useSelector(authState)
     const userId = userData.id
 
-
-    /* async function getGenres() {
-        const genresMovies: any = await axios.get("/api/movies/genres")
-        const genresTv: any = await axios.get("/api/tv/genres")
-        const result = genresMovies.data.genres.concat(
-            genresTv.data.genres.filter((bo: any) => {
-                genresMovies.data.genres.every((ao: any) => {
-                    ao.id != bo.id
-                })
-            })
-
-        )
-        setGenres(result as IGenre[])
-    }
-    const findGenre = (x: IMovieOrTv) => {
-        let names: IGenre[] = []
-        x.genre_ids?.forEach((movieGenre: number) => {
-            genres.forEach((ids: IGenre) => {
-                if (movieGenre === ids.id) {
-                    names.push({ id: movieGenre, name: ids.name })
-                }
-            })
-        })
-        return names
-    } */
-
     const Screen768px = useMediaQuery('(max-width: 768px)');
     const Screen500px = useMediaQuery('(max-width: 500px)');
 
@@ -111,7 +82,6 @@ const CarouselMedia = ({ id, callType, mediaType }: X) => {
         else return  3
     }
     useEffect(() => {
-        //   getGenres()
         getList(id, callType)
     }, [])
 

@@ -23,7 +23,6 @@ export default async function controller(req: NextApiRequest, res: NextApiRespon
                        /*  const {payload : decoded} = await jose.jwtVerify(
                             token, new TextEncoder().encode(process.env.JWT_SECRET)
                         ); */
-                      //  console.log("ddddddd" , decoded.id )
                     res.status(201).json({
                         id: userExists.id,
                         first_name: userExists.first_name,

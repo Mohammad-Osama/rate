@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import { useState, useEffect, useRef, MutableRefObject } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { IGenre, IMovieOrTv } from '../helpers/types';
 import { Group, Container, SimpleGrid, createStyles } from '@mantine/core';
@@ -11,18 +11,12 @@ import PaginatioN from '../components/PaginatioN';
 import PaginationButtons from '../components/PaginationButtons';
 import { useMediaQuery } from '@mantine/hooks';
 import Error from '../components/Error';
-import HeaderHome from '../components/HeaderHome';
 
 
 const useStyles = createStyles((theme) => ({
   container: {
-    //  color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
-    // backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.cyan[1],
     color: theme.colors.dark[0],
-    backgroundColor: theme.colors.dark[4],
-    //  display:"grid",
-    // alignItems:"flex-start"
-
+    backgroundColor: theme.colors.dark[4], 
   },
 
 }));

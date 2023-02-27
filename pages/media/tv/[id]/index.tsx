@@ -40,7 +40,7 @@ import CarouselSeasons from '../../../../components/CarouselSeasons';
 import AccordionCredits from '../../../../components/AccordionCredits';
 import { addCredits } from '../../../../redux/slices/creditsEpisodeSlice';
 import { AppDispatch } from '../../../../redux/store';
-
+import NotFound from '../../../../components/NotFound';
 
 const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCreditsProps, media_type, notFound }: X) => {
 
@@ -106,7 +106,9 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
 
 
     if (notFound === true)
-        return (<div>Error Page</div>)
+        return (
+            <NotFound />
+        )
     else
         return (
             <Container size="xl">
@@ -114,12 +116,12 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     title={name}
                     description={overview as string}
                 />
-                <Group position="apart" m="xl"
-                //maybe change mr and ml later 
+                <Group
+                    position="apart"
+                    m="xl"
                 >
                     <div>
                         <Text
-                            //  p="xl"
                             align="justify"
                             weight={700}
                             color="white"
@@ -137,7 +139,6 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                     <div>
                         <Text size="xl"
                             color="#ADB5BD"
-                        // mb='md'
                         >
                             TMDB Rating
                         </Text>
@@ -182,7 +183,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                             isRatedUser={isRatedUser}
                             movieRateInfoUserProps={tvRateInfoUserProps}
                         />
-                    
+
                         {tvRateInfoUserProps !== null &&
                             <div>
                                 <Text ml="40%" mt="xl"
@@ -199,7 +200,7 @@ const index = ({ tvInfoProps, tvRateInfoProps, tvRateInfoUserProps, tvInfoCredit
                                                 key !== 'tmdb_id' &&
                                                 key !== 'title' &&
                                                 key !== 'media_type' &&
-                                                key !== 'user'&&
+                                                key !== 'user' &&
                                                 key !== 'tmdb_rating' &&
                                                 key !== 'poster_path'
                                             )
@@ -421,7 +422,6 @@ interface X {
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<X>> {
     await clientPromise()
     const { id, type, user } = context.query
-    //  console.log("uuuu", context.query)
     let tvInfo = {} as ITv
     let tvRateInfo = {} as TvModelType
     let tvRateInfoUser

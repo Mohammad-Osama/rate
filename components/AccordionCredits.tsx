@@ -74,7 +74,7 @@ const AccordionCredits = ({ type, id, data, title, media_type }: X) => {
                         breakpoints={[
                             { maxWidth: 1024, cols: 6, spacing: 'md' },
                             { maxWidth: 768, cols: 3, spacing: 'sm' },
-                            { maxWidth: 500, cols: 3, spacing: 'sm' },
+                            { maxWidth: 500, cols: 2, spacing: 'sm' },
                         ]}
                     >
                         {data?.slice(0, 12).map((d) => {

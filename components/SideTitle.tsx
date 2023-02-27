@@ -9,7 +9,6 @@ const SideTitle = ({text}:X) => {
 
     return (
         <Text
-            //  p="xl"
             align="justify"
             weight={300}
             color= {`${colors.sandTan}`}

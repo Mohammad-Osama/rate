@@ -28,21 +28,21 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
         id
     } = personProps
 
-    const born =()=>{
-        if (birthday===null && place_of_birth===null)
-        return ""
+    const born = () => {
+        if (birthday === null && place_of_birth === null)
+            return ""
 
-        else if (birthday!==null && place_of_birth===null)
-        return `${birthday}`
+        else if (birthday !== null && place_of_birth === null)
+            return `${birthday}`
 
-        else if (birthday===null && place_of_birth!==null)
-        return ` in ${place_of_birth}`
+        else if (birthday === null && place_of_birth !== null)
+            return ` in ${place_of_birth}`
 
-        else if (birthday!==null && place_of_birth!==null)
-        return `${birthday} in ${place_of_birth}`
+        else if (birthday !== null && place_of_birth !== null)
+            return `${birthday} in ${place_of_birth}`
     }
 
-    
+
     if (notFound === true)
         return (<div>Error Page</div>)
     else
@@ -52,12 +52,12 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
                     title={name}
                     description={biography}
                 />
-                <Group position="apart" m="xl"
-                //maybe change mr and ml later 
+                <Group
+                    position="apart"
+                    m="xl"
                 >
                     <div>
                         <Text
-                            //  p="xl"
                             align="justify"
                             weight={700}
                             color="white"
@@ -76,7 +76,6 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
                         <Text
                             size="xl"
                             color="#ADB5BD"
-                        // mb='md'
                         >
                             Popularity
                         </Text>
@@ -171,7 +170,7 @@ const index = ({ personProps, notFound, personCreditsProps }: X) => {
                     data={personCreditsProps.crew}
                 />
 
-                
+
             </Container>
         )
 }
